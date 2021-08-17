@@ -4173,14 +4173,11 @@ CPPParser class >> transitionTable [
 
 { #category : #private }
 CPPParser >> actionsForCurrentToken [
-	| actions |
-	((currentToken ids includes: scanner GTId)
-		and: [ nodeStack includes: #templateArgs ])
-		ifTrue: [ actions := OrderedCollection new.
-			self addActionsFor: scanner GTId to: actions.
-			actions notEmpty
-				ifTrue: [ ^ actions ] ].
-	^ super actionsForCurrentToken
+  | actions |
+  ((currentToken ids includes: scanner GTId) and: [ stack includesObject: #templateArgs ]) ifTrue: [ actions := OrderedCollection new.
+        self addActionsFor: scanner GTId to: actions.
+        actions notEmpty ifTrue: [ ^actions ] ].
+  ^super actionsForCurrentToken
 ]
 
 { #category : #accessing }
@@ -4196,28 +4193,18 @@ CPPParser >> parse [
 
 { #category : #private }
 CPPParser >> parseCurrentToken [
-	| token position actions |
-	(currentToken ids includes: scanner RightShiftId)
-		ifTrue: [ (nodeStack includes: #templateArgs)
-				ifTrue: [ currentToken := currentToken class
-						value: '>'
-						start: currentToken startPosition
-						ids: (Array with: scanner GTId).
-					self position: currentToken startPosition ]
-				ifFalse: [ token := currentToken.
-					position := scanner position.
-					actions := OrderedCollection new.
-					self addActionsFor: scanner gtId to: actions.
-					actions notEmpty
-						ifTrue: [ currentToken := currentToken class
-								value: '>'
-								start: currentToken startPosition
-								ids: (Array with: scanner gtId).
-							self position: currentToken startPosition.
-							actions do: [ :each | self splitWithAction: each ].
-							currentToken := token.
-							self position: position ] ] ].
-	super parseCurrentToken
+  | token position actions |
+  (currentToken ids includes: scanner RightShiftId) ifTrue: [ (stack includesObject: #templateArgs) ifTrue: [ currentToken := currentToken class value: '>' start: currentToken startPosition ids: (Array with: scanner GTId).
+              self position: currentToken startPosition ] ifFalse: [ token := currentToken.
+              position := scanner position.
+              actions := OrderedCollection new.
+              self addActionsFor: scanner gtId to: actions.
+              actions notEmpty ifTrue: [ currentToken := currentToken class value: '>' start: currentToken startPosition ids: (Array with: scanner gtId).
+                    self position: currentToken startPosition.
+                    actions do: [:each |  self splitWithAction: each ].
+                    currentToken := token.
+                    self position: position ] ] ].
+  super parseCurrentToken
 ]
 
 { #category : #'generated-reduction actions' }

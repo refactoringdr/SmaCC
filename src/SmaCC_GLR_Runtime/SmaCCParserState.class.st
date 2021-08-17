@@ -14,8 +14,7 @@ Class {
 	#name : #SmaCCParserState,
 	#superclass : #Object,
 	#instVars : [
-		'stateStack',
-		'nodeStack',
+		'stack',
 		'isAccepted',
 		'scannerState',
 		'attributes'
@@ -24,28 +23,25 @@ Class {
 }
 
 { #category : #'instance creation' }
-SmaCCParserState class >> stateStack: stateStack nodeStack: nodeStack [
-	^ self new
-		stateStack: stateStack nodeStack: nodeStack;
-		yourself
+SmaCCParserState class >> stack: aSmaCCStack [
+  ^self new
+     stack: aSmaCCStack;
+     yourself
 ]
 
 { #category : #'instance creation' }
-SmaCCParserState class >> stateStack: stateStack nodeStack: nodeStack scannerState: aSmaCCScannerState [
-	^ self new
-		stateStack: stateStack nodeStack: nodeStack;
-		scannerState: aSmaCCScannerState;
-		yourself
+SmaCCParserState class >> stack: stack scannerState: aSmaCCScannerState [
+  ^self new
+     stack: stack;
+     scannerState: aSmaCCScannerState;
+     yourself
 ]
 
 { #category : #comparing }
 SmaCCParserState >> = anObject [
 	^ self == anObject
 		or:
-			[ self class = anObject class
-				and:
-					[ self stateStack = anObject stateStack
-						and: [ self nodeStack = anObject nodeStack ] ] ]
+			[ self class = anObject class and: [ self stack = anObject stack ] ]
 ]
 
 { #category : #accessing }
@@ -82,18 +78,17 @@ SmaCCParserState >> markAccepted [
 SmaCCParserState >> mergeWith: aSmaCCParserStateCollection [
 	| stacks |
 	stacks := OrderedCollection new: aSmaCCParserStateCollection size + 1.
-	stacks add: nodeStack.
+	stacks add: stack nodeStack.
 	aSmaCCParserStateCollection
-		do:
-			[ :each | 
+		do: [ :each | 
 			(stacks includes: each nodeStack)
 				ifFalse: [ stacks add: each nodeStack ] ].
-	nodeStack := SmaCCDeferredChoice mergeStacks: stacks
+	stack nodeStack: (SmaCCDeferredChoice mergeStacks: stacks)
 ]
 
 { #category : #accessing }
 SmaCCParserState >> nodeStack [
-	^ nodeStack
+  ^stack nodeStack
 ]
 
 { #category : #copying }
@@ -105,11 +100,7 @@ SmaCCParserState >> postCopy [
 
 { #category : #accessing }
 SmaCCParserState >> runDeferredActionsFor: aSmaCCParser [
-	1 to: nodeStack size do:
-		[ :i | 
-		| each |
-		each := nodeStack at: i.
-		nodeStack at: i put: (each performOnSmaCCParser: aSmaCCParser) ]
+	stack runDeferredActionsFor: aSmaCCParser
 ]
 
 { #category : #accessing }
@@ -123,13 +114,17 @@ SmaCCParserState >> scannerState: anObject [
 ]
 
 { #category : #accessing }
-SmaCCParserState >> stateStack [
-	^ stateStack
+SmaCCParserState >> stack [
+  ^stack
 ]
 
 { #category : #'initialize-release' }
-SmaCCParserState >> stateStack: stateCollection nodeStack: nodeCollection [
-	stateStack := stateCollection.
-	nodeStack := nodeCollection.
-	isAccepted := false
+SmaCCParserState >> stack: aSmaCCStack [
+  stack := aSmaCCStack.
+  isAccepted := false
+]
+
+{ #category : #accessing }
+SmaCCParserState >> stateStack [
+  ^stack stateStack
 ]

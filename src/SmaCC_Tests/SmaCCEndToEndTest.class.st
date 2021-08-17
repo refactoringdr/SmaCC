@@ -729,7 +729,7 @@ SmaCCEndToEndTest >> testEmbeddedExample [
 			Code : SwitchToName "{" ''left'' <name> ''parserName'' ParseCode ''ast'' <colon> SwitchToDefault "}" ''right'' {{JS}};
 			SwitchToName : [self scope: #name. nil];
 			SwitchToDefault : [self scope: #default. nil];
-			ParseCode : [self spawnParser: (Smalltalk at: nodeStack last value asSymbol)];'.
+			ParseCode : [self spawnParser: (Smalltalk at: stack nodeStack last value asSymbol)];'.
 	parserCompiler compileInto: 'TestScanner' andParser: 'TestParser'.
 	node := self parserClass
 		parse:

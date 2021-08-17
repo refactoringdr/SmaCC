@@ -5160,32 +5160,25 @@ CSharpParser class >> transitionTable [
 
 { #category : #private }
 CSharpParser >> actionsForCurrentToken [
-	| actions |
-	actions := super actionsForCurrentToken.
-	actions isEmpty
-		ifTrue: [ (currentToken ids includes: scanner rightBraceId)
-				ifTrue: [ | i scannerState stackItem |
-					i := nodeStack size.
-					scannerState := nil.
-					[ i > 0 and: [ scannerState isNil ] ]
-						whileTrue: [ stackItem := nodeStack at: i.
-							(stackItem = #interpolatedString or: [ stackItem = #interpolatedVerbatimString ])
-								ifTrue: [ scannerState := stackItem ].
-							i := i - 1 ].
-					scannerState notNil
-						ifTrue: [ self scope: scannerState.
-							self position: currentToken startPosition - 1.
-							currentToken := nil.
-							self getNextToken.
-							self scope: #default.
-							(currentToken ids includes: scanner rightBraceId)
-								ifTrue: [ ^ actions ].
-							^ self actionsForCurrentToken ] ].
-			(currentToken ids includes: scanner gtgtId)
-				ifTrue: [ currentToken := currentToken class value: '>' start: currentToken startPosition ids: (Array with: scanner gtId).
-					self position: currentToken startPosition.
-					actions := super actionsForCurrentToken ] ].
-	^ actions
+  | actions |
+  actions := super actionsForCurrentToken.
+  actions isEmpty ifTrue: [ (currentToken ids includes: scanner rightBraceId) ifTrue: [ | i scannerState stackItem |
+              i := stack nodeStack size.
+              scannerState := nil.
+              [ i > 0 and: [ scannerState isNil ] ] whileTrue: [ stackItem := stack nodeStack at: i.
+                    (stackItem = #interpolatedString or: [ stackItem = #interpolatedVerbatimString ]) ifTrue: [ scannerState := stackItem ].
+                    i := i - 1 ].
+              scannerState notNil ifTrue: [ self scope: scannerState.
+                    self position: currentToken startPosition - 1.
+                    currentToken := nil.
+                    self getNextToken.
+                    self scope: #default.
+                    (currentToken ids includes: scanner rightBraceId) ifTrue: [ ^actions ].
+                    ^self actionsForCurrentToken ] ].
+        (currentToken ids includes: scanner gtgtId) ifTrue: [ currentToken := currentToken class value: '>' start: currentToken startPosition ids: (Array with: scanner gtId).
+              self position: currentToken startPosition.
+              actions := super actionsForCurrentToken ] ].
+  ^actions
 ]
 
 { #category : #accessing }

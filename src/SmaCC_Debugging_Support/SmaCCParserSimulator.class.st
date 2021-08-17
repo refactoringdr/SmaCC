@@ -137,12 +137,7 @@ SmaCCParserSimulator >> currentParserState [
 
 { #category : #'parsing support' }
 SmaCCParserSimulator >> duplicateState [
-	parserStates
-		add:
-			(currentParserState := SmaCCParserState
-				stateStack: currentParserState stateStack copy
-				nodeStack: currentParserState nodeStack copy
-				scannerState: currentParserState scannerState copy)
+  parserStates add: (currentParserState := SmaCCParserState stack: currentParserState stack copy scannerState: currentParserState scannerState copy)
 ]
 
 { #category : #private }
@@ -231,14 +226,9 @@ SmaCCParserSimulator >> pushObject: anObject andState: anInteger [
 
 { #category : #private }
 SmaCCParserSimulator >> resetParser [
-	lastState := nil.
-	currentToken := nil.
-	parserStates := OrderedCollection
-		with:
-			(currentParserState := SmaCCParserState
-				stateStack: (OrderedCollection with: 1)
-				nodeStack: OrderedCollection new
-				scannerState: (SmaCCScannerState position: 0 scope: #default))
+  lastState := nil.
+  currentToken := nil.
+  parserStates := OrderedCollection with: (currentParserState := SmaCCParserState stack: (SmaCCStack startingAt: 1) scannerState: (SmaCCScannerState position: 0 scope: #default))
 ]
 
 { #category : #'parsing support' }

@@ -210,29 +210,20 @@ SmaCCGLRParser >> ambiguousTransitionsAt: anIndex into: anOrderedCollection [
 ]
 
 { #category : #private }
-SmaCCGLRParser >> copyStackObject: anObject [
-	(anObject isKindOf: String) ifTrue: [^anObject].
-	(anObject isKindOf: Collection) ifTrue: [^anObject collect: [:each | self copyStackObject: each]].
-	(anObject isKindOf: SmaCCParseNode) ifTrue: [^anObject copy].
-	^anObject
-]
-
-{ #category : #private }
 SmaCCGLRParser >> currentGLRState [
 	^ currentState
 ]
 
 { #category : #private }
 SmaCCGLRParser >> duplicateState [
-	| state |
-	(parseAsEmbedded not and: [states size >= self class maxParallelParses]) ifTrue: [ SmaCCTooAmbiguousNotification signal ].
-	parseAll ifTrue: [nodeStack := nodeStack collect: [:each | self copyStackObject: each]] ifFalse: [nodeStack := nodeStack copy].
-	stateStack := stateStack copy.
-	state := currentState copy.
-	state stateStack: stateStack nodeStack: nodeStack.
-	state scannerState: scanner currentState.
-	states add: state.
-	^state
+  | state |
+  (parseAsEmbedded not and: [ states size >= self class maxParallelParses ]) ifTrue: [ SmaCCTooAmbiguousNotification signal ].
+  stack := parseAll ifTrue: [ stack fullCopy ] ifFalse: [ stack copy ].
+  state := currentState copy.
+  state stack: stack.
+  state scannerState: scanner currentState.
+  states add: state.
+  ^state
 ]
 
 { #category : #'initialize-release' }
@@ -257,8 +248,8 @@ SmaCCGLRParser >> getAcceptedObject [
 				asSortedCollection: [ :a :b | a scannerState position > b scannerState position ])
 				first.
 			self restoreState: state.
-			state nodeStack first ]
-		ifFalse: [ states first nodeStack first ]
+			state stack result ]
+		ifFalse: [ states first stack result ]
 ]
 
 { #category : #private }
@@ -295,12 +286,9 @@ SmaCCGLRParser >> handleEmbeddedError: aSmaCCParserError [
 
 { #category : #private }
 SmaCCGLRParser >> initialParserState [
-	| state |
-	state := SmaCCParserState
-		stateStack: stateStack
-		nodeStack: nodeStack
-		scannerState: scanner currentState.
-	^ state
+  | state |
+  state := SmaCCParserState stack: stack scannerState: scanner currentState.
+  ^state
 ]
 
 { #category : #'initialize-release' }
@@ -397,9 +385,9 @@ SmaCCGLRParser >> performParsingLoop [
 	states anySatisfy: [ :each | each isAccepted not ] ] whileTrue.
 	self checkForErrors.
 	result := parseAll
-		ifTrue: [ states collect: [ :each | self fixObject: each nodeStack first ] ]
+		ifTrue: [ states collect: [ :each | self fixObject: each stack result ] ]
 		ifFalse: [ self fixObject: self getAcceptedObject ].
-	nodeStack := OrderedCollection with: result
+	stack nodeStack: (OrderedCollection with: result)
 ]
 
 { #category : #private }
@@ -426,11 +414,10 @@ SmaCCGLRParser >> performReduceEntry: entryArray with: items [
 
 { #category : #private }
 SmaCCGLRParser >> popNodeStack [
-	| result |
-	result := nodeStack removeLast.
-	(self alwaysPerformReduceAction and: [ states size > 1 ])
-		ifTrue: [ result := self copyStackObject: result ].
-	^ result
+  | result |
+  result := stack nodeStack removeLast.
+  (self alwaysPerformReduceAction and: [ states size > 1 ]) ifTrue: [ result := stack copyStackObject: result ].
+  ^result
 ]
 
 { #category : #private }
@@ -441,29 +428,19 @@ SmaCCGLRParser >> position: anInteger [
 
 { #category : #private }
 SmaCCGLRParser >> processEOFToken [
-	| originalState performed eofToken |
-	currentState isAccepted
-		ifTrue: [ ^ self ].
-	eofToken := currentToken.
-	originalState := currentState.
-	performed := Set new.
-	self
-		reduceActionsDo: [ :each | 
-			(performed includes: each)
-				ifFalse: [ performed add: each.
-					self restoreState: self duplicateState.
-					currentToken := eofToken.
-					self performAction: each.
-					(nodeStack size = 1 and: [ nodeStack first isKindOf: SmaCCParseNode ])
-						ifTrue: [ currentState markAccepted ]
-						ifFalse: [ (originalState stateStack size <= stateStack size and: [ originalState stateStack last == stateStack last ])
-								ifTrue: [ self killState ]
-								ifFalse: [ self processEOFToken ] ].
-					self restoreState: originalState ] ].
-	currentToken := eofToken.
-	(nodeStack size = 1 and: [ nodeStack first isKindOf: SmaCCParseNode ])
-		ifTrue: [ currentState markAccepted ]
-		ifFalse: [ self killState ]
+  | originalState performed eofToken |
+  currentState isAccepted ifTrue: [ ^self ].
+  eofToken := currentToken.
+  originalState := currentState.
+  performed := Set new.
+  self reduceActionsDo: [:each |  (performed includes: each) ifFalse: [ performed add: each.
+              self restoreState: self duplicateState.
+              currentToken := eofToken.
+              self performAction: each.
+              (stack nodeStack size = 1 and: [ stack nodeStack first isKindOf: SmaCCParseNode ]) ifTrue: [ currentState markAccepted ] ifFalse: [ (originalState stateStack size <= stack stateStack size and: [ originalState stateStack last == stack stateStack last ]) ifTrue: [ self killState ] ifFalse: [ self processEOFToken ] ].
+              self restoreState: originalState ] ].
+  currentToken := eofToken.
+  (stack nodeStack size = 1 and: [ stack nodeStack first isKindOf: SmaCCParseNode ]) ifTrue: [ currentState markAccepted ] ifFalse: [ self killState ]
 ]
 
 { #category : #private }
@@ -471,15 +448,15 @@ SmaCCGLRParser >> reduce: anInteger [
 	| reduceEntry items size |
 	reduceEntry := self reduceTable at: anInteger.
 	items := Array new: (size := reduceEntry at: 2).
-	nodeStack size < size
+	stack nodeStack size < size
 		ifTrue: [ self killState.
 			^ currentToken := nil ].
 	size to: 1 by: -1 do: [ :i | 
 		items at: i put: self popNodeStack.
-		stateStack removeLast ].
-	nodeStack addLast: (self performReduceEntry: reduceEntry with: items).
-	stateStack
-		addLast: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
+		stack stateStack removeLast ].
+	stack
+		shift: (self performReduceEntry: reduceEntry with: items)
+		to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
 ]
 
 { #category : #private }
@@ -493,8 +470,7 @@ SmaCCGLRParser >> reduceActionsDo: aBlock [
 { #category : #private }
 SmaCCGLRParser >> restoreState: aSmaCCParserState [
 	currentState := aSmaCCParserState.
-	nodeStack := aSmaCCParserState nodeStack.
-	stateStack := aSmaCCParserState stateStack.
+	stack := aSmaCCParserState stack.
 	scanner restoreState: currentState scannerState
 ]
 
@@ -509,13 +485,11 @@ SmaCCGLRParser >> scope: aSymbol [
 SmaCCGLRParser >> setAllStartingStates [
 	tryAllStates := true.
 	self statesThatShift
-		do:
-			[ :each | 
+		do: [ :each | 
 			states
 				add:
 					(SmaCCParserState
-						stateStack: (OrderedCollection with: each)
-						nodeStack: OrderedCollection new
+						stack: (SmaCCStack startingAt: each)
 						scannerState: scanner currentState) ]
 ]
 
@@ -545,43 +519,34 @@ SmaCCGLRParser >> splitForPatternToken [
 	patternNode := SmaCCPatternNode onToken: token copy.
 	nodeClass := token nodeClassName
 		ifNil: [ SmaCCParseNode ]
-		ifNotNil: [ :name | self class environment at: name ifAbsent: [ SmaCCParseNode ] ].
+		ifNotNil:
+			[ :name | self class environment at: name ifAbsent: [ SmaCCParseNode ] ].
 	self symbolTypes
-		keysAndValuesDo:
-			[ :i :each | 
+		keysAndValuesDo: [ :i :each | 
 			| actions |
 			(i ~= scanner emptySymbolTokenId and: [ i ~= scanner errorTokenId ])
-				ifTrue:
-					[ actions := OrderedCollection new.
+				ifTrue: [ actions := OrderedCollection new.
 					(each = #SmaCCToken
-						or:
-							[ each notNil
-								and:
-									[ ((self class environment at: each ifAbsent: [ Object ])
-includesBehavior: nodeClass) or: [ nodeClass includesBehavior: (self
-class environment at: each ifAbsent: [ self class ]) ] ] ])
-						ifTrue:
-							[ self addActionsFor: i to: actions.
+						or: [ each notNil
+								and: [ ((self class environment at: each ifAbsent: [ Object ])
+										includesBehavior: nodeClass)
+										or: [ nodeClass
+												includesBehavior: (self class environment at: each ifAbsent: [ self class ]) ] ] ])
+						ifTrue: [ self addActionsFor: i to: actions.
 							actions
-								do:
-									[ :action | 
+								do: [ :action | 
 									(performedActions includes: action)
-										ifFalse:
-											[ performedActions add: action.
+										ifFalse: [ performedActions add: action.
 											each = #SmaCCToken
-												ifTrue:
-													[ token ids add: i.
+												ifTrue: [ token ids add: i.
 													((action bitAnd: self actionMask) = self reduceAction
 														or: [ token isToken ])
 														ifTrue: [ currentToken := token.
 															self splitWithAction: action ] ]
-												ifFalse:
-													[ token isNode
-														ifTrue:
-															[ currentToken := nil.
+												ifFalse: [ token isNode
+														ifTrue: [ currentToken := nil.
 															self duplicateState.
-															stateStack addLast: (action bitShift: -2).
-															nodeStack addLast: patternNode.
+															stack shift: patternNode to: (action bitShift: -2).
 															self restoreState: currentState ] ] ] ] ] ] ].
 	self killState.
 	currentToken := nil

@@ -22,8 +22,7 @@ Class {
 		'scanner',
 		'currentToken',
 		'errorToken',
-		'stateStack',
-		'nodeStack',
+		'stack',
 		'errorHandler'
 	],
 	#classInstVars : [
@@ -434,7 +433,7 @@ SmaCCParser >> createDefaultErrorHandlers [
 
 { #category : 'private' }
 SmaCCParser >> currentState [
-	^ stateStack last
+	^ self stateStack last
 ]
 
 { #category : 'private' }
@@ -453,12 +452,7 @@ SmaCCParser >> dismissErrorToken [
 
 { #category : 'error handling' }
 SmaCCParser >> dismissStackTopForErrorRecovery: anInteger [
-	| stackContents |
-	stackContents := Array new: anInteger.
-	anInteger to: 1 by: -1 do: [ :i | 
-		stateStack removeLast.
-		stackContents at: i put: nodeStack removeLast ].
-	^ stackContents
+	^ stack dismissStackTopForErrorRecovery: anInteger
 ]
 
 { #category : 'private' }
@@ -537,7 +531,7 @@ SmaCCParser >> hasStateThatShifts: symbolIndex [
 { #category : 'initialize-release' }
 SmaCCParser >> initialize [
 	super initialize.
-	nodeStack := OrderedCollection new.
+	stack := SmaCCStack new.
 	errorHandler := SmaCCNoErrorHandler on: self
 ]
 
@@ -573,18 +567,17 @@ SmaCCParser >> nil [
 
 { #category : 'private' }
 SmaCCParser >> nodeStack [
-	^ nodeStack
+	^ stack nodeStack
 ]
 
 { #category : 'accessing' }
 SmaCCParser >> parse [
-	| result |
-	self setDefaultStartingStateIfNone.
-	self performParsingLoop.
-	result := nodeStack last.
-	(result respondsTo: #comments:)
-		ifTrue: [ result comments: scanner comments ].
-	^ result
+  | result |
+  self setDefaultStartingStateIfNone.
+  self performParsingLoop.
+  result := stack result.
+  (result respondsTo: #comments:) ifTrue: [ result comments: scanner comments ].
+  ^result
 ]
 
 { #category : 'private' }
@@ -634,7 +627,7 @@ SmaCCParser >> performReduceEntry: entryArray with: items [
 
 { #category : 'private' }
 SmaCCParser >> popNodeStack [
-	^ nodeStack removeLast
+	^ stack nodeStack removeLast
 ]
 
 { #category : 'accessing' }
@@ -651,15 +644,12 @@ SmaCCParser >> position: anInteger [
 
 { #category : 'private-actions' }
 SmaCCParser >> reduce: anInteger [
-	| reduceEntry items size |
+	| reduceEntry |
 	reduceEntry := self reduceTable at: anInteger.
-	items := Array new: (size := reduceEntry at: 2).
-	size to: 1 by: -1 do: [ :i | 
-		items at: i put: self popNodeStack.
-		stateStack removeLast ].
-	nodeStack addLast: (self performReduceEntry: reduceEntry with: items).
-	stateStack
-		addLast: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
+	stack reduce: (reduceEntry at: 2) do: [ :items | 
+		stack
+			shift: (self performReduceEntry: reduceEntry with: items)
+			to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2) ]
 ]
 
 { #category : 'private-actions' }
@@ -742,19 +732,18 @@ SmaCCParser >> scope: aSymbol [
 
 { #category : 'initialize-release' }
 SmaCCParser >> setDefaultStartingStateIfNone [
-	stateStack isNil
-		ifTrue: [ self setStartingState: self class defaultStartingState ]
+	(self stateStack isNil or: [ self stateStack isEmpty ]) ifTrue: [ 
+		self setStartingState: self class defaultStartingState ]
 ]
 
 { #category : 'initialize-release' }
 SmaCCParser >> setStartingState: startingState [
-	stateStack := OrderedCollection with: startingState
+  stack setStartingState: startingState
 ]
 
 { #category : 'private-actions' }
 SmaCCParser >> shift: stateIndex [
-	stateStack addLast: stateIndex.
-	nodeStack addLast: currentToken.
+	stack shift: currentToken to: stateIndex.
 	currentToken := nil
 ]
 
@@ -782,7 +771,7 @@ SmaCCParser >> spawnParser: aGLRParserClass startingAt: anInteger [
 
 { #category : 'private' }
 SmaCCParser >> stateStack [
-	^ stateStack
+	^ stack stateStack
 ]
 
 { #category : 'standard reduction rules' }

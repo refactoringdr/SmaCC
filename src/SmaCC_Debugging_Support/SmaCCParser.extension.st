@@ -144,7 +144,7 @@ SmaCCParser >> maxReturnSizeTable [
 
 { #category : #'*SmaCC_Debugging_Support' }
 SmaCCParser >> roassalView [
-	^ self roassalViewForStack: (stateStack ifNil: [ Array with: self class defaultStartingState ])
+  ^self roassalViewForStack: (self stateStack ifNil: [ Array with: self class defaultStartingState ])
 ]
 
 { #category : #'*SmaCC_Debugging_Support' }
