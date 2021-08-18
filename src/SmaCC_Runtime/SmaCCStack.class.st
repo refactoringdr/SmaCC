@@ -19,10 +19,7 @@ SmaCCStack class >> startingAt: anInteger [
 SmaCCStack >> = anObject [
 	^ self == anObject
 		or:
-			[ self class = anObject class
-				and:
-					[ self stateStack = anObject stateStack
-						and: [ self nodeStack = anObject nodeStack ] ] ]
+			[ self class = anObject class and: [ self stateStack = anObject stateStack and: [ self nodeStack = anObject nodeStack ] ] ]
 ]
 
 { #category : #copying }
@@ -46,10 +43,10 @@ SmaCCStack >> dismissStackTopForErrorRecovery: anInteger [
 
 { #category : #copying }
 SmaCCStack >> fullCopy [
-  | copy |
-  copy := self copy.
-  1 to: nodes size do: [:i |  copy nodeStack at: i put: (self copyStackObject: (nodes at: i)) ].
-  ^copy
+	| copy |
+	copy := self copy.
+	nodes keysAndValuesDo: [ :i :each | copy nodeStack at: i put: (self copyStackObject: each) ].
+	^ copy
 ]
 
 { #category : #comparing }
@@ -108,10 +105,7 @@ SmaCCStack >> result [
 
 { #category : #'parser actions' }
 SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
-	1 to: nodes size do: [ :i | 
-		| each |
-		each := nodes at: i.
-		nodes at: i put: (each performOnSmaCCParser: aSmaCCParser) ]
+	nodes replace: [ :each | each performOnSmaCCParser: aSmaCCParser ]
 ]
 
 { #category : #'parser actions' }
@@ -126,6 +120,11 @@ SmaCCStack >> shift: anObject to: anInteger [
 ]
 
 { #category : #accessing }
+SmaCCStack >> size [
+	^nodes size
+]
+
+{ #category : #accessing }
 SmaCCStack >> stateStack [
 	^ states
 ]
@@ -133,4 +132,14 @@ SmaCCStack >> stateStack [
 { #category : #accessing }
 SmaCCStack >> stateStack: aCollection [
 	states := aCollection
+]
+
+{ #category : #accessing }
+SmaCCStack >> topNode [
+	^self nodeStack last
+]
+
+{ #category : #accessing }
+SmaCCStack >> topState [
+	^self stateStack last
 ]
