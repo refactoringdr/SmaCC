@@ -428,19 +428,31 @@ SmaCCGLRParser >> position: anInteger [
 
 { #category : #private }
 SmaCCGLRParser >> processEOFToken [
-  | originalState performed eofToken |
-  currentState isAccepted ifTrue: [ ^self ].
-  eofToken := currentToken.
-  originalState := currentState.
-  performed := Set new.
-  self reduceActionsDo: [:each |  (performed includes: each) ifFalse: [ performed add: each.
-              self restoreState: self duplicateState.
-              currentToken := eofToken.
-              self performAction: each.
-              (stack nodeStack size = 1 and: [ stack nodeStack first isKindOf: SmaCCParseNode ]) ifTrue: [ currentState markAccepted ] ifFalse: [ (originalState stateStack size <= stack stateStack size and: [ originalState stateStack last == stack stateStack last ]) ifTrue: [ self killState ] ifFalse: [ self processEOFToken ] ].
-              self restoreState: originalState ] ].
-  currentToken := eofToken.
-  (stack nodeStack size = 1 and: [ stack nodeStack first isKindOf: SmaCCParseNode ]) ifTrue: [ currentState markAccepted ] ifFalse: [ self killState ]
+	| originalState performed eofToken |
+	currentState isAccepted ifTrue: [ ^ self ].
+	eofToken := currentToken.
+	originalState := currentState.
+	performed := Set new.
+	self
+		reduceActionsDo:
+			[ :each | 
+			(performed includes: each)
+				ifFalse:
+					[ performed add: each.
+					self restoreState: self duplicateState.
+					currentToken := eofToken.
+					self performAction: each.
+					(stack size = 1 and: [ stack topNode isKindOf: SmaCCParseNode ])
+						ifTrue: [ currentState markAccepted ]
+						ifFalse:
+							[ (originalState stateStack size <= stack size and: [ originalState stateStack last == stack topState ])
+								ifTrue: [ self killState ]
+								ifFalse: [ self processEOFToken ] ].
+					self restoreState: originalState ] ].
+	currentToken := eofToken.
+	(stack size = 1 and: [ stack topNode isKindOf: SmaCCParseNode ])
+		ifTrue: [ currentState markAccepted ]
+		ifFalse: [ self killState ]
 ]
 
 { #category : #private }
@@ -448,15 +460,18 @@ SmaCCGLRParser >> reduce: anInteger [
 	| reduceEntry items size |
 	reduceEntry := self reduceTable at: anInteger.
 	items := Array new: (size := reduceEntry at: 2).
-	stack nodeStack size < size
-		ifTrue: [ self killState.
+	stack size < size
+		ifTrue:
+			[ self killState.
 			^ currentToken := nil ].
-	size to: 1 by: -1 do: [ :i | 
-		items at: i put: self popNodeStack.
-		stack stateStack removeLast ].
-	stack
-		shift: (self performReduceEntry: reduceEntry with: items)
-		to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
+	size
+		to: 1
+		by: -1
+		do:
+			[ :i | 
+			items at: i put: self popNodeStack.
+			stack stateStack removeLast ].
+	stack shift: (self performReduceEntry: reduceEntry with: items) to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
 ]
 
 { #category : #private }

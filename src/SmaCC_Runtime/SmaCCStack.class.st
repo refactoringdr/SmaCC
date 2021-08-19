@@ -92,9 +92,13 @@ SmaCCStack >> postCopy [
 SmaCCStack >> reduce: anInteger do: aBlock [
 	| items |
 	items := Array new: anInteger.
-	anInteger to: 1 by: -1 do: [ :i | 
-		items at: i put: nodes removeLast.
-		states removeLast ].
+	anInteger
+		to: 1
+		by: -1
+		do:
+			[ :i | 
+			items at: i put: nodes removeLast.
+			states removeLast ].
 	aBlock cull: items cull: false
 ]
 
@@ -105,7 +109,7 @@ SmaCCStack >> result [
 
 { #category : #'parser actions' }
 SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
-	nodes replace: [ :each | each performOnSmaCCParser: aSmaCCParser ]
+	nodes keysAndValuesDo: [ :i :each | nodes at: i put: (each performOnSmaCCParser: aSmaCCParser) ]
 ]
 
 { #category : #'parser actions' }

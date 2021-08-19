@@ -29,7 +29,7 @@ Class {
 		'cacheId',
 		'defaultEncoding'
 	],
-	#category : 'SmaCC_Runtime'
+	#category : #'SmaCC_Runtime'
 }
 
 { #category : #accessing }
@@ -767,6 +767,11 @@ SmaCCParser >> spawnParser: aGLRParserClass startingAt: anInteger [
 		startingAt: anInteger.
 	self position: scanner stream position.
 	^ ast
+]
+
+{ #category : #accessing }
+SmaCCParser >> stack [
+	^stack
 ]
 
 { #category : #private }

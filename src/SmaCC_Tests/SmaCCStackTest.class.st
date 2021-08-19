@@ -13,8 +13,8 @@ SmaCCStackTest >> testDismissStackTop [
 	stack shift: #baz to: 3.
 	result := stack dismissStackTopForErrorRecovery: 2.
 	self assert: result equals: #(#bar #baz).
-	self assert: stack size equals: 1.
-
+	self assert: stack nodeStack size equals: 1.
+	self assert: stack stateStack size equals: 1
 ]
 
 { #category : #tests }
@@ -51,11 +51,9 @@ SmaCCStackTest >> testShiftAndReduce [
 	stack shift: #foo to: 1.
 	self assert: stack topNode equals: #foo.
 	self assert: stack topState equals: 1.
-	self assert: stack size equals: 1.
 	stack shift: #bar to: 2.
 	self assert: stack topNode equals: #bar.
 	self assert: stack topState equals: 2.
-	self assert: stack size equals: 2.
 	stack
 		reduce: 1
 		do: [ :items | self assert: items first equals: #bar ].
