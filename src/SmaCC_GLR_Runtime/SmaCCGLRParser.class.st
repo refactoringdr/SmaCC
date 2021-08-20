@@ -192,11 +192,6 @@ SmaCCGLRParser >> addEmbeddedActions [
 ]
 
 { #category : #private }
-SmaCCGLRParser >> alwaysPerformReduceAction [
-	^ false
-]
-
-{ #category : #private }
 SmaCCGLRParser >> ambiguousTransitionsAt: anIndex into: anOrderedCollection [
 	| ambiguousTransitions |
 	ambiguousTransitions := self ambiguousTransitions at: anIndex.
@@ -410,14 +405,6 @@ SmaCCGLRParser >> performReduceEntry: entryArray with: items [
 			[ 1 to: items size do: [ :i | items at: i put: ((items at: i) performOnSmaCCParser: self) ].
 			super performReduceEntry: entryArray with: items ]
 		ifFalse: [ SmaCCDeferredReduceAction entry: entryArray arguments: items ]
-]
-
-{ #category : #private }
-SmaCCGLRParser >> popNodeStack [
-  | result |
-  result := stack nodeStack removeLast.
-  (self alwaysPerformReduceAction and: [ states size > 1 ]) ifTrue: [ result := stack copyStackObject: result ].
-  ^result
 ]
 
 { #category : #private }

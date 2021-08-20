@@ -2,9 +2,7 @@ Class {
 	#name : #SmaCCEndToEndTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'currentClasses',
-		'currentPackage',
-		'manager'
+		'currentClasses'
 	],
 	#category : #'SmaCC_Tests'
 }

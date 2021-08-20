@@ -625,11 +625,6 @@ SmaCCParser >> performReduceEntry: entryArray with: items [
 		ifFalse: [ self perform: symbol ]
 ]
 
-{ #category : #private }
-SmaCCParser >> popNodeStack [
-	^ stack nodeStack removeLast
-]
-
 { #category : #accessing }
 SmaCCParser >> position [
 	^ currentToken isNil

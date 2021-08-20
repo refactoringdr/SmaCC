@@ -5075,14 +5075,8 @@ JSParser >> actionsForCurrentToken [
 		ifTrue:
 			[ (currentToken ids includes: scanner rightBraceId)
 				ifTrue:
-					[ | i scannerState stackItem |
-					i := stack size.
-					scannerState := nil.
-					[ i > 0 and: [ scannerState isNil ] ]
-						whileTrue:
-							[ stackItem := stack nodeStack at: i.
-							stackItem = #template ifTrue: [ scannerState := stackItem ].
-							i := i - 1 ].
+					[ | scannerState |
+					scannerState := stack searchStackFor: #(template).
 					scannerState notNil
 						ifTrue:
 							[ self scope: scannerState.
@@ -10111,12 +10105,13 @@ JSParser >> reduceActionFor__JSXIdentifier___identifier___period___periodToken__
 
 { #category : #private }
 JSParser >> switchToJSXTextOrDefault: anInteger [
-	| count i value |
+	| count i value nodeStack |
 	i := stack size.
 	count := 0.
+	nodeStack := stack nodeStack.
 	[ i > 0 and: [ count < anInteger ] ]
 		whileTrue:
-			[ value := stack nodeStack at: i.
+			[ value := nodeStack at: i.
 			value == #default ifTrue: [ ^ self scope: #default ].
 			value == #jsxText ifTrue: [ count := count + 1 ].
 			i := i - 1 ].

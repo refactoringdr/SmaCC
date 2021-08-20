@@ -79,11 +79,10 @@ SmaCCErrorNodeHandler >> finishErrorParse: errorToken dismissed: dismissedTokens
 { #category : #'error handling' }
 SmaCCErrorNodeHandler >> finishErrorParse: errorToken dismissed: dismissedTokens handlerStates: handlerStates [
 	| newStack stackContents |
-	1
-		to: handlerStates size
-		do:
-			[ :i | 
-			(handlerStates at: i)
+	handlerStates
+		keysAndValuesDo:
+			[ :i :states | 
+			states
 				reverseDo:
 					[ :each | 
 					newStack := parser stateStack copyFrom: 1 to: handlerStates size - i + 1.

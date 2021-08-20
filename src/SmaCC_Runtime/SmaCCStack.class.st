@@ -112,6 +112,19 @@ SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
 	nodes keysAndValuesDo: [ :i :each | nodes at: i put: (each performOnSmaCCParser: aSmaCCParser) ]
 ]
 
+{ #category : #private }
+SmaCCStack >> searchStackFor: searchItems [
+	| scannerState i stackItem |
+	i := self size.
+	scannerState := nil.
+	[ i > 0 and: [ scannerState isNil ] ]
+		whileTrue:
+			[ stackItem := self nodeStack at: i.
+			(searchItems includes: stackItem) ifTrue: [ scannerState := stackItem ].
+			i := i - 1 ].
+	^ scannerState
+]
+
 { #category : #'parser actions' }
 SmaCCStack >> setStartingState: startingState [
   states := OrderedCollection with: startingState

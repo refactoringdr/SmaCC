@@ -5166,15 +5166,8 @@ CSharpParser >> actionsForCurrentToken [
 		ifTrue:
 			[ (currentToken ids includes: scanner rightBraceId)
 				ifTrue:
-					[ | i scannerState stackItem |
-					i := stack size.
-					scannerState := nil.
-					[ i > 0 and: [ scannerState isNil ] ]
-						whileTrue:
-							[ stackItem := stack nodeStack at: i.
-							(stackItem = #interpolatedString or: [ stackItem = #interpolatedVerbatimString ])
-								ifTrue: [ scannerState := stackItem ].
-							i := i - 1 ].
+					[ | scannerState |
+					scannerState := stack searchStackFor: #(#interpolatedString #interpolatedVerbatimString).
 					scannerState notNil
 						ifTrue:
 							[ self scope: scannerState.
