@@ -186,7 +186,7 @@ SmaCCParserDebugSession >> potentialStateActions [
 		ifNil: [ #() ].
 	items := OrderedCollection new.
 	self parser
-		actionsAndSymbolsForState: self parser stateStack last
+		actionsAndSymbolsForState: self parser stack topState
 		do: [ :action :symbol | 
 			items
 				add:

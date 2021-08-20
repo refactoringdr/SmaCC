@@ -433,7 +433,7 @@ SmaCCParser >> createDefaultErrorHandlers [
 
 { #category : #private }
 SmaCCParser >> currentState [
-	^ self stateStack last
+	^ stack topState
 ]
 
 { #category : #private }

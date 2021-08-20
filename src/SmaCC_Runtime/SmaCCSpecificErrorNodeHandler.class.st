@@ -1,7 +1,7 @@
 Class {
 	#name : #SmaCCSpecificErrorNodeHandler,
 	#superclass : #SmaCCErrorNodeHandler,
-	#category : 'SmaCC_Runtime'
+	#category : #'SmaCC_Runtime'
 }
 
 { #category : #'private-error handling' }
@@ -22,7 +22,7 @@ SmaCCSpecificErrorNodeHandler >> finishErrorParse: errorToken dismissed: dismiss
 { #category : #'private-error handling' }
 SmaCCSpecificErrorNodeHandler >> performErrorReductions [
 	| action actions |
-	[ actions := self actionsForState: self stateStack last and: self errorTokenId.
+	[ actions := self actionsForState: parser stack topState and: self errorTokenId.
 	action := actions detect: [ :each | (each bitAnd: self actionMask) = self reduceAction ] ifNone: [ 0 ].
 	(action bitAnd: self actionMask) == self reduceAction ] whileTrue: [ self reduce: (action bitShift: -2) ]
 ]

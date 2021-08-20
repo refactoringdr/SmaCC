@@ -180,24 +180,19 @@ SmaCCParserSimulator >> moveOn: smaccSymbol from: state [
 
 { #category : #'parsing support' }
 SmaCCParserSimulator >> parserStateId [
-	^ currentParserState stateStack last
+	^ currentParserState stack topState
 ]
 
 { #category : #'parsing support' }
 SmaCCParserSimulator >> popItems: anInteger [
-	| items |
-	items := OrderedCollection new: anInteger.
-	anInteger
-		timesRepeat: [ items addFirst: currentParserState nodeStack removeLast.
-			currentParserState stateStack removeLast ].
-	^ items
+	currentParserState stack reduce: anInteger do: [ :items | ^ items ]
 ]
 
 { #category : #private }
 SmaCCParserSimulator >> processToken [
 	| action state symbol itemSet |
 	[ currentToken notNil ]
-		whileTrue: [ state := currentParserState stateStack last.
+		whileTrue: [ state := currentParserState stack topState.
 			currentToken ids
 				do: [ :id | 
 					id > 0
@@ -220,8 +215,8 @@ SmaCCParserSimulator >> processedToken [
 
 { #category : #'parsing support' }
 SmaCCParserSimulator >> pushObject: anObject andState: anInteger [
-	currentParserState stateStack add: anInteger.
-	currentParserState nodeStack add: anObject
+	currentParserState stack shift: anObject to: anInteger
+
 ]
 
 { #category : #private }

@@ -61,7 +61,7 @@ SmaCCParserState >> canBeMergedWith: aSmaCCParserState [
 
 { #category : #comparing }
 SmaCCParserState >> hash [
-	^ self stateStack hash
+	^ self stack hash
 ]
 
 { #category : #testing }

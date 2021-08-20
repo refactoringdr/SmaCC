@@ -445,7 +445,7 @@ SmaCCGLRParser >> processEOFToken [
 					(stack size = 1 and: [ stack topNode isKindOf: SmaCCParseNode ])
 						ifTrue: [ currentState markAccepted ]
 						ifFalse:
-							[ (originalState stateStack size <= stack size and: [ originalState stateStack last == stack topState ])
+							[ (originalState stack size <= stack size and: [ originalState stack topState == stack topState ])
 								ifTrue: [ self killState ]
 								ifFalse: [ self processEOFToken ] ].
 					self restoreState: originalState ] ].
@@ -457,21 +457,17 @@ SmaCCGLRParser >> processEOFToken [
 
 { #category : #private }
 SmaCCGLRParser >> reduce: anInteger [
-	| reduceEntry items size |
+	| reduceEntry size |
 	reduceEntry := self reduceTable at: anInteger.
-	items := Array new: (size := reduceEntry at: 2).
+	size := reduceEntry at: 2.
 	stack size < size
 		ifTrue:
 			[ self killState.
 			^ currentToken := nil ].
-	size
-		to: 1
-		by: -1
+	stack
+		reduce: size
 		do:
-			[ :i | 
-			items at: i put: self popNodeStack.
-			stack stateStack removeLast ].
-	stack shift: (self performReduceEntry: reduceEntry with: items) to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
+			[ :items | stack shift: (self performReduceEntry: reduceEntry with: items) to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2) ]
 ]
 
 { #category : #private }
@@ -616,7 +612,7 @@ SmaCCGLRParser >> tryEmbededAcceptFor: state [
 		ifTrue: [ ^ self ].
 	actions := OrderedCollection new.
 	self
-		addActionsForState: state stateStack last
+		addActionsForState: state stack topState
 		symbol: scanner eofTokenId first
 		to: actions.
 	(actions includes: self acceptAction)

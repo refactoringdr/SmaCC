@@ -36,26 +36,35 @@ SmaCCErrorNodeHandler >> findErrorHandlerIfNoneUseErrorNumber: anInteger [
 	handlerStates := self errorHandlerStates reverse.
 	startingErrorToken := self currentToken.
 	[ self isEOFToken
-		ifTrue: [ self finishErrorParse: startingErrorToken dismissed: dismissedTokens.
+		ifTrue:
+			[ self finishErrorParse: startingErrorToken dismissed: dismissedTokens.
 			^ true ].
-	handlerStates size to: 1 by: -1 do: [ :i | 
-		| states newStack |
-		states := handlerStates at: i.
-		states
-			do: [ :each | 
-				newStack := parser stateStack copyFrom: 1 to: handlerStates size - i + 1.
-				newStack addLast: each.
-				(self willShift: newStack)
-					ifTrue: [ index := i.
-						newState := each ] ] ].
+	handlerStates size
+		to: 1
+		by: -1
+		do:
+			[ :i | 
+			| states newStack |
+			states := handlerStates at: i.
+			states
+				do:
+					[ :each | 
+					newStack := parser stateStack copyFrom: 1 to: handlerStates size - i + 1.
+					newStack addLast: each.
+					(self willShift: newStack)
+						ifTrue:
+							[ index := i.
+							newState := each ] ] ].
 	index isNil ] whileTrue: [ dismissedTokens add: self dismissErrorToken ].
 	stackContents := self dismissStackTopForErrorRecovery: index - 1.
-	parser stack shift:
-			(SmaCCErrorNode new
+	parser stack
+		shift:
+			((SmaCCErrorNode new)
 				stackContents: stackContents;
 				dismissedTokens: dismissedTokens;
 				errorToken: startingErrorToken;
-				yourself) to: newState.
+				yourself)
+		to: newState.
 	^ true
 ]
 
