@@ -382,7 +382,7 @@ SmaCCGLRParser >> performParsingLoop [
 	result := parseAll
 		ifTrue: [ states collect: [ :each | self fixObject: each stack result ] ]
 		ifFalse: [ self fixObject: self getAcceptedObject ].
-	stack nodeStack: (OrderedCollection with: result)
+	stack nodeStack: result
 ]
 
 { #category : #private }

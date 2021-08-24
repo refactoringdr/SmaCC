@@ -83,7 +83,7 @@ SmaCCParserState >> mergeWith: aSmaCCParserStateCollection [
 		do: [ :each | 
 			(stacks includes: each nodeStack)
 				ifFalse: [ stacks add: each nodeStack ] ].
-	stack nodeStack: (SmaCCDeferredChoice mergeStacks: stacks)
+	stack nodeStack:  (SmaCCDeferredChoice mergeStacks: stacks)
 ]
 
 { #category : #accessing }
