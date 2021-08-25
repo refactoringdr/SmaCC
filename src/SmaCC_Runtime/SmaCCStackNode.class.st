@@ -1,20 +1,20 @@
 Class {
-	#name : #SmaCCStackNode,
-	#superclass : #Object,
+	#name : 'SmaCCStackNode',
+	#superclass : 'Object',
 	#instVars : [
 		'state',
 		'actionNode',
 		'next'
 	],
-	#category : #'SmaCC_Runtime'
+	#category : 'SmaCC_Runtime'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCStackNode class >> state: aState node: anObject next: aStackNode [
 	^self new state: aState; node: anObject; next: aStackNode; yourself
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCStackNode >> copyStackObject: anObject [
 	(anObject isKindOf: String) ifTrue: [ ^ anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ 
@@ -23,37 +23,37 @@ SmaCCStackNode >> copyStackObject: anObject [
 	^ anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> next [
 
 	^ next
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> next: aStackNode [
 
 	next := aStackNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> node [
 
 	^ actionNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> node: anObject [
 
 	actionNode := anObject
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCStackNode >> postCopy [
 	actionNode := self copyStackObject:  actionNode.
 	next := next copy
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SmaCCStackNode >> printOn: aStream [
 	aStream nextPutAll: 'SmaCCStackNode('.
 	state printOn: aStream.
@@ -62,13 +62,13 @@ SmaCCStackNode >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> state [
 
 	^ state
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStackNode >> state: anInteger [
 
 	state := anInteger

@@ -11,25 +11,25 @@ Instance Variables:
 
 "
 Class {
-	#name : #SmaCCParserState,
-	#superclass : #Object,
+	#name : 'SmaCCParserState',
+	#superclass : 'Object',
 	#instVars : [
 		'stack',
 		'isAccepted',
 		'scannerState',
 		'attributes'
 	],
-	#category : #'SmaCC_GLR_Runtime'
+	#category : 'SmaCC_GLR_Runtime'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCParserState class >> stack: aSmaCCStack [
   ^self new
      stack: aSmaCCStack;
      yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCParserState class >> stack: stack scannerState: aSmaCCScannerState [
   ^self new
      stack: stack;
@@ -37,44 +37,44 @@ SmaCCParserState class >> stack: stack scannerState: aSmaCCScannerState [
      yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCParserState >> = anObject [
 	^ self == anObject
 		or:
 			[ self class = anObject class and: [ self stack = anObject stack ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> attributeNamed: aSymbol [
 	^attributes ifNil: [ nil ] ifNotNil: [ attributes at: aSymbol ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> attributeNamed: aSymbol put: aValue [
 	(attributes ifNil: [ attributes := Dictionary new ]) at: aSymbol put: aValue
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCParserState >> canBeMergedWith: aSmaCCParserState [
 	^ self stateStack = aSmaCCParserState stateStack and: [ self scannerState = aSmaCCParserState scannerState ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCParserState >> hash [
 	^ self stack hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCParserState >> isAccepted [
 	^ isAccepted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> markAccepted [
 	isAccepted := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> mergeWith: aSmaCCParserStateCollection [
 	| stacks |
 	stacks := OrderedCollection new: aSmaCCParserStateCollection size + 1.
@@ -83,48 +83,48 @@ SmaCCParserState >> mergeWith: aSmaCCParserStateCollection [
 		do: [ :each | 
 			(stacks includes: each nodeStack)
 				ifFalse: [ stacks add: each nodeStack ] ].
-	stack nodeStack:  (SmaCCDeferredChoice mergeStacks: stacks)
+	stack replaceNodes:  (SmaCCDeferredChoice mergeStacks: stacks)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> nodeStack [
   ^stack nodeStack
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCParserState >> postCopy [
 	super postCopy.
 	attributes notNil
 		ifTrue: [ attributes := attributes copy ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> runDeferredActionsFor: aSmaCCParser [
 	stack runDeferredActionsFor: aSmaCCParser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> scannerState [
 	^ scannerState
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> scannerState: anObject [
 	scannerState := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> stack [
   ^stack
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCParserState >> stack: aSmaCCStack [
   stack := aSmaCCStack.
   isAccepted := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCParserState >> stateStack [
   ^stack stateStack
 ]

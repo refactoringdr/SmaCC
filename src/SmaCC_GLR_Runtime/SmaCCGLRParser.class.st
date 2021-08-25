@@ -14,8 +14,8 @@ Instance Variables:
 
 "
 Class {
-	#name : #SmaCCGLRParser,
-	#superclass : #SmaCCParser,
+	#name : 'SmaCCGLRParser',
+	#superclass : 'SmaCCParser',
 	#instVars : [
 		'states',
 		'parseAll',
@@ -32,26 +32,26 @@ Class {
 	#classInstVars : [
 		'cachedTrees'
 	],
-	#category : #'SmaCC_GLR_Runtime'
+	#category : 'SmaCC_GLR_Runtime'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser class >> cachedTrees [
 	^ cachedTrees ifNil: [ cachedTrees := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser class >> maxParallelParses [
 	^ maxParallelParses
 		ifNil: [ maxParallelParses := SmallInteger maxVal ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser class >> maxParallelParses: anInteger [
 	maxParallelParses := anInteger
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseAll: aString startingAt: anInteger [
 	| parser results |
 	parser := self
@@ -66,7 +66,7 @@ SmaCCGLRParser class >> parseAll: aString startingAt: anInteger [
 	^ results
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseAllPossibleStates: aString [
 	"Returns all possible parse nodes that can be created from aString starting from any place in the parser."
 
@@ -83,24 +83,24 @@ SmaCCGLRParser class >> parseAllPossibleStates: aString [
 	^ results
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseAndCacheAll: aString startingAt: anInteger [
 	^ (self cachedTrees at: (Array with: aString with: anInteger) ifAbsentPut: [ self parseAll: aString startingAt: anInteger ]) copy
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseAndCacheAllPossibleStates: aString [
 	^ (self cachedTrees at: (Array with: aString with: nil) ifAbsentPut: [ self parseAllPossibleStates: aString ]) copy
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseEmbeddedStream: aStream [
 	^ self
 		parseEmbeddedStream: aStream
 		startingAt: self defaultStartingState
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser class >> parseEmbeddedStream: aStream startingAt: anInteger [
 	| parser |
 	parser := self createParserOnStream: aStream startingAt: anInteger.
@@ -108,13 +108,13 @@ SmaCCGLRParser class >> parseEmbeddedStream: aStream startingAt: anInteger [
 	^ parser parse
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser class >> resetCaches [
 	super resetCaches.
 	cachedTrees := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> actionsDo: aBlock [
 	| row actionBlock |
 	actionBlock := [ :action | 
@@ -130,7 +130,7 @@ SmaCCGLRParser >> actionsDo: aBlock [
 		ifFalse: [ 2 to: row size by: 4 do: [ :i | actionBlock value: ((row at: i) bitShift: 8) + (row at: i + 1) ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> actionsForCurrentToken [
 	| actions |
 	actions := OrderedCollection new: 1.
@@ -144,7 +144,7 @@ SmaCCGLRParser >> actionsForCurrentToken [
 	^ actions
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 SmaCCGLRParser >> actionsForState: stateIndex and: aSymbolIndex [
 	| actions |
 	actions := OrderedCollection new.
@@ -152,14 +152,14 @@ SmaCCGLRParser >> actionsForState: stateIndex and: aSymbolIndex [
 	^ actions
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> addAction: action to: anOrderedCollection [
 	(anOrderedCollection includes: action)
 		ifTrue: [ ^ self ].
 	anOrderedCollection add: action
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> addActionsFor: anInteger to: anOrderedCollection [
 	| state |
 	state := self currentState.
@@ -169,7 +169,7 @@ SmaCCGLRParser >> addActionsFor: anInteger to: anOrderedCollection [
 		to: anOrderedCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> addActionsForState: state symbol: anInteger to: anOrderedCollection [
 	| action |
 	action := self actionForState: state and: anInteger.
@@ -182,7 +182,7 @@ SmaCCGLRParser >> addActionsForState: state symbol: anInteger to: anOrderedColle
 		ifFalse: [ self addAction: action to: anOrderedCollection ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> addEmbeddedActions [
 	| i |
 	i := states size.
@@ -191,7 +191,7 @@ SmaCCGLRParser >> addEmbeddedActions [
 			i := i - 1 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> ambiguousTransitionsAt: anIndex into: anOrderedCollection [
 	| ambiguousTransitions |
 	ambiguousTransitions := self ambiguousTransitions at: anIndex.
@@ -204,12 +204,12 @@ SmaCCGLRParser >> ambiguousTransitionsAt: anIndex into: anOrderedCollection [
 			to: anOrderedCollection ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> currentGLRState [
 	^ currentState
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> duplicateState [
   | state |
   (parseAsEmbedded not and: [ states size >= self class maxParallelParses ]) ifTrue: [ SmaCCTooAmbiguousNotification signal ].
@@ -221,12 +221,12 @@ SmaCCGLRParser >> duplicateState [
   ^state
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCGLRParser >> enableEmbeddedParsing [
 	parseAsEmbedded := true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> fixObject: anObject [
 	| result |
 	result := anObject performOnSmaCCParser: self.
@@ -235,7 +235,7 @@ SmaCCGLRParser >> fixObject: anObject [
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> getAcceptedObject [
 	^ parseAsEmbedded
 		ifTrue: [ | state |
@@ -247,7 +247,7 @@ SmaCCGLRParser >> getAcceptedObject [
 		ifFalse: [ states first stack result ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> getNextToken [
 	currentToken isNil
 		ifFalse: [ ^ self ].
@@ -262,7 +262,7 @@ SmaCCGLRParser >> getNextToken [
 	currentState scannerState: nextScannerState
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser >> handleEmbeddedError: aSmaCCParserError [
 	| parser errorNode |
 	parser := aSmaCCParserError parser.
@@ -279,14 +279,14 @@ SmaCCGLRParser >> handleEmbeddedError: aSmaCCParserError [
 	^ errorNode
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> initialParserState [
   | state |
   state := SmaCCParserState stack: stack scannerState: scanner currentState.
   ^state
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCGLRParser >> initialize [
 	super initialize.
 	states := OrderedCollection new.
@@ -295,12 +295,12 @@ SmaCCGLRParser >> initialize [
 	parseAsEmbedded := false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> isAmbiguous: action [
 	^ (action bitAnd: self actionMask) = 2r11
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> killState [
 	| index |
 	index := states identityIndexOf: currentState ifAbsent: [ ^ false ].
@@ -312,7 +312,7 @@ SmaCCGLRParser >> killState [
 	^ false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> mergeStates [
 	| i j state otherStates otherState |
 	i := 1.
@@ -334,12 +334,12 @@ SmaCCGLRParser >> mergeStates [
 				ifTrue: [ state mergeWith: otherStates ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser >> parseAll: aBoolean [
 	parseAll := aBoolean
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> parseCurrentToken [
 	| actions action isAccept |
 	[ actions := self actionsForCurrentToken.
@@ -358,7 +358,7 @@ SmaCCGLRParser >> parseCurrentToken [
 		ifTrue: [ currentState markAccepted ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> performParsingLoop [
 	| result i |
 	self setStartingStatesIfNone.
@@ -385,7 +385,7 @@ SmaCCGLRParser >> performParsingLoop [
 	stack nodeStack: result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> performParsingStep [
 	currentState isAccepted
 		ifTrue: [ ^ self ].
@@ -397,7 +397,7 @@ SmaCCGLRParser >> performParsingStep [
 	self parseCurrentToken
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> performReduceEntry: entryArray with: items [
 	^ (states size = 1
 		or: [ parseAll or: [ entryArray at: 5 ifAbsent: [ false ] ] ])
@@ -407,13 +407,13 @@ SmaCCGLRParser >> performReduceEntry: entryArray with: items [
 		ifFalse: [ SmaCCDeferredReduceAction entry: entryArray arguments: items ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> position: anInteger [
 	super position: anInteger.
 	currentState scannerState: scanner currentState
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> processEOFToken [
 	| originalState performed eofToken |
 	currentState isAccepted ifTrue: [ ^ self ].
@@ -442,7 +442,7 @@ SmaCCGLRParser >> processEOFToken [
 		ifFalse: [ self killState ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> reduce: anInteger [
 	| reduceEntry size |
 	reduceEntry := self reduceTable at: anInteger.
@@ -457,7 +457,7 @@ SmaCCGLRParser >> reduce: anInteger [
 			[ :items | stack shift: (self performReduceEntry: reduceEntry with: items) to: ((self actionFor: (reduceEntry at: 1)) bitShift: -2) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> reduceActionsDo: aBlock [
 	self
 		actionsDo: [ :each | 
@@ -465,21 +465,21 @@ SmaCCGLRParser >> reduceActionsDo: aBlock [
 				ifTrue: [ aBlock value: each ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> restoreState: aSmaCCParserState [
 	currentState := aSmaCCParserState.
 	stack := aSmaCCParserState stack.
 	scanner restoreState: currentState scannerState
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> scope: aSymbol [
 	super scope: aSymbol.
 	currentState notNil
 		ifTrue: [ currentState scannerState: scanner currentState ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCGLRParser >> setAllStartingStates [
 	tryAllStates := true.
 	self statesThatShift
@@ -491,14 +491,14 @@ SmaCCGLRParser >> setAllStartingStates [
 						scannerState: scanner currentState) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> setStartingStatesIfNone [
 	states isEmpty
 		ifTrue:
 			[ states add: self initialParserState ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SmaCCGLRParser >> spawnParser: aGLRParserClass startingAt: anInteger [
 	^ [ super spawnParser: aGLRParserClass startingAt: anInteger ]
 		on: SmaCCParserError
@@ -508,7 +508,7 @@ SmaCCGLRParser >> spawnParser: aGLRParserClass startingAt: anInteger [
 			ex return: (self handleEmbeddedError: ex) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> splitForPatternToken [
 	| token patternNode performedActions nodeClass |
 	performedActions := Set new.
@@ -550,7 +550,7 @@ SmaCCGLRParser >> splitForPatternToken [
 	currentToken := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> splitWithAction: anInteger [
 	| previousToken previousState |
 	previousState := currentState.
@@ -563,12 +563,12 @@ SmaCCGLRParser >> splitWithAction: anInteger [
 			currentToken := previousToken ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> states [
 	^states
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> statesThatShift [
 	^ (1 to: self transitionTable size)
 		select:
@@ -583,7 +583,7 @@ SmaCCGLRParser >> statesThatShift [
 						anySatisfy: [ :action | (action bitAnd: self actionMask) = self shiftAction ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> trimParallelParses [
 	"Since we don't implement the whole GLR algorithm, for highly ambiguous grammars we can have exponential parses. When we grow too large, we indiscriminately delete some."
 
@@ -592,7 +592,7 @@ SmaCCGLRParser >> trimParallelParses [
 	states := states copyFrom: 1 to: newCount
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCGLRParser >> tryEmbededAcceptFor: state [
 	| actions newState |
 	state isAccepted
@@ -619,7 +619,7 @@ SmaCCGLRParser >> tryEmbededAcceptFor: state [
 					self killState ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCGLRParser >> useAllTokenIds [
 	^ true
 ]

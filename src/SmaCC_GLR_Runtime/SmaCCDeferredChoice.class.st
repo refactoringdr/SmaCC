@@ -8,16 +8,16 @@ Instance Variables
 
 "
 Class {
-	#name : #SmaCCDeferredChoice,
-	#superclass : #Object,
+	#name : 'SmaCCDeferredChoice',
+	#superclass : 'Object',
 	#instVars : [
 		'possibleItems',
 		'choiceBlock'
 	],
-	#category : #'SmaCC_GLR_Runtime'
+	#category : 'SmaCC_GLR_Runtime'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCDeferredChoice class >> compare: firstCollection to: secondCollection [
 	| index first second |
 	first := firstCollection.
@@ -35,20 +35,20 @@ SmaCCDeferredChoice class >> compare: firstCollection to: secondCollection [
 	^ 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCDeferredChoice class >> deferredItemsIn: aCollection [
 	^ aCollection
 		select: [ :each | each isKindOf: SmaCCDeferredReduceAction ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCDeferredChoice class >> isStack: firstStack preferredOver: secondStack [
 	^ (self
 		compare: (self deferredItemsIn: firstStack)
 		to: (self deferredItemsIn: secondStack)) <= 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCDeferredChoice class >> mergeStacks: stacksCollection [
 	| result choiceBlock choices stacks |
 	stacks := stacksCollection
@@ -58,7 +58,7 @@ SmaCCDeferredChoice class >> mergeStacks: stacksCollection [
 	| returnValue newChoices |
 	choices size == 1
 		ifTrue: [ possibleChoices at: choices first ]
-		ifFalse: [ returnValue := (SmaCCAmbiguousResultNotification forParser: parser)
+		ifFalse: [ returnValue := (SmaCCAmbiguousResultNotification forParser: parser) 
 				messageText: 'Ambiguous results';
 				tag: (choices collect: [ :each | possibleChoices at: each ]);
 				signal.
@@ -82,12 +82,12 @@ SmaCCDeferredChoice class >> mergeStacks: stacksCollection [
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCDeferredChoice class >> sortItems: aCollection [
 	^ aCollection asSortedCollection: [ :a :b | a priority < b priority ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCDeferredChoice class >> subItemsIn: aCollection [
 	^ aCollection
 		inject: OrderedCollection new
@@ -97,23 +97,23 @@ SmaCCDeferredChoice class >> subItemsIn: aCollection [
 				yourself ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCDeferredChoice >> choiceBlock: aBlock [
 	choiceBlock := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCDeferredChoice >> performOnSmaCCParser: aSmaCCParser [
 	^ (choiceBlock value: possibleItems value: aSmaCCParser)
 		performOnSmaCCParser: aSmaCCParser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCDeferredChoice >> possibleItems [
 	^ possibleItems
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCDeferredChoice >> possibleItems: aSequenceableCollection [
 	possibleItems := aSequenceableCollection
 ]

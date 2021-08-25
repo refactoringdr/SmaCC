@@ -1,27 +1,27 @@
 Class {
-	#name : #SmaCCStack,
-	#superclass : #Object,
+	#name : 'SmaCCStack',
+	#superclass : 'Object',
 	#instVars : [
 		'top'
 	],
-	#category : #'SmaCC_Runtime'
+	#category : 'SmaCC_Runtime'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCStack class >> startingAt: anInteger [
   ^self new
      setStartingState: anInteger;
      yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCStack >> = anObject [
 	^ self == anObject
 		or:
 			[ self class = anObject class and: [ self stateStack = anObject stateStack and: [ self nodeStack = anObject nodeStack ] ] ]
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCStack >> copyStackObject: anObject [
 	(anObject isKindOf: String) ifTrue: [ ^ anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ 
@@ -30,7 +30,7 @@ SmaCCStack >> copyStackObject: anObject [
 	^ anObject
 ]
 
-{ #category : #'parser actions' }
+{ #category : 'parser actions' }
 SmaCCStack >> dismissStackTopForErrorRecovery: anInteger [
 	| stackContents |
 	stackContents := OrderedCollection new.
@@ -41,7 +41,7 @@ SmaCCStack >> dismissStackTopForErrorRecovery: anInteger [
 	^ stackContents asArray
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCStack >> fullCopy [
 	| copy |
 	copy := self copy.
@@ -49,49 +49,52 @@ SmaCCStack >> fullCopy [
 	^ copy
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCStack >> hash [
 	^ self stateStack hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCStack >> includesObject: anObject [
 	self stackDo: [ :each | each = anObject ifTrue: [ ^ true ] ].
 	^ false
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCStack >> initialize [
 	super initialize.
 	top := nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCStack >> isAtStartingState [
 	^ top isNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> nodeStack [
 	| aCollection |
 	aCollection := OrderedCollection new.
 	self stackDo: [ :each | aCollection addFirst: each ].
+	aCollection isEmpty ifFalse: [aCollection removeFirst].
 	^ aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> nodeStack: anObject [
 	"Kind of a hack until this refactoring is finished"
+	| topState |
+	topState := top ifNil: [ 1 ] ifNotNil: [ top state ].
 	top := SmaCCStackNode state: 1 node: anObject next: nil.
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCStack >> postCopy [
 	super postCopy.
 	top := top copy
 ]
 
-{ #category : #'parser actions' }
+{ #category : 'parser actions' }
 SmaCCStack >> reduce: anInteger do: aBlock [
 	| items |
 	items := Array new: anInteger.
@@ -105,12 +108,24 @@ SmaCCStack >> reduce: anInteger do: aBlock [
 	aBlock cull: items cull: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
+SmaCCStack >> replaceNodes: aCollection [
+	| stackNode |
+	stackNode := top.
+	aCollection
+		do:
+			[ :each | 
+			stackNode ifNil: [ ^ self ].
+			stackNode node: each.
+			stackNode := stackNode next ]
+]
+
+{ #category : 'accessing' }
 SmaCCStack >> result [
   ^top node
 ]
 
-{ #category : #'parser actions' }
+{ #category : 'parser actions' }
 SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
 	| stacknode |
 	stacknode := top.
@@ -120,7 +135,7 @@ SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
 			stacknode := stacknode next ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCStack >> searchStackFor: searchItems [
 	| scannerState i stackItem |
 	i := self size.
@@ -133,12 +148,12 @@ SmaCCStack >> searchStackFor: searchItems [
 	^ scannerState
 ]
 
-{ #category : #'parser actions' }
+{ #category : 'parser actions' }
 SmaCCStack >> setStartingState: startingState [
   top := SmaCCStackNode state: startingState node: nil next: nil
 ]
 
-{ #category : #'parser actions' }
+{ #category : 'parser actions' }
 SmaCCStack >> shift: anObject to: anInteger [
 	top := SmaCCStackNode
 		state: anInteger
@@ -146,7 +161,7 @@ SmaCCStack >> shift: anObject to: anInteger [
 		next: top
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> size [
 	| count node |
 	count := 0.
@@ -158,7 +173,7 @@ SmaCCStack >> size [
 	^ count
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SmaCCStack >> stackDo: aBlock [
 	| stacknode |
 	stacknode := top.
@@ -168,7 +183,7 @@ SmaCCStack >> stackDo: aBlock [
 			stacknode := stacknode next ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> stateStack [
 	| aCollection |
 	aCollection := OrderedCollection new.
@@ -176,7 +191,7 @@ SmaCCStack >> stateStack [
 	^ aCollection
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SmaCCStack >> stateStackDo: aBlock [
 	| stacknode |
 	stacknode := top.
@@ -186,17 +201,17 @@ SmaCCStack >> stateStackDo: aBlock [
 			stacknode := stacknode next ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> topNode [
 	^top node
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> topNode: anObject [
 	^top node: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCStack >> topState [
 	^top state
 ]
