@@ -1,6 +1,6 @@
 Class {
-	#name : #JSMethodDefinitionNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSMethodDefinitionNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'name',
 		'left',
@@ -16,50 +16,50 @@ Class {
 		'type',
 		'typeParameters'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitMethodDefinition: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> colonToken [
 	^ colonToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> colonToken: aSmaCCToken [
 	colonToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> commas [
 	^ commas
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> commas: anOrderedCollection [
 	commas := anOrderedCollection
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> compositeNodeVariables [
 	^ #(#parameters #statements)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> ignoredCompositeTokenVariables [
 	^ #(#commas)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> ignoredTokenVariables [
 	^ #(#left #right #leftBrace #rightBrace #colonToken)
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 JSMethodDefinitionNode >> initialize [
 	super initialize.
 	parameters := OrderedCollection new: 2.
@@ -67,32 +67,32 @@ JSMethodDefinitionNode >> initialize [
 	statements := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> left [
 	^ left
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> leftBrace [
 	^ leftBrace
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> leftBrace: aSmaCCToken [
 	leftBrace := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> name: aJSProgramNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -101,29 +101,29 @@ JSMethodDefinitionNode >> name: aJSProgramNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> nodeVariables [
 	^ #(#name #restParameter #type #typeParameters)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> parameters [
 	^ parameters
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> parameters: anOrderedCollection [
 	self setParents: self parameters to: nil.
 	parameters := anOrderedCollection.
 	self setParents: self parameters to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> restParameter [
 	^ restParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> restParameter: aJSRestVariableDeclarationNode [
 	self restParameter notNil
 		ifTrue: [ self restParameter parent: nil ].
@@ -132,59 +132,59 @@ JSMethodDefinitionNode >> restParameter: aJSRestVariableDeclarationNode [
 		ifTrue: [ self restParameter parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> right [
 	^ right
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> rightBrace [
 	^ rightBrace
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> rightBrace: aSmaCCToken [
 	rightBrace := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> statements [
 	^ statements
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> statements: anOrderedCollection [
 	self setParents: self statements to: nil.
 	statements := anOrderedCollection.
 	self setParents: self statements to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> staticToken [
 	^ staticToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> staticToken: aSmaCCToken [
 	staticToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> tokenVariables [
 	^ #(#staticToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> type [
 	^ type
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> type: aJSTypeNode [
 	self type notNil
 		ifTrue: [ self type parent: nil ].
@@ -193,12 +193,12 @@ JSMethodDefinitionNode >> type: aJSTypeNode [
 		ifTrue: [ self type parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> typeParameters [
 	^ typeParameters
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodDefinitionNode >> typeParameters: aJSTypeParametersNode [
 	self typeParameters notNil
 		ifTrue: [ self typeParameters parent: nil ].

@@ -1,6 +1,6 @@
 Class {
-	#name : #JSConditionalExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSConditionalExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'condition',
 		'questionMarkToken',
@@ -8,30 +8,30 @@ Class {
 		'colonToken',
 		'falseExpression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitConditionalExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> colonToken [
 	^ colonToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> colonToken: aSmaCCToken [
 	colonToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> condition [
 	^ condition
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> condition: aJSExpressionNode [
 	self condition notNil
 		ifTrue: [ self condition parent: nil ].
@@ -40,12 +40,12 @@ JSConditionalExpressionNode >> condition: aJSExpressionNode [
 		ifTrue: [ self condition parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> falseExpression [
 	^ falseExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> falseExpression: aJSExpressionNode [
 	self falseExpression notNil
 		ifTrue: [ self falseExpression parent: nil ].
@@ -54,37 +54,37 @@ JSConditionalExpressionNode >> falseExpression: aJSExpressionNode [
 		ifTrue: [ self falseExpression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> ignoredTokenVariables [
 	^ #(#colonToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> nodeVariables [
 	^ #(#condition #trueExpression #falseExpression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> questionMarkToken [
 	^ questionMarkToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> questionMarkToken: aSmaCCToken [
 	questionMarkToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> tokenVariables [
 	^ #(#questionMarkToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> trueExpression [
 	^ trueExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSConditionalExpressionNode >> trueExpression: aJSExpressionNode [
 	self trueExpression notNil
 		ifTrue: [ self trueExpression parent: nil ].

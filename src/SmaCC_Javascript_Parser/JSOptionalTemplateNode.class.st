@@ -1,28 +1,28 @@
 Class {
-	#name : #JSOptionalTemplateNode,
-	#superclass : #JSOptionalNode,
+	#name : 'JSOptionalTemplateNode',
+	#superclass : 'JSOptionalNode',
 	#instVars : [
 		'template'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSOptionalTemplateNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitOptionalTemplate: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSOptionalTemplateNode >> nodeVariables [
 	^ #(#template)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSOptionalTemplateNode >> template [
 	^ template
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSOptionalTemplateNode >> template: aJSTemplateLiteralNode [
 	self template notNil
 		ifTrue: [ self template parent: nil ].

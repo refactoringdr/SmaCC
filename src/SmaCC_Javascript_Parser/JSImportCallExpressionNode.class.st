@@ -1,26 +1,26 @@
 Class {
-	#name : #JSImportCallExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSImportCallExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'importToken',
 		'left',
 		'expression',
 		'right'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitImportCallExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -29,47 +29,47 @@ JSImportCallExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> ignoredTokenVariables [
 	^ #(#left #right)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> importToken [
 	^ importToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> importToken: aSmaCCToken [
 	importToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> left [
 	^ left
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> right [
 	^ right
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSImportCallExpressionNode >> tokenVariables [
 	^ #(#importToken)
 ]

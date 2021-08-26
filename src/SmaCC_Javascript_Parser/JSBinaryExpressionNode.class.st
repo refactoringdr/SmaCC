@@ -1,25 +1,25 @@
 Class {
-	#name : #JSBinaryExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSBinaryExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'leftExpression',
 		'operator',
 		'rightExpression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitBinaryExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> leftExpression [
 	^ leftExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> leftExpression: aJSExpressionNode [
 	self leftExpression notNil
 		ifTrue: [ self leftExpression parent: nil ].
@@ -28,27 +28,27 @@ JSBinaryExpressionNode >> leftExpression: aJSExpressionNode [
 		ifTrue: [ self leftExpression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> nodeVariables [
 	^ #(#leftExpression #rightExpression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> operator [
 	^ operator
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> operator: aSmaCCToken [
 	operator := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> rightExpression [
 	^ rightExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> rightExpression: aJSExpressionNode [
 	self rightExpression notNil
 		ifTrue: [ self rightExpression parent: nil ].
@@ -57,7 +57,7 @@ JSBinaryExpressionNode >> rightExpression: aJSExpressionNode [
 		ifTrue: [ self rightExpression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSBinaryExpressionNode >> tokenVariables [
 	^ #(#operator)
 ]

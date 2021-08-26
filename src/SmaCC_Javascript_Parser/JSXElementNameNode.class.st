@@ -1,28 +1,28 @@
 Class {
-	#name : #JSXElementNameNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSXElementNameNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'identifier'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXElementNameNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitXElementName: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXElementNameNode >> identifier [
 	^ identifier
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXElementNameNode >> identifier: aSmaCCToken [
 	identifier := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXElementNameNode >> tokenVariables [
 	^ #(#identifier)
 ]

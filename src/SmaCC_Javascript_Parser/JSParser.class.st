@@ -1,13 +1,13 @@
 Class {
-	#name : #JSParser,
-	#superclass : #SmaCCGLRParser,
+	#name : 'JSParser',
+	#superclass : 'SmaCCGLRParser',
 	#classInstVars : [
 		'keywords'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> ambiguousTransitions [
 ^#(
 #[ 0 6 0 41] 
@@ -78,12 +78,12 @@ JSParser class >> ambiguousTransitions [
 	).
 ]
 
-{ #category : #'generated-accessing' }
+{ #category : 'generated-accessing' }
 JSParser class >> cacheId [
 	^'2020-09-21T14:23:08.861414-05:00'
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> definitionComment [
 "%root Program;
 %prefix JS;
@@ -2222,17 +2222,17 @@ DecoratorExpression
 ;"
 ]
 
-{ #category : #'file types' }
+{ #category : 'file types' }
 JSParser class >> fileExtension [
 	^ '.js'
 ]
 
-{ #category : #'file types' }
+{ #category : 'file types' }
 JSParser class >> fileExtensionType [
 	^ 'Javascript files'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser class >> keywords [
 	^ keywords
 		ifNil:
@@ -2240,7 +2240,7 @@ JSParser class >> keywords [
 				asSet collect: [ :each | each asString ] ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> reduceTable [
 ^#(
 	#(200 0 #reduceActionForStartStatementListItem1: 23258113 true ) 
@@ -3148,57 +3148,57 @@ JSParser class >> reduceTable [
 	).
 ]
 
-{ #category : #'generated-accessing' }
+{ #category : 'generated-accessing' }
 JSParser class >> scannerClass [
 	^JSScanner
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForExpression [
 	^ 2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForModule [
 	^ 5
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForScript [
 	^ 4
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForSourceFile [
 	^ 6
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForStatement [
 	^ 3
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForType [
 	^ 7
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> startingStateForgoal [
 	^ 1
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> symbolNames [
 	^ #('<at>' '<leftParen>' '<rightParen>' '<leftBrace>' '<rightBrace>' '<leftBracket>' '<rightBracket>' '<semicolon>' '<slash>' '<slashEqual>' '<lt>' '<ltLt>' '<ltLtEq>' '<gt>' '<gtGt>' '<gtGtEq>' '<gtGtGtEq>' '<gtGtGt>' '<eqGt>' '<ltEq>' '<gtEq>' '<period>' '<eq>' '<eqEq>' '<eqEqEq>' '<star>' '<starStar>' '<starEq>' '<percentEq>' '<ampEq>' '<upEq>' '<barEq>' '<minusEq>' '<plusEq>' '<plus>' '<plusPlus>' '<minus>' '<minusMinus>' '<tilde>' '<amp>' '<ampAmp>' '<question>' '<questionDot>' '<questionQuestion>' '<percent>' '<bar>' '<barBar>' '<up>' '<bang>' '<bangEq>' '<bangEqEq>' '<as>' '<async>' '<await>' '<break>' '<case>' '<catch>' '<class>' '<abstract>' '<const>' '<constructor>' '<continue>' '<debugger>' '<declare>' '<default>' '<delete>' '<do>' '<else>' '<enum>' '<export>' '<extends>' '<false>' '<finally>' '<for>' '<from>' '<function>' '<get>' '<if>' '<import>' '<in>' '<infer>' '<implements>' '<instanceof>' '<interface>' '<keyof>' '<let>' '<module>' '<namespace>' '<new>' '<null>' '<numeric>' '<of>' '<private>' '<protected>' '<public>' '<return>' '<set>' '<static>' '<string>' '<super>' '<switch>' '<target>' '<this>' '<throw>' '<true>' '<try>' '<type>' '<typeof>' '<var>' '<void>' '<while>' '<with>' '<yield>' '<dotDotDot>' '<comma>' '<colon>' '<comment>' '<identifier>' '<identifierName>' '<whitespace>' '<string_literal>' '<numeric_literal>' '<regular_expression>' '<patternToken>' '<no_substitution_template>' '<template_head>' '<template_middle>' '<template_tail>' '<jsxLT>' '<JSXIdentifier>' '<JSXText>' 'B e g i n' 'goal' 'Identifier' 'IdentifierName' 'PrimaryExpression' 'ParenthesizedExpression' 'Literal' 'ArrayLiteral' 'ElementList' 'Elision' 'SpreadElement' 'ObjectLiteral' 'ValidationNotArrowFunction' 'PropertyDefinitionList' 'PropertyDefinition' 'PropertyName' 'LiteralPropertyName' 'ComputedPropertyName' 'CoverInitializedName' 'Initializer' 'TemplateLiteral' 'StartTemplateLiteral' 'TemplateSpans' 'TemplateMiddleList' 'MemberExpression' 'SuperProperty' 'MetaProperty' 'NewTarget' 'NewExpression' 'CallExpression' 'SuperCall' 'ImportCall' 'Arguments' 'ArgumentList' 'OptionalExpression' 'OptionalChain' 'OptionalRest' 'OptionalFirst' 'LeftHandSideExpression' 'UpdateExpression' 'UnaryExpression' 'ExponentiationExpression' 'MultiplicativeExpression' 'MultiplicativeOperator' 'AdditiveExpression' 'ShiftExpression' 'RelationalExpression' 'EqualityExpression' 'BitwiseANDExpression' 'BitwiseXORExpression' 'BitwiseORExpression' 'LogicalANDExpression' 'LogicalORExpression' 'CoalesceExpression' 'CoalesceExpressionHead' 'ShortCircuitExpression' 'ConditionalExpression' 'AssignmentExpression' 'AssignmentOperator' 'Expression' 'Statement' 'Declaration' 'HoistableDeclaration' 'BreakableStatement' 'BlockStatement' 'Block' 'StatementList' 'StatementListItem' 'StartStatementListItem' 'LexicalDeclaration' 'LetOrConst' 'BindingList' 'LexicalBinding' 'VariableStatement' 'VariableDeclarationList' 'VariableDeclaration' 'BindingPattern' 'ObjectBindingPattern' 'ArrayBindingPattern' 'BindingRestProperty' 'BindingPropertyList' 'BindingElementList' 'BindingElisionElement' 'BindingProperty' 'BindingElement' 'SingleNameBinding' 'BindingRestElement' 'EmptyStatement' 'ExpressionStatement' 'IfStatement' 'IterationStatement' 'ForDeclaration' 'ForBinding' 'ContinueStatement' 'BreakStatement' 'CheckEOL' 'ReturnStatement' 'WithStatement' 'SwitchStatement' 'CaseBlock' 'CaseClauses' 'CaseClause' 'DefaultClause' 'LabelledStatement' 'LabeledItem' 'ThrowStatement' 'TryStatement' 'Catch' 'Finally' 'CatchParameter' 'DebuggerStatement' 'FunctionDeclaration' 'FunctionExpression' 'UniqueFormalParameters' 'FormalParameters' 'FormalParameterList' 'FunctionRestParameter' 'FormalParameter' 'FunctionBody' 'FunctionStatementList' 'ArrowFunction' 'ArrowParameters' 'ArrowParameterDeclaration' 'ConciseBody' 'ExpressionBody' 'ArrowFormalParameters' 'AsyncArrowFunction' 'AsyncConciseBody' 'MethodDefinition' 'PropertySetParameterList' 'GeneratorMethod' 'GeneratorDeclaration' 'GeneratorExpression' 'GeneratorBody' 'YieldExpression' 'AsyncGeneratorMethod' 'AsyncGeneratorDeclaration' 'AsyncGeneratorExpression' 'AsyncGeneratorBody' 'AsyncMethod' 'AsyncFunctionDeclaration' 'AsyncFunctionExpression' 'AsyncFunctionBody' 'AwaitExpression' 'ClassDeclaration' 'ClassExpression' 'ClassTail' 'ClassHeritage' 'ClassBody' 'ClassElementList' 'ClassElement' 'Script' 'ScriptBody' 'Module' 'ModuleBody' 'ModuleItemList' 'ModuleItem' 'ImportDeclaration' 'ImportClause' 'ImportedDefaultBinding' 'NameSpaceImport' 'NamedImports' 'FromClause' 'ImportsList' 'ImportSpecifier' 'ModuleSpecifier' 'ImportedBinding' 'ExportDeclaration' 'ExportFromClause' 'NamedExports' 'ExportsList' 'ExportSpecifier' 'NullLiteral' 'BooleanLiteral' 'StringLiteral' 'NumericLiteral' 'RegularExpressionLiteral' 'JSXElement' 'JSXSelfClosingElement' 'JSXOpeningElement' 'JSXClosingElement' 'JSXFragment' 'JSXElementName' 'JSXNamespacedName' 'JSXMemberExpression' '(<JSXIdentifier> ''identifier'' <period> ''periodToken'')' '(<JSXIdentifier> ''identifier'' <period> ''periodToken'')+' 'JSXAttributes' '(JSXSpreadAttribute ''attribute'' | JSXAttribute ''attribute'')' '(JSXSpreadAttribute ''attribute'' | JSXAttribute ''attribute'')+' 'JSXSpreadAttribute' 'JSXAttribute' 'JSXAttributeName' 'JSXAttributeInitializer' 'JSXAttributeValue' 'JSXChildren' 'JSXChild ''item'' *' 'JSXChild' 'JSXChildExpression' 'SwitchToJSX' 'SwitchToJSXText' 'StartJSXText' 'SwitchToJSXTextOrDefault1' 'SwitchToJSXTextOrDefault2' 'SwitchToDefault' 'TypeParameters' 'TypeParameterList' 'TypeParameter' 'Constraint' 'TypeArguments' 'TypeArgumentList' 'TypeArgument' 'Type' 'UnionOrIntersectionOrPrimaryType' 'IntersectionOrPrimaryType' 'PrefixType' 'PrimaryType' 'LiteralType' 'ParenthesizedType' 'PredefinedType' 'TypeReference' 'TypeName' 'NamespaceName' 'ObjectType' 'TypeBody' 'TypeMemberList' 'TypeMember' 'ArrayType' 'TupleType' 'TupleElementTypes' 'TupleElementType' 'UnionType' 'IntersectionType' 'FunctionType' 'ConstructorType' 'TypeQuery' 'TypeQueryExpression' 'ThisType' 'PropertySignature' 'TypeAnnotation' 'CallSignature' 'DecoratorExpression ''decorator''*' 'TSIdentifierOrBindingPattern' 'AccessibilityModifier' 'BindingIdentifierOrPattern' 'ConstructSignature' 'IndexSignature' 'MethodSignature' 'TypeAliasDeclaration' 'TypeCallSignature' 'GetAccessor' 'SetAccessor' 'TypedPropertySetParameterList' 'SimpleVariableDeclaration' 'DestructuringVariableDeclaration' 'SimpleLexicalBinding' 'DestructuringLexicalBinding' 'InterfaceDeclaration' 'InterfaceExtendsClause' 'ClassOrInterfaceTypeList' 'ClassOrInterfaceType' 'ClassExtendsClause' 'ClassType' 'ImplementsClause' 'ConstructorDeclaration' 'PropertyMemberDeclaration' 'MemberVariableDeclaration' 'MemberFunctionDeclaration' 'MemberAccessorDeclaration' 'IndexMemberDeclaration' 'EnumDeclaration' 'EnumBody' 'EnumMemberList' 'EnumMember' 'EnumValue' 'NamespaceDeclaration' 'IdentifierPath' 'NamespaceBody' 'NamespaceElements' 'NamespaceElement' 'ExportNamespaceElement' 'ImportAliasDeclaration' 'EntityName' 'SourceFile' 'ImplementationSourceFile' 'DeclarationSourceFile' 'ImplementationScript' 'ImplementationScriptElements' 'ImplementationScriptElement' 'ImplementationElement' 'DeclarationScript' 'DeclarationScriptElements' 'DeclarationScriptElement' 'DeclarationElement' 'ImplementationModule' 'ImplementationModuleElements' 'ImplementationModuleElement' 'DeclarationModule' 'DeclarationModuleElements' 'DeclarationModuleElement' 'ImportRequireDeclaration' 'ExportImplementationElement' 'ExportDeclarationElement' 'ExportDefaultImplementationElement' 'ExportDefaultDeclarationElement' 'ExportListDeclaration' 'ExportAssignment' 'AmbientDeclaration' 'AmbientVariableDeclaration' 'AmbientBindingList' 'AmbientBinding' 'AmbientFunctionDeclaration' 'AmbientClassDeclaration' 'AmbientClassBody' 'AmbientClassBodyElements' 'AmbientClassBodyElement' 'AmbientConstructorDeclaration' 'AmbientPropertyMemberDeclaration' 'AmbientEnumDeclaration' 'AmbientNamespaceDeclaration' 'AmbientNamespaceBody' 'AmbientNamespaceElements' 'AmbientNamespaceElement' 'AmbientModuleDeclaration' 'DecoratorExpression' '<require>' '<starStarEq>' '<ts>' 'E O F' 'error')
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> symbolTypes [
 	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #JSModuleNode #JSModuleNode #JSNameExpressionNode #JSNameExpressionNode #JSExpressionNode #JSExpressionNode #JSLiteralNode #JSArrayLiteralNode #OrderedCollection #OrderedCollection #JSSpreadExpressionNode #JSObjectLiteralNode nil #OrderedCollection #JSProgramNode #JSProgramNode #JSNameExpressionNode #JSComputedPropertyNameNode #JSPropertyAssignmentNode #OrderedCollection #JSTemplateLiteralNode #ByteSymbol #OrderedCollection #OrderedCollection #JSExpressionNode #JSExpressionNode #JSNewTargetExpressionNode #JSNewTargetExpressionNode #JSExpressionNode #JSExpressionNode #JSSuperCallExpressionNode #JSImportCallExpressionNode #OrderedCollection #OrderedCollection #JSOptionalExpressionNode #OrderedCollection #JSOptionalNode #JSOptionalNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #SmaCCToken #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSBinaryExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #JSExpressionNode #SmaCCToken #JSExpressionNode #JSStatementNode #JSProgramNode #JSProgramNode #JSStatementNode #JSBlockStatementNode #JSBlockStatementNode #OrderedCollection #JSStatementNode #ByteSymbol #JSLexicalDeclarationNode #SmaCCToken #OrderedCollection #JSProgramNode #JSVariableStatementNode #OrderedCollection #JSProgramNode #JSProgramNode #JSObjectBindingPatternNode #JSArrayBindingPatternNode #JSBindingRestPropertyNode #OrderedCollection #OrderedCollection #OrderedCollection #JSProgramNode #JSProgramNode #JSVariableDeclarationNode #JSRestVariableDeclarationNode #JSEmptyStatementNode #JSExpressionStatementNode #JSIfStatementNode #JSStatementNode #OrderedCollection #JSProgramNode #JSContinueStatementNode #JSBreakStatementNode nil #JSReturnStatementNode #JSWithStatementNode #JSSwitchStatementNode #OrderedCollection #OrderedCollection #JSCaseClauseNode #JSDefaultClauseNode #JSLabelledStatementNode #JSStatementNode #JSThrowStatementNode #JSTryStatementNode #OrderedCollection #OrderedCollection #JSProgramNode #JSDebuggerStatementNode #JSProgramNode #JSFunctionNode #OrderedCollection #OrderedCollection #OrderedCollection #JSRestVariableDeclarationNode #JSProgramNode #OrderedCollection #OrderedCollection #JSArrowFunctionNode #OrderedCollection #JSVariableDeclarationNode #OrderedCollection #JSExpressionNode #OrderedCollection #JSAsyncArrowFunctionNode #OrderedCollection #JSMethodDefinitionNode #JSProgramNode #JSGeneratorMethodDefinitionNode #JSGeneratorFunctionNode #JSGeneratorFunctionNode #OrderedCollection #JSYieldExpressionNode #JSAsyncGeneratorMethodDefinitionNode #JSAsyncGeneratorFunctionNode #JSAsyncGeneratorFunctionNode #OrderedCollection #JSAsyncMethodDefinitionNode #JSAsyncFunctionNode #JSAsyncFunctionNode #OrderedCollection #JSAwaitExpressionNode #JSClassExpressionNode #JSClassExpressionNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #JSProgramNode #JSScriptNode #OrderedCollection #JSModuleNode #OrderedCollection #OrderedCollection #JSProgramNode #JSImportDeclarationNode #OrderedCollection #JSNameExpressionNode #JSNameSpaceImportNode #JSNamedImportsNode #OrderedCollection #OrderedCollection #JSImportSpecifierNode #SmaCCToken #JSNameExpressionNode #JSExportDeclarationNode #OrderedCollection #OrderedCollection #OrderedCollection #JSExportSpecifierNode #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #JSRegularExpressionLiteralNode #JSExpressionNode #JSXSelfClosingElementNode #JSXOpeningElementNode #JSXClosingElementNode #JSXFragmentNode #JSProgramNode #JSXNamespacedNameNode #JSXMemberExpressionNode #OrderedCollection #OrderedCollection #OrderedCollection #JSProgramNode #OrderedCollection #JSXSpreadAttributeNode #JSXAttributeNode #JSProgramNode #OrderedCollection #JSExpressionNode #OrderedCollection #OrderedCollection #JSExpressionNode #JSExpressionNode nil nil #ByteSymbol #Object #Object #ByteSymbol #JSTypeParametersNode #OrderedCollection #JSTypeParameterNode #OrderedCollection #JSTypeArgumentsNode #OrderedCollection #JSTypeNode #JSTypeNode #JSTypeNode #JSTypeNode #JSTypeNode #JSTypeNode #JSLiteralTypeNode #JSTypeNode #JSVoidTypeNode #JSTypeReferenceNode #JSTypeNameNode #OrderedCollection #JSObjectTypeNode #OrderedCollection #OrderedCollection #JSProgramNode #JSArrayTypeNode #JSTupleTypeNode #OrderedCollection #JSTypeNode #JSUnionTypeNode #JSIntersectionTypeNode #JSFunctionTypeNode #JSConstructorTypeNode #JSTypeQueryNode #JSTypeQueryExpressionNode #JSThisTypeNode #JSPropertySignatureNode #OrderedCollection #JSCallSignatureNode #OrderedCollection #JSProgramNode #SmaCCToken #JSProgramNode #JSConstructSignatureNode #JSIndexSignatureNode #JSMethodSignatureNode #JSTypeAliasDeclarationNode #OrderedCollection #JSGetMethodDefinitionNode #JSSetMethodDefinitionNode #JSTypedParameterNode #JSVariableDeclarationNode #JSVariablePatternDeclarationNode #JSVariableDeclarationNode #JSVariablePatternDeclarationNode #JSInterfaceDeclarationNode #OrderedCollection #OrderedCollection #JSTypeReferenceNode #OrderedCollection #JSTypeReferenceNode #OrderedCollection #JSConstructorDeclarationNode #JSProgramNode #JSMemberVariableDeclarationNode #JSMemberFunctionDeclarationNode #JSMemberAccessorDeclarationNode #JSIndexMemberDeclarationNode #JSEnumDeclarationNode #OrderedCollection #OrderedCollection #JSEnumMemberNode #JSExpressionNode #JSNamespaceDeclarationNode #OrderedCollection #OrderedCollection #OrderedCollection #JSProgramNode #JSExportNamespaceElementNode #JSImportAliasDeclarationNode #OrderedCollection #JSTSSourceFileNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #JSProgramNode #JSProgramNode #OrderedCollection #OrderedCollection #JSProgramNode #JSProgramNode #OrderedCollection #OrderedCollection #JSProgramNode #OrderedCollection #OrderedCollection #JSProgramNode #JSImportRequireDeclarationNode #JSExportImplementationElementNode #JSExportDeclarationElementNode #JSExportDefaultImplementationElementNode #JSExportDefaultDeclarationElementNode #JSExportListDeclarationNode #JSExportAssignmentNode #JSAmbientDeclarationNode #JSLexicalDeclarationNode #OrderedCollection #JSVariableDeclarationNode #JSEmptyFunctionNode #JSClassExpressionNode #OrderedCollection #OrderedCollection #JSProgramNode #JSConstructorDeclarationNode #JSProgramNode #JSEnumDeclarationNode #JSNamespaceDeclarationNode #OrderedCollection #OrderedCollection #JSExportNamespaceElementNode #JSAmbientModuleDeclarationNode #JSDecoratorExpressionNode #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCErrorNode)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSParser class >> transitionTable [
 ^#(
 #[1 0 6 0 2 0 6 0 4 0 6 0 6 0 6 0 8 0 6 0 35 0 6 0 36 0 6 0 37 0 6 0 38 0 6 0 39 0 6 0 49 0 6 0 53 0 6 0 54 0 6 0 55 0 6 0 58 0 65 0 60 0 6 0 62 0 6 0 63 0 6 0 66 0 6 0 67 0 37 0 70 0 6 0 72 0 6 0 74 0 6 0 76 0 6 0 78 0 7 0 79 0 65 0 86 0 6 0 89 0 6 0 90 0 6 0 96 0 6 0 100 0 6 0 101 0 6 0 103 0 6 0 104 0 6 0 105 0 6 0 106 0 6 0 108 0 6 0 109 0 6 0 110 0 6 0 111 0 6 0 112 0 6 0 113 0 6 0 118 0 6 0 121 0 6 0 122 0 6 0 123 0 6 0 125 0 6 0 126 0 6 0 129 0 49 0 133 0 81 0 199 0 57 0 200 0 81 0 201 0 65 0 202 0 49 1 29 0 73 1 30 0 77 1 31 0 81 1 32 0 81 1 33 0 81 1 43 0 6 1 203 0 10 1 204] 
@@ -5013,7 +5013,7 @@ JSParser class >> transitionTable [
 	).
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> actionsForCurrentToken [
 	| actions |
 	currentToken ids first = scanner questionDotId
@@ -5089,11 +5089,11 @@ JSParser >> actionsForCurrentToken [
 	^ actions
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> canInsertSemicolon [
 	| item |
 	((currentState attributeNamed: #lastInsertedSemicolonPosition) ifNil: [ -1 ]) < scanner position ifFalse: [ ^ false ].
-	stack size > 1 ifFalse: [ ^ true ].
+	stack nodeStack size > 1 ifFalse: [ ^ true ].
 	(stack nodeStack at: stack nodeStack size - 1) = #startExpressionStatement ifFalse: [ ^ true ].
 	item := stack topNode.
 	(item isKindOf: SmaCCToken) ifFalse: [ ^ true ].
@@ -5101,7 +5101,7 @@ JSParser >> canInsertSemicolon [
 	^ item ids size <= 2 or: [ (#('let' 'const') includes: item value) not ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> checkEOL [
 	| stackTop position |
 	(self isEOFToken or: [ currentToken ids includes: scanner semicolonId ]) ifTrue: [ ^ self ].
@@ -5122,12 +5122,12 @@ JSParser >> checkEOL [
 				ids: (Array with: self scanner semicolonId) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> defaultScope [
 	^ #jsx
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> handleError: anInteger [
 	(currentToken value = ';' and: [ currentToken startPosition isNil ])
 		ifTrue: [ currentToken := nil.
@@ -5135,17 +5135,17 @@ JSParser >> handleError: anInteger [
 	^ super handleError: anInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> isJSX [
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> keywords [
 	^ self class keywords
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientBinding2: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5155,7 +5155,7 @@ JSParser >> reduceActionForAmbientBinding2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientClassDeclaration1: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -5172,7 +5172,7 @@ JSParser >> reduceActionForAmbientClassDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientClassDeclaration2: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -5190,7 +5190,7 @@ JSParser >> reduceActionForAmbientClassDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientConstructorDeclaration1: nodes [
 	| result |
 	result := JSConstructorDeclarationNode new.
@@ -5204,7 +5204,7 @@ JSParser >> reduceActionForAmbientConstructorDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientDeclaration1: nodes [
 	| result |
 	result := JSAmbientDeclarationNode new.
@@ -5213,7 +5213,7 @@ JSParser >> reduceActionForAmbientDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientFunctionDeclaration1: nodes [
 	| result |
 	result := JSEmptyFunctionNode new.
@@ -5224,7 +5224,7 @@ JSParser >> reduceActionForAmbientFunctionDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientModuleDeclaration1: nodes [
 	| result |
 	result := JSAmbientModuleDeclarationNode new.
@@ -5237,7 +5237,7 @@ JSParser >> reduceActionForAmbientModuleDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientNamespaceElement3: nodes [
 	| result |
 	result := JSExportNamespaceElementNode new.
@@ -5245,7 +5245,7 @@ JSParser >> reduceActionForAmbientNamespaceElement3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration10: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -5256,7 +5256,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration11: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -5267,7 +5267,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration12: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -5279,7 +5279,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration12: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration1: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5288,7 +5288,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration2: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5299,7 +5299,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration3: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5309,7 +5309,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration4: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5321,7 +5321,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration5: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5331,7 +5331,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration6: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5343,7 +5343,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration7: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5354,7 +5354,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration8: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -5367,7 +5367,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAmbientPropertyMemberDeclaration9: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -5377,7 +5377,7 @@ JSParser >> reduceActionForAmbientPropertyMemberDeclaration9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArgumentList1: nodes [
 	| result |
 	result := Array new: 4.
@@ -5389,7 +5389,7 @@ JSParser >> reduceActionForArgumentList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArgumentList2: nodes [
 	| result |
 	result := Array new: 4.
@@ -5402,7 +5402,7 @@ JSParser >> reduceActionForArgumentList2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArgumentList3: nodes [
 	| result |
 	result := nodes at: 1.
@@ -5411,7 +5411,7 @@ JSParser >> reduceActionForArgumentList3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArgumentList4: nodes [
 	| result |
 	result := nodes at: 1.
@@ -5421,7 +5421,7 @@ JSParser >> reduceActionForArgumentList4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArguments1: nodes [
 	| result |
 	result := Array new: 7.
@@ -5434,7 +5434,7 @@ JSParser >> reduceActionForArguments1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArguments2: nodes [
 	| result |
 	result := Array new: 7.
@@ -5451,7 +5451,7 @@ JSParser >> reduceActionForArguments2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArguments3: nodes [
 	| result |
 	result := Array new: 7.
@@ -5469,7 +5469,7 @@ JSParser >> reduceActionForArguments3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArguments4: nodes [
 	| result |
 	result := Array new: 7.
@@ -5483,7 +5483,7 @@ JSParser >> reduceActionForArguments4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArguments5: nodes [
 	| result |
 	result := Array new: 7.
@@ -5501,7 +5501,7 @@ JSParser >> reduceActionForArguments5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern1: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5510,7 +5510,7 @@ JSParser >> reduceActionForArrayBindingPattern1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern2: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5520,7 +5520,7 @@ JSParser >> reduceActionForArrayBindingPattern2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern3: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5530,7 +5530,7 @@ JSParser >> reduceActionForArrayBindingPattern3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern4: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5541,7 +5541,7 @@ JSParser >> reduceActionForArrayBindingPattern4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern5: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5552,7 +5552,7 @@ JSParser >> reduceActionForArrayBindingPattern5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern6: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5564,7 +5564,7 @@ JSParser >> reduceActionForArrayBindingPattern6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern7: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5577,7 +5577,7 @@ JSParser >> reduceActionForArrayBindingPattern7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern8: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5590,7 +5590,7 @@ JSParser >> reduceActionForArrayBindingPattern8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayBindingPattern9: nodes [
 	| result |
 	result := JSArrayBindingPatternNode new.
@@ -5604,7 +5604,7 @@ JSParser >> reduceActionForArrayBindingPattern9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayLiteral1: nodes [
 	| result |
 	result := JSArrayLiteralNode new.
@@ -5613,7 +5613,7 @@ JSParser >> reduceActionForArrayLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayLiteral2: nodes [
 	| result |
 	result := JSArrayLiteralNode new.
@@ -5623,7 +5623,7 @@ JSParser >> reduceActionForArrayLiteral2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayLiteral3: nodes [
 	| result |
 	result := JSArrayLiteralNode new.
@@ -5634,7 +5634,7 @@ JSParser >> reduceActionForArrayLiteral3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayLiteral4: nodes [
 	| result |
 	result := JSArrayLiteralNode new.
@@ -5646,7 +5646,7 @@ JSParser >> reduceActionForArrayLiteral4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrayType1: nodes [
 	| result |
 	result := JSArrayTypeNode new.
@@ -5656,7 +5656,7 @@ JSParser >> reduceActionForArrayType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowFormalParameters1: nodes [
 	| result |
 	result := Array new: 8.
@@ -5670,14 +5670,14 @@ JSParser >> reduceActionForArrowFormalParameters1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowFormalParameters2: nodes [
 	| result |
 	result := nodes at: 2.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowFunction1: nodes [
 	| result |
 	result := JSArrowFunctionNode new.
@@ -5696,7 +5696,7 @@ JSParser >> reduceActionForArrowFunction1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowParameterDeclaration1: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5704,7 +5704,7 @@ JSParser >> reduceActionForArrowParameterDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowParameters1: nodes [
 	| result |
 	result := Array new: 8.
@@ -5714,7 +5714,7 @@ JSParser >> reduceActionForArrowParameters1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForArrowParameters2: nodes [
 	| result |
 	result := Array new: 8.
@@ -5731,7 +5731,7 @@ JSParser >> reduceActionForArrowParameters2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAssignmentExpression5: nodes [
 	| result |
 	result := JSAssignmentExpressionNode new.
@@ -5741,7 +5741,7 @@ JSParser >> reduceActionForAssignmentExpression5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncArrowFunction1: nodes [
 	| result |
 	result := JSAsyncArrowFunctionNode new.
@@ -5761,7 +5761,7 @@ JSParser >> reduceActionForAsyncArrowFunction1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncFunctionExpression1: nodes [
 	| result |
 	result := JSAsyncFunctionNode new.
@@ -5778,7 +5778,7 @@ JSParser >> reduceActionForAsyncFunctionExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncFunctionExpression2: nodes [
 	| result |
 	result := JSAsyncFunctionNode new.
@@ -5796,7 +5796,7 @@ JSParser >> reduceActionForAsyncFunctionExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncGeneratorExpression1: nodes [
 	| result |
 	result := JSAsyncGeneratorFunctionNode new.
@@ -5814,7 +5814,7 @@ JSParser >> reduceActionForAsyncGeneratorExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncGeneratorExpression2: nodes [
 	| result |
 	result := JSAsyncGeneratorFunctionNode new.
@@ -5833,7 +5833,7 @@ JSParser >> reduceActionForAsyncGeneratorExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncGeneratorMethod1: nodes [
 	| result |
 	result := JSAsyncGeneratorMethodDefinitionNode new.
@@ -5851,7 +5851,7 @@ JSParser >> reduceActionForAsyncGeneratorMethod1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAsyncMethod1: nodes [
 	| result |
 	result := JSAsyncMethodDefinitionNode new.
@@ -5868,7 +5868,7 @@ JSParser >> reduceActionForAsyncMethod1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForAwaitExpression1: nodes [
 	| result |
 	result := JSAwaitExpressionNode new.
@@ -5877,7 +5877,7 @@ JSParser >> reduceActionForAwaitExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement10: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5887,7 +5887,7 @@ JSParser >> reduceActionForBindingElement10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement11: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5899,7 +5899,7 @@ JSParser >> reduceActionForBindingElement11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement12: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5910,7 +5910,7 @@ JSParser >> reduceActionForBindingElement12: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement13: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5923,7 +5923,7 @@ JSParser >> reduceActionForBindingElement13: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement2: nodes [
 	| result |
 	result := JSVariablePatternDeclarationNode new.
@@ -5931,7 +5931,7 @@ JSParser >> reduceActionForBindingElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement4: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5942,7 +5942,7 @@ JSParser >> reduceActionForBindingElement4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement5: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5955,7 +5955,7 @@ JSParser >> reduceActionForBindingElement5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement6: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5967,7 +5967,7 @@ JSParser >> reduceActionForBindingElement6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement7: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5981,7 +5981,7 @@ JSParser >> reduceActionForBindingElement7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement8: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -5991,7 +5991,7 @@ JSParser >> reduceActionForBindingElement8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElement9: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -6003,7 +6003,7 @@ JSParser >> reduceActionForBindingElement9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElementList1: nodes [
 	| result |
 	result := Array new: 2.
@@ -6014,7 +6014,7 @@ JSParser >> reduceActionForBindingElementList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElementList2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -6024,7 +6024,7 @@ JSParser >> reduceActionForBindingElementList2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElisionElement1: nodes [
 	| result |
 	result := Array new: 2.
@@ -6033,7 +6033,7 @@ JSParser >> reduceActionForBindingElisionElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingElisionElement2: nodes [
 	| result |
 	result := Array new: 2.
@@ -6043,7 +6043,7 @@ JSParser >> reduceActionForBindingElisionElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingProperty2: nodes [
 	| result |
 	result := JSBindingPropertyNode new.
@@ -6053,7 +6053,7 @@ JSParser >> reduceActionForBindingProperty2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingRestElement1: nodes [
 	| result |
 	result := JSRestVariableDeclarationNode new.
@@ -6062,7 +6062,7 @@ JSParser >> reduceActionForBindingRestElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingRestElement3: nodes [
 	| result |
 	result := JSRestVariableDeclarationNode new.
@@ -6073,7 +6073,7 @@ JSParser >> reduceActionForBindingRestElement3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBindingRestProperty1: nodes [
 	| result |
 	result := JSBindingRestPropertyNode new.
@@ -6082,7 +6082,7 @@ JSParser >> reduceActionForBindingRestProperty1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBlock1: nodes [
 	| result |
 	result := JSBlockStatementNode new.
@@ -6091,7 +6091,7 @@ JSParser >> reduceActionForBlock1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBlock2: nodes [
 	| result |
 	result := JSBlockStatementNode new.
@@ -6101,7 +6101,7 @@ JSParser >> reduceActionForBlock2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBreakStatement1: nodes [
 	| result |
 	result := JSBreakStatementNode new.
@@ -6110,7 +6110,7 @@ JSParser >> reduceActionForBreakStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForBreakStatement2: nodes [
 	| result |
 	result := JSBreakStatementNode new.
@@ -6120,7 +6120,7 @@ JSParser >> reduceActionForBreakStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallExpression1: nodes [
 	| result |
 	result := JSCallExpressionNode new.
@@ -6135,7 +6135,7 @@ JSParser >> reduceActionForCallExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallExpression5: nodes [
 	| result |
 	result := JSIndexedPropertyExpressionNode new.
@@ -6146,7 +6146,7 @@ JSParser >> reduceActionForCallExpression5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallSignature1: nodes [
 	| result |
 	result := JSCallSignatureNode new.
@@ -6158,7 +6158,7 @@ JSParser >> reduceActionForCallSignature1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallSignature2: nodes [
 	| result |
 	result := JSCallSignatureNode new.
@@ -6172,7 +6172,7 @@ JSParser >> reduceActionForCallSignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallSignature3: nodes [
 	| result |
 	result := JSCallSignatureNode new.
@@ -6185,7 +6185,7 @@ JSParser >> reduceActionForCallSignature3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCallSignature4: nodes [
 	| result |
 	result := JSCallSignatureNode new.
@@ -6200,7 +6200,7 @@ JSParser >> reduceActionForCallSignature4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock1: nodes [
 	| result |
 	result := Array new: 3.
@@ -6210,7 +6210,7 @@ JSParser >> reduceActionForCaseBlock1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock2: nodes [
 	| result |
 	result := Array new: 3.
@@ -6221,7 +6221,7 @@ JSParser >> reduceActionForCaseBlock2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock3: nodes [
 	| result |
 	result := Array new: 3.
@@ -6232,7 +6232,7 @@ JSParser >> reduceActionForCaseBlock3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock4: nodes [
 	| result |
 	result := Array new: 3.
@@ -6244,7 +6244,7 @@ JSParser >> reduceActionForCaseBlock4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock5: nodes [
 	| result |
 	result := Array new: 3.
@@ -6256,7 +6256,7 @@ JSParser >> reduceActionForCaseBlock5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseBlock6: nodes [
 	| result |
 	result := Array new: 3.
@@ -6269,7 +6269,7 @@ JSParser >> reduceActionForCaseBlock6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseClause1: nodes [
 	| result |
 	result := JSCaseClauseNode new.
@@ -6279,7 +6279,7 @@ JSParser >> reduceActionForCaseClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCaseClause2: nodes [
 	| result |
 	result := JSCaseClauseNode new.
@@ -6290,7 +6290,7 @@ JSParser >> reduceActionForCaseClause2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCatch1: nodes [
 	| result |
 	result := Array new: 5.
@@ -6302,7 +6302,7 @@ JSParser >> reduceActionForCatch1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCatch2: nodes [
 	| result |
 	result := Array new: 5.
@@ -6311,13 +6311,13 @@ JSParser >> reduceActionForCatch2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCheckEOL1: nodes [
 	self checkEOL.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration10: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6336,7 +6336,7 @@ JSParser >> reduceActionForClassDeclaration10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration11: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6355,7 +6355,7 @@ JSParser >> reduceActionForClassDeclaration11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration12: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6375,7 +6375,7 @@ JSParser >> reduceActionForClassDeclaration12: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration3: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6392,7 +6392,7 @@ JSParser >> reduceActionForClassDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration4: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6410,7 +6410,7 @@ JSParser >> reduceActionForClassDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration5: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6428,7 +6428,7 @@ JSParser >> reduceActionForClassDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration6: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6447,7 +6447,7 @@ JSParser >> reduceActionForClassDeclaration6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration7: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6466,7 +6466,7 @@ JSParser >> reduceActionForClassDeclaration7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration8: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6486,7 +6486,7 @@ JSParser >> reduceActionForClassDeclaration8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassDeclaration9: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6504,7 +6504,7 @@ JSParser >> reduceActionForClassDeclaration9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassElement2: nodes [
 	| result |
 	result := nodes at: 2.
@@ -6512,7 +6512,7 @@ JSParser >> reduceActionForClassElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassExpression1: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6528,7 +6528,7 @@ JSParser >> reduceActionForClassExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassExpression2: nodes [
 	| result |
 	result := JSClassExpressionNode new.
@@ -6545,7 +6545,7 @@ JSParser >> reduceActionForClassExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassHeritage1: nodes [
 	| result |
 	result := Array new: 5.
@@ -6556,7 +6556,7 @@ JSParser >> reduceActionForClassHeritage1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassHeritage2: nodes [
 	| result |
 	result := Array new: 5.
@@ -6568,7 +6568,7 @@ JSParser >> reduceActionForClassHeritage2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassHeritage3: nodes [
 	| result |
 	result := Array new: 5.
@@ -6582,7 +6582,7 @@ JSParser >> reduceActionForClassHeritage3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassTail1: nodes [
 	| result |
 	result := Array new: 8.
@@ -6594,7 +6594,7 @@ JSParser >> reduceActionForClassTail1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassTail2: nodes [
 	| result |
 	result := Array new: 8.
@@ -6607,7 +6607,7 @@ JSParser >> reduceActionForClassTail2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassTail3: nodes [
 	| result |
 	result := Array new: 8.
@@ -6624,7 +6624,7 @@ JSParser >> reduceActionForClassTail3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForClassTail4: nodes [
 	| result |
 	result := Array new: 8.
@@ -6642,7 +6642,7 @@ JSParser >> reduceActionForClassTail4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForComputedPropertyName1: nodes [
 	| result |
 	result := JSComputedPropertyNameNode new.
@@ -6652,7 +6652,7 @@ JSParser >> reduceActionForComputedPropertyName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConciseBody1: nodes [
 	| result |
 	result := Array new: 3.
@@ -6661,7 +6661,7 @@ JSParser >> reduceActionForConciseBody1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConciseBody2: nodes [
 	| result |
 	result := Array new: 3.
@@ -6672,7 +6672,7 @@ JSParser >> reduceActionForConciseBody2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConditionalExpression2: nodes [
 	| result |
 	result := JSConditionalExpressionNode new.
@@ -6684,7 +6684,7 @@ JSParser >> reduceActionForConditionalExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructSignature1: nodes [
 	| result |
 	result := JSConstructSignatureNode new.
@@ -6697,7 +6697,7 @@ JSParser >> reduceActionForConstructSignature1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructSignature2: nodes [
 	| result |
 	result := JSConstructSignatureNode new.
@@ -6712,7 +6712,7 @@ JSParser >> reduceActionForConstructSignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructSignature3: nodes [
 	| result |
 	result := JSConstructSignatureNode new.
@@ -6726,7 +6726,7 @@ JSParser >> reduceActionForConstructSignature3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructSignature4: nodes [
 	| result |
 	result := JSConstructSignatureNode new.
@@ -6742,7 +6742,7 @@ JSParser >> reduceActionForConstructSignature4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorDeclaration1: nodes [
 	| result |
 	result := JSConstructorDeclarationNode new.
@@ -6759,7 +6759,7 @@ JSParser >> reduceActionForConstructorDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorDeclaration2: nodes [
 	| result |
 	result := JSConstructorDeclarationNode new.
@@ -6777,7 +6777,7 @@ JSParser >> reduceActionForConstructorDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorDeclaration3: nodes [
 	| result |
 	result := JSConstructorDeclarationNode new.
@@ -6792,7 +6792,7 @@ JSParser >> reduceActionForConstructorDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorDeclaration4: nodes [
 	| result |
 	result := JSConstructorDeclarationNode new.
@@ -6808,7 +6808,7 @@ JSParser >> reduceActionForConstructorDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorType1: nodes [
 	| result |
 	result := JSConstructorTypeNode new.
@@ -6823,7 +6823,7 @@ JSParser >> reduceActionForConstructorType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForConstructorType2: nodes [
 	| result |
 	result := JSConstructorTypeNode new.
@@ -6839,7 +6839,7 @@ JSParser >> reduceActionForConstructorType2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForContinueStatement1: nodes [
 	| result |
 	result := JSContinueStatementNode new.
@@ -6848,7 +6848,7 @@ JSParser >> reduceActionForContinueStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForContinueStatement2: nodes [
 	| result |
 	result := JSContinueStatementNode new.
@@ -6858,7 +6858,7 @@ JSParser >> reduceActionForContinueStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForCoverInitializedName1: nodes [
 	| result |
 	result := JSPropertyAssignmentNode new.
@@ -6868,7 +6868,7 @@ JSParser >> reduceActionForCoverInitializedName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDebuggerStatement1: nodes [
 	| result |
 	result := JSDebuggerStatementNode new.
@@ -6877,7 +6877,7 @@ JSParser >> reduceActionForDebuggerStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDecoratorExpression2: nodes [
 	| result |
 	result := JSDecoratorExpressionNode new.
@@ -6886,7 +6886,7 @@ JSParser >> reduceActionForDecoratorExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDefaultClause1: nodes [
 	| result |
 	result := JSDefaultClauseNode new.
@@ -6895,7 +6895,7 @@ JSParser >> reduceActionForDefaultClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDefaultClause2: nodes [
 	| result |
 	result := JSDefaultClauseNode new.
@@ -6905,7 +6905,7 @@ JSParser >> reduceActionForDefaultClause2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDestructuringLexicalBinding1: nodes [
 	| result |
 	result := JSVariablePatternDeclarationNode new.
@@ -6915,7 +6915,7 @@ JSParser >> reduceActionForDestructuringLexicalBinding1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDestructuringLexicalBinding2: nodes [
 	| result |
 	result := JSVariablePatternDeclarationNode new.
@@ -6927,7 +6927,7 @@ JSParser >> reduceActionForDestructuringLexicalBinding2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForDestructuringVariableDeclaration1: nodes [
 	| result |
 	result := JSVariablePatternDeclarationNode new.
@@ -6939,7 +6939,7 @@ JSParser >> reduceActionForDestructuringVariableDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForElementList4: nodes [
 	| result |
 	result := Array new: 2.
@@ -6950,7 +6950,7 @@ JSParser >> reduceActionForElementList4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForElementList6: nodes [
 	| result |
 	result := nodes at: 1.
@@ -6959,7 +6959,7 @@ JSParser >> reduceActionForElementList6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEmptyStatement1: nodes [
 	| result |
 	result := JSEmptyStatementNode new.
@@ -6967,7 +6967,7 @@ JSParser >> reduceActionForEmptyStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumDeclaration1: nodes [
 	| result |
 	result := JSEnumDeclarationNode new.
@@ -6978,7 +6978,7 @@ JSParser >> reduceActionForEnumDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumDeclaration2: nodes [
 	| result |
 	result := JSEnumDeclarationNode new.
@@ -6991,7 +6991,7 @@ JSParser >> reduceActionForEnumDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumDeclaration3: nodes [
 	| result |
 	result := JSEnumDeclarationNode new.
@@ -7003,7 +7003,7 @@ JSParser >> reduceActionForEnumDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumDeclaration4: nodes [
 	| result |
 	result := JSEnumDeclarationNode new.
@@ -7017,7 +7017,7 @@ JSParser >> reduceActionForEnumDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumMember1: nodes [
 	| result |
 	result := JSEnumMemberNode new.
@@ -7025,7 +7025,7 @@ JSParser >> reduceActionForEnumMember1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForEnumMember2: nodes [
 	| result |
 	result := JSEnumMemberNode new.
@@ -7035,7 +7035,7 @@ JSParser >> reduceActionForEnumMember2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExponentiationExpression2: nodes [
 	| result |
 	result := JSBinaryExpressionNode new.
@@ -7045,7 +7045,7 @@ JSParser >> reduceActionForExponentiationExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportAssignment1: nodes [
 	| result |
 	result := JSExportAssignmentNode new.
@@ -7056,7 +7056,7 @@ JSParser >> reduceActionForExportAssignment1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclaration1: nodes [
 	| result |
 	result := JSExportDeclarationNode new.
@@ -7074,7 +7074,7 @@ JSParser >> reduceActionForExportDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclaration2: nodes [
 	| result |
 	result := JSExportDeclarationNode new.
@@ -7087,7 +7087,7 @@ JSParser >> reduceActionForExportDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclaration3: nodes [
 	| result |
 	result := JSExportDeclarationNode new.
@@ -7096,7 +7096,7 @@ JSParser >> reduceActionForExportDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclaration4: nodes [
 	| result |
 	result := JSExportDeclarationNode new.
@@ -7105,7 +7105,7 @@ JSParser >> reduceActionForExportDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclaration5: nodes [
 	| result |
 	result := JSExportDeclarationNode new.
@@ -7116,7 +7116,7 @@ JSParser >> reduceActionForExportDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDeclarationElement2: nodes [
 	| result |
 	result := JSExportDeclarationElementNode new.
@@ -7125,7 +7125,7 @@ JSParser >> reduceActionForExportDeclarationElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDefaultDeclarationElement1: nodes [
 	| result |
 	result := JSExportDefaultDeclarationElementNode new.
@@ -7135,7 +7135,7 @@ JSParser >> reduceActionForExportDefaultDeclarationElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDefaultDeclarationElement3: nodes [
 	| result |
 	result := JSExportDefaultDeclarationElementNode new.
@@ -7146,7 +7146,7 @@ JSParser >> reduceActionForExportDefaultDeclarationElement3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDefaultImplementationElement1: nodes [
 	| result |
 	result := JSExportDefaultImplementationElementNode new.
@@ -7156,7 +7156,7 @@ JSParser >> reduceActionForExportDefaultImplementationElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportDefaultImplementationElement4: nodes [
 	| result |
 	result := JSExportDefaultImplementationElementNode new.
@@ -7167,7 +7167,7 @@ JSParser >> reduceActionForExportDefaultImplementationElement4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportFromClause1: nodes [
 	| result |
 	result := Array new: 7.
@@ -7177,7 +7177,7 @@ JSParser >> reduceActionForExportFromClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportFromClause2: nodes [
 	| result |
 	result := Array new: 7.
@@ -7189,7 +7189,7 @@ JSParser >> reduceActionForExportFromClause2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportFromClause3: nodes [
 	| result |
 	result := Array new: 7.
@@ -7202,7 +7202,7 @@ JSParser >> reduceActionForExportFromClause3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportImplementationElement2: nodes [
 	| result |
 	result := JSExportImplementationElementNode new.
@@ -7211,7 +7211,7 @@ JSParser >> reduceActionForExportImplementationElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportListDeclaration1: nodes [
 	| result |
 	result := JSExportListDeclarationNode new.
@@ -7223,7 +7223,7 @@ JSParser >> reduceActionForExportListDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportListDeclaration2: nodes [
 	| result |
 	result := JSExportListDeclarationNode new.
@@ -7238,7 +7238,7 @@ JSParser >> reduceActionForExportListDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportListDeclaration3: nodes [
 	| result |
 	result := JSExportListDeclarationNode new.
@@ -7251,7 +7251,7 @@ JSParser >> reduceActionForExportListDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportNamespaceElement2: nodes [
 	| result |
 	result := JSExportNamespaceElementNode new.
@@ -7260,7 +7260,7 @@ JSParser >> reduceActionForExportNamespaceElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportSpecifier1: nodes [
 	| result |
 	result := JSExportSpecifierNode new.
@@ -7268,7 +7268,7 @@ JSParser >> reduceActionForExportSpecifier1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExportSpecifier2: nodes [
 	| result |
 	result := JSExportSpecifierNode new.
@@ -7278,7 +7278,7 @@ JSParser >> reduceActionForExportSpecifier2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExpression2: nodes [
 	| result |
 	result := JSCommaExpressionNode new.
@@ -7288,7 +7288,7 @@ JSParser >> reduceActionForExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForExpressionStatement1: nodes [
 	| result |
 	result := JSExpressionStatementNode new.
@@ -7297,7 +7297,7 @@ JSParser >> reduceActionForExpressionStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFormalParameters1: nodes [
 	| result |
 	result := Array new: 3.
@@ -7306,7 +7306,7 @@ JSParser >> reduceActionForFormalParameters1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFormalParameters2: nodes [
 	| result |
 	result := Array new: 3.
@@ -7316,7 +7316,7 @@ JSParser >> reduceActionForFormalParameters2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFormalParameters3: nodes [
 	| result |
 	result := Array new: 3.
@@ -7327,7 +7327,7 @@ JSParser >> reduceActionForFormalParameters3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFormalParameters4: nodes [
 	| result |
 	result := Array new: 3.
@@ -7339,7 +7339,7 @@ JSParser >> reduceActionForFormalParameters4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFormalParameters5: nodes [
 	| result |
 	result := Array new: 3.
@@ -7352,7 +7352,7 @@ JSParser >> reduceActionForFormalParameters5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFromClause1: nodes [
 	| result |
 	result := Array new: 2.
@@ -7361,7 +7361,7 @@ JSParser >> reduceActionForFromClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionDeclaration5: nodes [
 	| result |
 	result := JSEmptyFunctionNode new.
@@ -7371,7 +7371,7 @@ JSParser >> reduceActionForFunctionDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionDeclaration6: nodes [
 	| result |
 	result := JSEmptyFunctionNode new.
@@ -7382,7 +7382,7 @@ JSParser >> reduceActionForFunctionDeclaration6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionExpression1: nodes [
 	| result |
 	result := JSFunctionNode new.
@@ -7398,7 +7398,7 @@ JSParser >> reduceActionForFunctionExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionExpression2: nodes [
 	| result |
 	result := JSFunctionNode new.
@@ -7415,7 +7415,7 @@ JSParser >> reduceActionForFunctionExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionExpression3: nodes [
 	| result |
 	result := JSFunctionNode new.
@@ -7434,7 +7434,7 @@ JSParser >> reduceActionForFunctionExpression3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionExpression4: nodes [
 	| result |
 	result := JSFunctionNode new.
@@ -7454,7 +7454,7 @@ JSParser >> reduceActionForFunctionExpression4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionType1: nodes [
 	| result |
 	result := JSFunctionTypeNode new.
@@ -7468,7 +7468,7 @@ JSParser >> reduceActionForFunctionType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForFunctionType2: nodes [
 	| result |
 	result := JSFunctionTypeNode new.
@@ -7483,7 +7483,7 @@ JSParser >> reduceActionForFunctionType2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForGeneratorExpression1: nodes [
 	| result |
 	result := JSGeneratorFunctionNode new.
@@ -7500,7 +7500,7 @@ JSParser >> reduceActionForGeneratorExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForGeneratorExpression2: nodes [
 	| result |
 	result := JSGeneratorFunctionNode new.
@@ -7518,7 +7518,7 @@ JSParser >> reduceActionForGeneratorExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForGeneratorMethod1: nodes [
 	| result |
 	result := JSGeneratorMethodDefinitionNode new.
@@ -7535,7 +7535,7 @@ JSParser >> reduceActionForGeneratorMethod1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForGetAccessor1: nodes [
 	| result |
 	result := JSGetMethodDefinitionNode new.
@@ -7551,7 +7551,7 @@ JSParser >> reduceActionForGetAccessor1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIdentifier1: nodes [
 	| result |
 	result := JSNameExpressionNode new.
@@ -7559,7 +7559,7 @@ JSParser >> reduceActionForIdentifier1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIfStatement1: nodes [
 	| result |
 	result := JSIfStatementNode new.
@@ -7573,7 +7573,7 @@ JSParser >> reduceActionForIfStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIfStatement2: nodes [
 	| result |
 	result := JSIfStatementNode new.
@@ -7585,14 +7585,14 @@ JSParser >> reduceActionForIfStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImplementationScript1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImplementsClause1: nodes [
 	| result |
 	result := Array new: 3.
@@ -7604,7 +7604,7 @@ JSParser >> reduceActionForImplementsClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportAliasDeclaration1: nodes [
 	| result |
 	result := JSImportAliasDeclarationNode new.
@@ -7617,7 +7617,7 @@ JSParser >> reduceActionForImportAliasDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportCall1: nodes [
 	| result |
 	result := JSImportCallExpressionNode new.
@@ -7628,7 +7628,7 @@ JSParser >> reduceActionForImportCall1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportClause1: nodes [
 	| result |
 	result := Array new: 2.
@@ -7637,7 +7637,7 @@ JSParser >> reduceActionForImportClause1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportClause4: nodes [
 	| result |
 	result := Array new: 2.
@@ -7648,7 +7648,7 @@ JSParser >> reduceActionForImportClause4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportDeclaration1: nodes [
 	| result |
 	result := JSImportDeclarationNode new.
@@ -7661,7 +7661,7 @@ JSParser >> reduceActionForImportDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportDeclaration2: nodes [
 	| result |
 	result := JSImportDeclarationNode new.
@@ -7671,7 +7671,7 @@ JSParser >> reduceActionForImportDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportRequireDeclaration1: nodes [
 	| result |
 	result := JSImportRequireDeclarationNode new.
@@ -7686,7 +7686,7 @@ JSParser >> reduceActionForImportRequireDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportSpecifier1: nodes [
 	| result |
 	result := JSImportSpecifierNode new.
@@ -7694,7 +7694,7 @@ JSParser >> reduceActionForImportSpecifier1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForImportSpecifier2: nodes [
 	| result |
 	result := JSImportSpecifierNode new.
@@ -7704,7 +7704,7 @@ JSParser >> reduceActionForImportSpecifier2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIndexMemberDeclaration1: nodes [
 	| result |
 	result := JSIndexMemberDeclarationNode new.
@@ -7713,7 +7713,7 @@ JSParser >> reduceActionForIndexMemberDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIndexSignature2: nodes [
 	| result |
 	result := JSIndexSignatureNode new.
@@ -7727,7 +7727,7 @@ JSParser >> reduceActionForIndexSignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForInterfaceDeclaration1: nodes [
 	| result |
 	result := JSInterfaceDeclarationNode new.
@@ -7737,7 +7737,7 @@ JSParser >> reduceActionForInterfaceDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForInterfaceDeclaration2: nodes [
 	| result |
 	result := JSInterfaceDeclarationNode new.
@@ -7749,7 +7749,7 @@ JSParser >> reduceActionForInterfaceDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForInterfaceDeclaration3: nodes [
 	| result |
 	result := JSInterfaceDeclarationNode new.
@@ -7760,7 +7760,7 @@ JSParser >> reduceActionForInterfaceDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForInterfaceDeclaration4: nodes [
 	| result |
 	result := JSInterfaceDeclarationNode new.
@@ -7773,7 +7773,7 @@ JSParser >> reduceActionForInterfaceDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIntersectionType1: nodes [
 	| result |
 	result := JSIntersectionTypeNode new.
@@ -7783,7 +7783,7 @@ JSParser >> reduceActionForIntersectionType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement10: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7799,7 +7799,7 @@ JSParser >> reduceActionForIterationStatement10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement11: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7815,7 +7815,7 @@ JSParser >> reduceActionForIterationStatement11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement12: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7832,7 +7832,7 @@ JSParser >> reduceActionForIterationStatement12: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement13: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7849,7 +7849,7 @@ JSParser >> reduceActionForIterationStatement13: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement14: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7867,7 +7867,7 @@ JSParser >> reduceActionForIterationStatement14: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement15: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7880,7 +7880,7 @@ JSParser >> reduceActionForIterationStatement15: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement16: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7894,7 +7894,7 @@ JSParser >> reduceActionForIterationStatement16: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement17: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7908,7 +7908,7 @@ JSParser >> reduceActionForIterationStatement17: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement18: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -7923,7 +7923,7 @@ JSParser >> reduceActionForIterationStatement18: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement19: nodes [
 	| result |
 	result := JSForInStatementNode new.
@@ -7937,7 +7937,7 @@ JSParser >> reduceActionForIterationStatement19: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement1: nodes [
 	| result |
 	result := JSDoWhileStatementNode new.
@@ -7951,7 +7951,7 @@ JSParser >> reduceActionForIterationStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement20: nodes [
 	| result |
 	result := JSForInStatementNode new.
@@ -7966,7 +7966,7 @@ JSParser >> reduceActionForIterationStatement20: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement21: nodes [
 	| result |
 	result := JSForInStatementNode new.
@@ -7981,7 +7981,7 @@ JSParser >> reduceActionForIterationStatement21: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement22: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -7995,7 +7995,7 @@ JSParser >> reduceActionForIterationStatement22: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement23: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -8010,7 +8010,7 @@ JSParser >> reduceActionForIterationStatement23: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement24: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -8025,7 +8025,7 @@ JSParser >> reduceActionForIterationStatement24: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement25: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -8040,7 +8040,7 @@ JSParser >> reduceActionForIterationStatement25: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement26: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -8056,7 +8056,7 @@ JSParser >> reduceActionForIterationStatement26: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement27: nodes [
 	| result |
 	result := JSForOfStatementNode new.
@@ -8072,7 +8072,7 @@ JSParser >> reduceActionForIterationStatement27: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement2: nodes [
 	| result |
 	result := JSWhileStatementNode new.
@@ -8084,7 +8084,7 @@ JSParser >> reduceActionForIterationStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement3: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8097,7 +8097,7 @@ JSParser >> reduceActionForIterationStatement3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement4: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8111,7 +8111,7 @@ JSParser >> reduceActionForIterationStatement4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement5: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8125,7 +8125,7 @@ JSParser >> reduceActionForIterationStatement5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement6: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8140,7 +8140,7 @@ JSParser >> reduceActionForIterationStatement6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement7: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8154,7 +8154,7 @@ JSParser >> reduceActionForIterationStatement7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement8: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8169,7 +8169,7 @@ JSParser >> reduceActionForIterationStatement8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForIterationStatement9: nodes [
 	| result |
 	result := JSForStatementNode new.
@@ -8184,7 +8184,7 @@ JSParser >> reduceActionForIterationStatement9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXAttribute1: nodes [
 	| result |
 	result := JSXAttributeNode new.
@@ -8192,7 +8192,7 @@ JSParser >> reduceActionForJSXAttribute1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXAttribute2: nodes [
 	| result |
 	result := JSXAttributeNode new.
@@ -8202,7 +8202,7 @@ JSParser >> reduceActionForJSXAttribute2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXChild1: nodes [
 	| result |
 	result := JSXTextNode new.
@@ -8210,7 +8210,7 @@ JSParser >> reduceActionForJSXChild1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXChild3: nodes [
 	| result |
 	result := JSXCodeExpressionNode new.
@@ -8219,7 +8219,7 @@ JSParser >> reduceActionForJSXChild3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXChild4: nodes [
 	| result |
 	result := JSXCodeExpressionNode new.
@@ -8229,7 +8229,7 @@ JSParser >> reduceActionForJSXChild4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXClosingElement1: nodes [
 	| result |
 	result := JSXClosingElementNode new.
@@ -8240,7 +8240,7 @@ JSParser >> reduceActionForJSXClosingElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXElement2: nodes [
 	| result |
 	result := JSXElementNode new.
@@ -8250,7 +8250,7 @@ JSParser >> reduceActionForJSXElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXElementName1: nodes [
 	| result |
 	result := JSXElementNameNode new.
@@ -8258,7 +8258,7 @@ JSParser >> reduceActionForJSXElementName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXFragment1: nodes [
 	| result |
 	result := JSXFragmentNode new.
@@ -8271,7 +8271,7 @@ JSParser >> reduceActionForJSXFragment1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXMemberExpression1: nodes [
 	| result |
 	result := JSXMemberExpressionNode new.
@@ -8281,7 +8281,7 @@ JSParser >> reduceActionForJSXMemberExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXNamespacedName1: nodes [
 	| result |
 	result := JSXNamespacedNameNode new.
@@ -8291,7 +8291,7 @@ JSParser >> reduceActionForJSXNamespacedName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXOpeningElement1: nodes [
 	| result |
 	result := JSXOpeningElementNode new.
@@ -8301,7 +8301,7 @@ JSParser >> reduceActionForJSXOpeningElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXOpeningElement2: nodes [
 	| result |
 	result := JSXOpeningElementNode new.
@@ -8312,7 +8312,7 @@ JSParser >> reduceActionForJSXOpeningElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXSelfClosingElement1: nodes [
 	| result |
 	result := JSXSelfClosingElementNode new.
@@ -8323,7 +8323,7 @@ JSParser >> reduceActionForJSXSelfClosingElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXSelfClosingElement2: nodes [
 	| result |
 	result := JSXSelfClosingElementNode new.
@@ -8335,7 +8335,7 @@ JSParser >> reduceActionForJSXSelfClosingElement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForJSXSpreadAttribute1: nodes [
 	| result |
 	result := JSXSpreadAttributeNode new.
@@ -8345,7 +8345,7 @@ JSParser >> reduceActionForJSXSpreadAttribute1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLabelledStatement1: nodes [
 	| result |
 	result := JSLabelledStatementNode new.
@@ -8355,7 +8355,7 @@ JSParser >> reduceActionForLabelledStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLexicalBinding2: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -8365,7 +8365,7 @@ JSParser >> reduceActionForLexicalBinding2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLexicalBinding3: nodes [
 	| result |
 	result := JSVariablePatternDeclarationNode new.
@@ -8375,7 +8375,7 @@ JSParser >> reduceActionForLexicalBinding3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLexicalDeclaration1: nodes [
 	| result |
 	result := JSLexicalDeclarationNode new.
@@ -8386,7 +8386,7 @@ JSParser >> reduceActionForLexicalDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLiteral1: nodes [
 	| result |
 	result := JSNullLiteralNode new.
@@ -8394,7 +8394,7 @@ JSParser >> reduceActionForLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLiteral2: nodes [
 	| result |
 	result := JSBooleanLiteralNode new.
@@ -8402,7 +8402,7 @@ JSParser >> reduceActionForLiteral2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLiteral3: nodes [
 	| result |
 	result := JSNumericLiteralNode new.
@@ -8410,7 +8410,7 @@ JSParser >> reduceActionForLiteral3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLiteral4: nodes [
 	| result |
 	result := JSStringLiteralNode new.
@@ -8418,7 +8418,7 @@ JSParser >> reduceActionForLiteral4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForLiteralType1: nodes [
 	| result |
 	result := JSLiteralTypeNode new.
@@ -8426,7 +8426,7 @@ JSParser >> reduceActionForLiteralType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberAccessorDeclaration1: nodes [
 	| result |
 	result := JSMemberAccessorDeclarationNode new.
@@ -8435,7 +8435,7 @@ JSParser >> reduceActionForMemberAccessorDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberAccessorDeclaration2: nodes [
 	| result |
 	result := JSMemberAccessorDeclarationNode new.
@@ -8445,7 +8445,7 @@ JSParser >> reduceActionForMemberAccessorDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberAccessorDeclaration3: nodes [
 	| result |
 	result := JSMemberAccessorDeclarationNode new.
@@ -8455,7 +8455,7 @@ JSParser >> reduceActionForMemberAccessorDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberAccessorDeclaration4: nodes [
 	| result |
 	result := JSMemberAccessorDeclarationNode new.
@@ -8466,7 +8466,7 @@ JSParser >> reduceActionForMemberAccessorDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberExpression2: nodes [
 	| result |
 	result := JSIndexedPropertyExpressionNode new.
@@ -8477,7 +8477,7 @@ JSParser >> reduceActionForMemberExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberExpression3: nodes [
 	| result |
 	result := JSNamedPropertyExpressionNode new.
@@ -8487,7 +8487,7 @@ JSParser >> reduceActionForMemberExpression3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberExpression4: nodes [
 	| result |
 	result := JSTaggedTemplateLiteralNode new.
@@ -8496,7 +8496,7 @@ JSParser >> reduceActionForMemberExpression4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberExpression7: nodes [
 	| result |
 	result := JSNewExpressionNode new.
@@ -8512,7 +8512,7 @@ JSParser >> reduceActionForMemberExpression7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration1: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8525,7 +8525,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration2: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8539,7 +8539,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration3: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8553,7 +8553,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration4: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8568,7 +8568,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration5: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8579,7 +8579,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration6: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8591,7 +8591,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration7: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8603,7 +8603,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberFunctionDeclaration8: nodes [
 	| result |
 	result := JSMemberFunctionDeclarationNode new.
@@ -8616,7 +8616,7 @@ JSParser >> reduceActionForMemberFunctionDeclaration8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration10: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8629,7 +8629,7 @@ JSParser >> reduceActionForMemberVariableDeclaration10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration11: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8642,7 +8642,7 @@ JSParser >> reduceActionForMemberVariableDeclaration11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration12: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8657,7 +8657,7 @@ JSParser >> reduceActionForMemberVariableDeclaration12: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration13: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8669,7 +8669,7 @@ JSParser >> reduceActionForMemberVariableDeclaration13: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration14: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8683,7 +8683,7 @@ JSParser >> reduceActionForMemberVariableDeclaration14: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration15: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8697,7 +8697,7 @@ JSParser >> reduceActionForMemberVariableDeclaration15: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration16: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8713,7 +8713,7 @@ JSParser >> reduceActionForMemberVariableDeclaration16: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration1: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8723,7 +8723,7 @@ JSParser >> reduceActionForMemberVariableDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration2: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8735,7 +8735,7 @@ JSParser >> reduceActionForMemberVariableDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration3: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8747,7 +8747,7 @@ JSParser >> reduceActionForMemberVariableDeclaration3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration4: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8761,7 +8761,7 @@ JSParser >> reduceActionForMemberVariableDeclaration4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration5: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8772,7 +8772,7 @@ JSParser >> reduceActionForMemberVariableDeclaration5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration6: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8785,7 +8785,7 @@ JSParser >> reduceActionForMemberVariableDeclaration6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration7: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8798,7 +8798,7 @@ JSParser >> reduceActionForMemberVariableDeclaration7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration8: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8813,7 +8813,7 @@ JSParser >> reduceActionForMemberVariableDeclaration8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMemberVariableDeclaration9: nodes [
 	| result |
 	result := JSMemberVariableDeclarationNode new.
@@ -8824,7 +8824,7 @@ JSParser >> reduceActionForMemberVariableDeclaration9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodDefinition1: nodes [
 	| result |
 	result := JSMethodDefinitionNode new.
@@ -8840,7 +8840,7 @@ JSParser >> reduceActionForMethodDefinition1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodDefinition5: nodes [
 	| result |
 	result := JSGetMethodDefinitionNode new.
@@ -8854,7 +8854,7 @@ JSParser >> reduceActionForMethodDefinition5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodDefinition6: nodes [
 	| result |
 	result := JSSetMethodDefinitionNode new.
@@ -8869,7 +8869,7 @@ JSParser >> reduceActionForMethodDefinition6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodDefinition7: nodes [
 	| result |
 	result := JSMethodDefinitionNode new.
@@ -8888,7 +8888,7 @@ JSParser >> reduceActionForMethodDefinition7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodSignature1: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -8897,7 +8897,7 @@ JSParser >> reduceActionForMethodSignature1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForMethodSignature2: nodes [
 	| result |
 	result := JSMethodSignatureNode new.
@@ -8907,14 +8907,14 @@ JSParser >> reduceActionForMethodSignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForModule1: nodes [
 	| result |
 	result := JSModuleNode new.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForModule2: nodes [
 	| result |
 	result := JSModuleNode new.
@@ -8922,14 +8922,14 @@ JSParser >> reduceActionForModule2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForModuleBody1: nodes [
 	| result |
 	result := nodes at: 1.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForModuleItemList1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
@@ -8937,7 +8937,7 @@ JSParser >> reduceActionForModuleItemList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForModuleItemList2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -8945,7 +8945,7 @@ JSParser >> reduceActionForModuleItemList2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNameSpaceImport1: nodes [
 	| result |
 	result := JSNameSpaceImportNode new.
@@ -8955,7 +8955,7 @@ JSParser >> reduceActionForNameSpaceImport1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedExports1: nodes [
 	| result |
 	result := Array new: 4.
@@ -8966,7 +8966,7 @@ JSParser >> reduceActionForNamedExports1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedExports2: nodes [
 	| result |
 	result := Array new: 4.
@@ -8979,7 +8979,7 @@ JSParser >> reduceActionForNamedExports2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedExports3: nodes [
 	| result |
 	result := Array new: 4.
@@ -8993,7 +8993,7 @@ JSParser >> reduceActionForNamedExports3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedImports1: nodes [
 	| result |
 	result := JSNamedImportsNode new.
@@ -9002,7 +9002,7 @@ JSParser >> reduceActionForNamedImports1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedImports2: nodes [
 	| result |
 	result := JSNamedImportsNode new.
@@ -9013,7 +9013,7 @@ JSParser >> reduceActionForNamedImports2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamedImports3: nodes [
 	| result |
 	result := JSNamedImportsNode new.
@@ -9025,7 +9025,7 @@ JSParser >> reduceActionForNamedImports3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamespaceDeclaration1: nodes [
 	| result |
 	result := JSNamespaceDeclarationNode new.
@@ -9038,7 +9038,7 @@ JSParser >> reduceActionForNamespaceDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamespaceName1: nodes [
 	| result |
 	result := Array new: 2.
@@ -9048,7 +9048,7 @@ JSParser >> reduceActionForNamespaceName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNamespaceName2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -9057,7 +9057,7 @@ JSParser >> reduceActionForNamespaceName2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNewExpression2: nodes [
 	| result |
 	result := JSNewExpressionNode new.
@@ -9066,7 +9066,7 @@ JSParser >> reduceActionForNewExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForNewTarget1: nodes [
 	| result |
 	result := JSNewTargetExpressionNode new.
@@ -9076,7 +9076,7 @@ JSParser >> reduceActionForNewTarget1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectBindingPattern1: nodes [
 	| result |
 	result := JSObjectBindingPatternNode new.
@@ -9085,7 +9085,7 @@ JSParser >> reduceActionForObjectBindingPattern1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectBindingPattern2: nodes [
 	| result |
 	result := JSObjectBindingPatternNode new.
@@ -9095,7 +9095,7 @@ JSParser >> reduceActionForObjectBindingPattern2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectBindingPattern3: nodes [
 	| result |
 	result := JSObjectBindingPatternNode new.
@@ -9106,7 +9106,7 @@ JSParser >> reduceActionForObjectBindingPattern3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectBindingPattern4: nodes [
 	| result |
 	result := JSObjectBindingPatternNode new.
@@ -9118,7 +9118,7 @@ JSParser >> reduceActionForObjectBindingPattern4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectBindingPattern5: nodes [
 	| result |
 	result := JSObjectBindingPatternNode new.
@@ -9131,7 +9131,7 @@ JSParser >> reduceActionForObjectBindingPattern5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectLiteral1: nodes [
 	| result |
 	result := JSObjectLiteralNode new.
@@ -9140,7 +9140,7 @@ JSParser >> reduceActionForObjectLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectLiteral2: nodes [
 	| result |
 	result := JSObjectLiteralNode new.
@@ -9151,7 +9151,7 @@ JSParser >> reduceActionForObjectLiteral2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectLiteral3: nodes [
 	| result |
 	result := JSObjectLiteralNode new.
@@ -9163,7 +9163,7 @@ JSParser >> reduceActionForObjectLiteral3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectType1: nodes [
 	| result |
 	result := JSObjectTypeNode new.
@@ -9172,7 +9172,7 @@ JSParser >> reduceActionForObjectType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForObjectType2: nodes [
 	| result |
 	result := JSObjectTypeNode new.
@@ -9183,7 +9183,7 @@ JSParser >> reduceActionForObjectType2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalChain1: nodes [
 	| result |
 	result := Array new: 2.
@@ -9193,7 +9193,7 @@ JSParser >> reduceActionForOptionalChain1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalChain2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -9201,7 +9201,7 @@ JSParser >> reduceActionForOptionalChain2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalExpression1: nodes [
 	| result |
 	result := JSOptionalExpressionNode new.
@@ -9211,7 +9211,7 @@ JSParser >> reduceActionForOptionalExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalFirst1: nodes [
 	| result |
 	result := JSOptionalArgumentsNode new.
@@ -9225,7 +9225,7 @@ JSParser >> reduceActionForOptionalFirst1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalFirst2: nodes [
 	| result |
 	result := JSOptionalIndexedNode new.
@@ -9235,7 +9235,7 @@ JSParser >> reduceActionForOptionalFirst2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalFirst3: nodes [
 	| result |
 	result := JSOptionalNameNode new.
@@ -9243,7 +9243,7 @@ JSParser >> reduceActionForOptionalFirst3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalFirst4: nodes [
 	| result |
 	result := JSOptionalTemplateNode new.
@@ -9251,7 +9251,7 @@ JSParser >> reduceActionForOptionalFirst4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForOptionalRest3: nodes [
 	| result |
 	result := JSOptionalNameNode new.
@@ -9260,7 +9260,7 @@ JSParser >> reduceActionForOptionalRest3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForParenthesizedExpression1: nodes [
 	| result |
 	result := nodes at: 2.
@@ -9269,7 +9269,7 @@ JSParser >> reduceActionForParenthesizedExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPredefinedType1: nodes [
 	| result |
 	result := JSVoidTypeNode new.
@@ -9277,7 +9277,7 @@ JSParser >> reduceActionForPredefinedType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPrefixType2: nodes [
 	| result |
 	result := JSKeyOfTypeNode new.
@@ -9286,7 +9286,7 @@ JSParser >> reduceActionForPrefixType2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPrefixType3: nodes [
 	| result |
 	result := JSInferTypeNode new.
@@ -9295,7 +9295,7 @@ JSParser >> reduceActionForPrefixType3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPrimaryExpression1: nodes [
 	| result |
 	result := JSThisExpressionNode new.
@@ -9303,7 +9303,7 @@ JSParser >> reduceActionForPrimaryExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertyDefinition3: nodes [
 	| result |
 	result := JSPropertyAssignmentNode new.
@@ -9313,7 +9313,7 @@ JSParser >> reduceActionForPropertyDefinition3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertyDefinition5: nodes [
 	| result |
 	result := JSCopyPropertyNode new.
@@ -9322,7 +9322,7 @@ JSParser >> reduceActionForPropertyDefinition5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertySignature1: nodes [
 	| result |
 	result := JSPropertySignatureNode new.
@@ -9330,7 +9330,7 @@ JSParser >> reduceActionForPropertySignature1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertySignature2: nodes [
 	| result |
 	result := JSPropertySignatureNode new.
@@ -9340,7 +9340,7 @@ JSParser >> reduceActionForPropertySignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertySignature3: nodes [
 	| result |
 	result := JSPropertySignatureNode new.
@@ -9349,7 +9349,7 @@ JSParser >> reduceActionForPropertySignature3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForPropertySignature4: nodes [
 	| result |
 	result := JSPropertySignatureNode new.
@@ -9360,7 +9360,7 @@ JSParser >> reduceActionForPropertySignature4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForRegularExpressionLiteral1: nodes [
 	| result |
 	result := JSRegularExpressionLiteralNode new.
@@ -9368,7 +9368,7 @@ JSParser >> reduceActionForRegularExpressionLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForReturnStatement1: nodes [
 	| result |
 	result := JSReturnStatementNode new.
@@ -9377,7 +9377,7 @@ JSParser >> reduceActionForReturnStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForReturnStatement2: nodes [
 	| result |
 	result := JSReturnStatementNode new.
@@ -9387,14 +9387,14 @@ JSParser >> reduceActionForReturnStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForScript1: nodes [
 	| result |
 	result := JSScriptNode new.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForScript2: nodes [
 	| result |
 	result := JSScriptNode new.
@@ -9402,7 +9402,7 @@ JSParser >> reduceActionForScript2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSetAccessor1: nodes [
 	| result |
 	result := JSSetMethodDefinitionNode new.
@@ -9419,7 +9419,7 @@ JSParser >> reduceActionForSetAccessor1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSetAccessor2: nodes [
 	| result |
 	result := JSSetMethodDefinitionNode new.
@@ -9434,7 +9434,7 @@ JSParser >> reduceActionForSetAccessor2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSimpleLexicalBinding1: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9444,7 +9444,7 @@ JSParser >> reduceActionForSimpleLexicalBinding1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSimpleLexicalBinding2: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9456,7 +9456,7 @@ JSParser >> reduceActionForSimpleLexicalBinding2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSimpleVariableDeclaration1: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9466,7 +9466,7 @@ JSParser >> reduceActionForSimpleVariableDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSimpleVariableDeclaration2: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9478,7 +9478,7 @@ JSParser >> reduceActionForSimpleVariableDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding10: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9488,7 +9488,7 @@ JSParser >> reduceActionForSingleNameBinding10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding5: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9499,7 +9499,7 @@ JSParser >> reduceActionForSingleNameBinding5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding6: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9512,7 +9512,7 @@ JSParser >> reduceActionForSingleNameBinding6: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding7: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9521,7 +9521,7 @@ JSParser >> reduceActionForSingleNameBinding7: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding8: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9532,7 +9532,7 @@ JSParser >> reduceActionForSingleNameBinding8: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSingleNameBinding9: nodes [
 	| result |
 	result := JSVariableDeclarationNode new.
@@ -9541,7 +9541,7 @@ JSParser >> reduceActionForSingleNameBinding9: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSourceFile1: nodes [
 	| result |
 	result := JSTSSourceFileNode new.
@@ -9549,7 +9549,7 @@ JSParser >> reduceActionForSourceFile1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSpreadElement1: nodes [
 	| result |
 	result := JSSpreadExpressionNode new.
@@ -9558,22 +9558,22 @@ JSParser >> reduceActionForSpreadElement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForStartJSXText1: nodes [
 	^ #jsxText
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForStartStatementListItem1: nodes [
 	^ #startExpressionStatement
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForStartTemplateLiteral1: nodes [
 	^ #template
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSuperCall1: nodes [
 	| result |
 	result := JSSuperCallExpressionNode new.
@@ -9588,7 +9588,7 @@ JSParser >> reduceActionForSuperCall1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSuperProperty1: nodes [
 	| result |
 	result := JSSuperIndexedPropertyExpressionNode new.
@@ -9599,7 +9599,7 @@ JSParser >> reduceActionForSuperProperty1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSuperProperty2: nodes [
 	| result |
 	result := JSSuperNamedPropertyExpressionNode new.
@@ -9609,7 +9609,7 @@ JSParser >> reduceActionForSuperProperty2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchStatement1: nodes [
 	| result |
 	result := JSSwitchStatementNode new.
@@ -9623,35 +9623,35 @@ JSParser >> reduceActionForSwitchStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchToDefault1: nodes [
 	self scope: #default.
 	^ #default
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchToJSX1: nodes [
 	self scope: #jsx.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchToJSXText1: nodes [
 	self scope: #jsxText.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchToJSXTextOrDefault11: nodes [
 	^ self switchToJSXTextOrDefault: 1
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForSwitchToJSXTextOrDefault21: nodes [
 	^ self switchToJSXTextOrDefault: 2
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTemplateLiteral1: nodes [
 	| result |
 	result := JSTemplateLiteralNode new.
@@ -9659,7 +9659,7 @@ JSParser >> reduceActionForTemplateLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTemplateLiteral2: nodes [
 	| result |
 	result := JSTemplateLiteralNode new.
@@ -9670,7 +9670,7 @@ JSParser >> reduceActionForTemplateLiteral2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTemplateMiddleList1: nodes [
 	| result |
 	result := Array new: 2.
@@ -9681,7 +9681,7 @@ JSParser >> reduceActionForTemplateMiddleList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTemplateMiddleList2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -9690,7 +9690,7 @@ JSParser >> reduceActionForTemplateMiddleList2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTemplateSpans2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -9698,7 +9698,7 @@ JSParser >> reduceActionForTemplateSpans2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForThisType1: nodes [
 	| result |
 	result := JSThisTypeNode new.
@@ -9706,7 +9706,7 @@ JSParser >> reduceActionForThisType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForThrowStatement1: nodes [
 	| result |
 	result := JSThrowStatementNode new.
@@ -9716,7 +9716,7 @@ JSParser >> reduceActionForThrowStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTryStatement1: nodes [
 	| result |
 	result := JSTryStatementNode new.
@@ -9730,7 +9730,7 @@ JSParser >> reduceActionForTryStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTryStatement2: nodes [
 	| result |
 	result := JSTryStatementNode new.
@@ -9741,7 +9741,7 @@ JSParser >> reduceActionForTryStatement2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTryStatement3: nodes [
 	| result |
 	result := JSTryStatementNode new.
@@ -9757,7 +9757,7 @@ JSParser >> reduceActionForTryStatement3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTupleType1: nodes [
 	| result |
 	result := JSTupleTypeNode new.
@@ -9768,7 +9768,7 @@ JSParser >> reduceActionForTupleType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTupleType2: nodes [
 	| result |
 	result := JSTupleTypeNode new.
@@ -9780,7 +9780,7 @@ JSParser >> reduceActionForTupleType2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeAliasDeclaration1: nodes [
 	| result |
 	result := JSTypeAliasDeclarationNode new.
@@ -9792,7 +9792,7 @@ JSParser >> reduceActionForTypeAliasDeclaration1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeAliasDeclaration2: nodes [
 	| result |
 	result := JSTypeAliasDeclarationNode new.
@@ -9805,7 +9805,7 @@ JSParser >> reduceActionForTypeAliasDeclaration2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeArguments1: nodes [
 	| result |
 	result := JSTypeArgumentsNode new.
@@ -9816,7 +9816,7 @@ JSParser >> reduceActionForTypeArguments1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeCallSignature1: nodes [
 	| result |
 	result := Array new: 8.
@@ -9832,7 +9832,7 @@ JSParser >> reduceActionForTypeCallSignature1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeCallSignature2: nodes [
 	| result |
 	result := Array new: 8.
@@ -9849,7 +9849,7 @@ JSParser >> reduceActionForTypeCallSignature2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeCallSignature3: nodes [
 	| result |
 	result := Array new: 8.
@@ -9864,7 +9864,7 @@ JSParser >> reduceActionForTypeCallSignature3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeName1: nodes [
 	| result |
 	result := JSTypeNameNode new.
@@ -9872,7 +9872,7 @@ JSParser >> reduceActionForTypeName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeName2: nodes [
 	| result |
 	result := JSTypeNameNode new.
@@ -9883,7 +9883,7 @@ JSParser >> reduceActionForTypeName2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeParameter1: nodes [
 	| result |
 	result := JSTypeParameterNode new.
@@ -9891,7 +9891,7 @@ JSParser >> reduceActionForTypeParameter1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeParameter2: nodes [
 	| result |
 	result := JSTypeParameterNode new.
@@ -9901,7 +9901,7 @@ JSParser >> reduceActionForTypeParameter2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeParameters1: nodes [
 	| result |
 	result := JSTypeParametersNode new.
@@ -9912,7 +9912,7 @@ JSParser >> reduceActionForTypeParameters1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeQuery1: nodes [
 	| result |
 	result := JSTypeQueryNode new.
@@ -9921,7 +9921,7 @@ JSParser >> reduceActionForTypeQuery1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeQueryExpression1: nodes [
 	| result |
 	result := JSTypeQueryExpressionNode new.
@@ -9929,7 +9929,7 @@ JSParser >> reduceActionForTypeQueryExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeQueryExpression2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -9938,7 +9938,7 @@ JSParser >> reduceActionForTypeQueryExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeReference1: nodes [
 	| result |
 	result := JSTypeReferenceNode new.
@@ -9946,7 +9946,7 @@ JSParser >> reduceActionForTypeReference1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypeReference2: nodes [
 	| result |
 	result := JSTypeReferenceNode new.
@@ -9955,7 +9955,7 @@ JSParser >> reduceActionForTypeReference2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForTypedPropertySetParameterList1: nodes [
 	| result |
 	result := JSTypedParameterNode new.
@@ -9965,7 +9965,7 @@ JSParser >> reduceActionForTypedPropertySetParameterList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUnaryExpression10: nodes [
 	| result |
 	result := JSCastExpressionNode new.
@@ -9976,7 +9976,7 @@ JSParser >> reduceActionForUnaryExpression10: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUnaryExpression11: nodes [
 	| result |
 	result := JSAsExpressionNode new.
@@ -9986,7 +9986,7 @@ JSParser >> reduceActionForUnaryExpression11: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUnaryExpression5: nodes [
 	| result |
 	result := JSUnaryExpressionNode new.
@@ -9995,7 +9995,7 @@ JSParser >> reduceActionForUnaryExpression5: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUnionType1: nodes [
 	| result |
 	result := JSUnionTypeNode new.
@@ -10005,7 +10005,7 @@ JSParser >> reduceActionForUnionType1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUpdateExpression2: nodes [
 	| result |
 	result := JSPostfixExpressionNode new.
@@ -10014,7 +10014,7 @@ JSParser >> reduceActionForUpdateExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForUpdateExpression4: nodes [
 	| result |
 	result := JSPrefixExpressionNode new.
@@ -10023,7 +10023,7 @@ JSParser >> reduceActionForUpdateExpression4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForValidationNotArrowFunction1: nodes [
 	| token |
 	stack isAtStartingState
@@ -10033,7 +10033,7 @@ JSParser >> reduceActionForValidationNotArrowFunction1: nodes [
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForVariableStatement1: nodes [
 	| result |
 	result := JSVariableStatementNode new.
@@ -10044,7 +10044,7 @@ JSParser >> reduceActionForVariableStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForWithStatement1: nodes [
 	| result |
 	result := JSWithStatementNode new.
@@ -10056,7 +10056,7 @@ JSParser >> reduceActionForWithStatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForYieldExpression1: nodes [
 	| result |
 	result := JSYieldExpressionNode new.
@@ -10064,7 +10064,7 @@ JSParser >> reduceActionForYieldExpression1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForYieldExpression2: nodes [
 	| result |
 	result := JSYieldExpressionNode new.
@@ -10073,7 +10073,7 @@ JSParser >> reduceActionForYieldExpression2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionForYieldExpression3: nodes [
 	| result |
 	result := JSYieldExpressionNode new.
@@ -10083,7 +10083,7 @@ JSParser >> reduceActionForYieldExpression3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionFor__JSXIdentifier___identifier___period___periodToken___1: nodes [
 	| result |
 	result := Array new: 2.
@@ -10094,7 +10094,7 @@ JSParser >> reduceActionFor__JSXIdentifier___identifier___period___periodToken__
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 JSParser >> reduceActionFor__JSXIdentifier___identifier___period___periodToken___2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -10103,7 +10103,7 @@ JSParser >> reduceActionFor__JSXIdentifier___identifier___period___periodToken__
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 JSParser >> switchToJSXTextOrDefault: anInteger [
 	| count i value nodeStack |
 	i := stack size.

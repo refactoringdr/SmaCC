@@ -1,6 +1,6 @@
 Class {
-	#name : #JSVariableDeclarationNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSVariableDeclarationNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'variable',
 		'equalToken',
@@ -12,78 +12,78 @@ Class {
 		'questionMarkToken',
 		'name'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitVariableDeclaration: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> colonToken [
 	^ colonToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> colonToken: aSmaCCToken [
 	colonToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> compositeNodeVariables [
 	^ #(#decorators)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> decorators [
 	^ decorators
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> decorators: anOrderedCollection [
 	self setParents: self decorators to: nil.
 	decorators := anOrderedCollection.
 	self setParents: self decorators to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> equalToken [
 	^ equalToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> equalToken: aSmaCCToken [
 	equalToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> ignoredTokenVariables [
 	^ #(#colonToken)
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 JSVariableDeclarationNode >> initialize [
 	super initialize.
 	decorators := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> modifier [
 	^ modifier
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> modifier: aSmaCCToken [
 	modifier := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> name: aJSNameExpressionNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -92,32 +92,32 @@ JSVariableDeclarationNode >> name: aJSNameExpressionNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> nodeVariables [
 	^ #(#variable #value #type #name)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> questionMarkToken [
 	^ questionMarkToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> questionMarkToken: aSmaCCToken [
 	questionMarkToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> tokenVariables [
 	^ #(#equalToken #modifier #questionMarkToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> type [
 	^ type
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> type: aJSTypeNode [
 	self type notNil
 		ifTrue: [ self type parent: nil ].
@@ -126,12 +126,12 @@ JSVariableDeclarationNode >> type: aJSTypeNode [
 		ifTrue: [ self type parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> value [
 	^ value
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> value: aJSExpressionNode [
 	self value notNil
 		ifTrue: [ self value parent: nil ].
@@ -140,12 +140,12 @@ JSVariableDeclarationNode >> value: aJSExpressionNode [
 		ifTrue: [ self value parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> variable [
 	^ variable
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSVariableDeclarationNode >> variable: aJSProgramNode [
 	self variable notNil
 		ifTrue: [ self variable parent: nil ].

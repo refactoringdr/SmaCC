@@ -1,24 +1,24 @@
 Class {
-	#name : #JSPrefixExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSPrefixExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'operator',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitPrefixExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -27,22 +27,22 @@ JSPrefixExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> operator [
 	^ operator
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> operator: aSmaCCToken [
 	operator := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPrefixExpressionNode >> tokenVariables [
 	^ #(#operator)
 ]

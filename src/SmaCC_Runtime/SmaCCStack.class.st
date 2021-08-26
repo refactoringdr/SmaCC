@@ -113,7 +113,7 @@ SmaCCStack >> replaceNodes: aCollection [
 	| stackNode |
 	stackNode := top.
 	aCollection
-		do:
+		reverseDo:
 			[ :each | 
 			stackNode ifNil: [ ^ self ].
 			stackNode node: each.
@@ -138,7 +138,7 @@ SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
 { #category : 'private' }
 SmaCCStack >> searchStackFor: searchItems [
 	| scannerState i stackItem |
-	i := self size.
+	i := self size - 1.
 	scannerState := nil.
 	[ i > 0 and: [ scannerState isNil ] ]
 		whileTrue:

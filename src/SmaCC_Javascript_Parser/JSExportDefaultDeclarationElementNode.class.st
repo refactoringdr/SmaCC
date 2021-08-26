@@ -1,25 +1,25 @@
 Class {
-	#name : #JSExportDefaultDeclarationElementNode,
-	#superclass : #JSTSExportNode,
+	#name : 'JSExportDefaultDeclarationElementNode',
+	#superclass : 'JSTSExportNode',
 	#instVars : [
 		'defaultToken',
 		'declaration',
 		'semicolon'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitExportDefaultDeclarationElement: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> declaration [
 	^ declaration
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> declaration: aJSProgramNode [
 	self declaration notNil
 		ifTrue: [ self declaration parent: nil ].
@@ -28,37 +28,37 @@ JSExportDefaultDeclarationElementNode >> declaration: aJSProgramNode [
 		ifTrue: [ self declaration parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> defaultToken [
 	^ defaultToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> defaultToken: aSmaCCToken [
 	defaultToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> ignoredTokenVariables [
 	^ #(#semicolon)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> nodeVariables [
 	^ #(#declaration)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> semicolon [
 	^ semicolon
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> semicolon: aSmaCCToken [
 	semicolon := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportDefaultDeclarationElementNode >> tokenVariables [
 	^ #(#defaultToken #exportToken)
 ]

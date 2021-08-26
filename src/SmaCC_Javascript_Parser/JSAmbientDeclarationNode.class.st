@@ -1,24 +1,24 @@
 Class {
-	#name : #JSAmbientDeclarationNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSAmbientDeclarationNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'declareToken',
 		'declaration'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitAmbientDeclaration: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> declaration [
 	^ declaration
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> declaration: aJSProgramNode [
 	self declaration notNil
 		ifTrue: [ self declaration parent: nil ].
@@ -27,22 +27,22 @@ JSAmbientDeclarationNode >> declaration: aJSProgramNode [
 		ifTrue: [ self declaration parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> declareToken [
 	^ declareToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> declareToken: aSmaCCToken [
 	declareToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> nodeVariables [
 	^ #(#declaration)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAmbientDeclarationNode >> tokenVariables [
 	^ #(#declareToken)
 ]

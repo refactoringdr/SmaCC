@@ -1,23 +1,23 @@
 Class {
-	#name : #JSExportImplementationElementNode,
-	#superclass : #JSTSExportNode,
+	#name : 'JSExportImplementationElementNode',
+	#superclass : 'JSTSExportNode',
 	#instVars : [
 		'declaration'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportImplementationElementNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitExportImplementationElement: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportImplementationElementNode >> declaration [
 	^ declaration
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportImplementationElementNode >> declaration: aJSProgramNode [
 	self declaration notNil
 		ifTrue: [ self declaration parent: nil ].
@@ -26,7 +26,7 @@ JSExportImplementationElementNode >> declaration: aJSProgramNode [
 		ifTrue: [ self declaration parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSExportImplementationElementNode >> nodeVariables [
 	^ #(#declaration)
 ]

@@ -1,34 +1,34 @@
 Class {
-	#name : #JSAwaitExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSAwaitExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'awaitToken',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitAwaitExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> awaitToken [
 	^ awaitToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> awaitToken: aSmaCCToken [
 	awaitToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -37,12 +37,12 @@ JSAwaitExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSAwaitExpressionNode >> tokenVariables [
 	^ #(#awaitToken)
 ]

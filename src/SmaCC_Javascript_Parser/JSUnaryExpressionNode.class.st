@@ -1,24 +1,24 @@
 Class {
-	#name : #JSUnaryExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSUnaryExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'operator',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitUnaryExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -27,22 +27,22 @@ JSUnaryExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> operator [
 	^ operator
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> operator: aSmaCCToken [
 	operator := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSUnaryExpressionNode >> tokenVariables [
 	^ #(#operator)
 ]

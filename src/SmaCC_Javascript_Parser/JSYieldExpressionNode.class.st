@@ -1,25 +1,25 @@
 Class {
-	#name : #JSYieldExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSYieldExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'yieldToken',
 		'star',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitYieldExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -28,32 +28,32 @@ JSYieldExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> star [
 	^ star
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> star: aSmaCCToken [
 	star := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> tokenVariables [
 	^ #(#yieldToken #star)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> yieldToken [
 	^ yieldToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSYieldExpressionNode >> yieldToken: aSmaCCToken [
 	yieldToken := aSmaCCToken
 ]

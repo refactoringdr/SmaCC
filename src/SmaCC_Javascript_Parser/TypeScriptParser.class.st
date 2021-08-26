@@ -1,25 +1,25 @@
 Class {
-	#name : #TypeScriptParser,
-	#superclass : #JSParser,
-	#category : #'SmaCC_Javascript_Parser'
+	#name : 'TypeScriptParser',
+	#superclass : 'JSParser',
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TypeScriptParser class >> defaultStartingState [
 	^ self startingStateForSourceFile
 ]
 
-{ #category : #'file types' }
+{ #category : 'file types' }
 TypeScriptParser class >> fileExtension [
 	^ '.ts'
 ]
 
-{ #category : #'file types' }
+{ #category : 'file types' }
 TypeScriptParser class >> fileExtensionType [
 	^ 'TypeScript files'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TypeScriptParser >> actionsForCurrentToken [
 	| tsActions token tsToken state position |
 	(self isEOFToken

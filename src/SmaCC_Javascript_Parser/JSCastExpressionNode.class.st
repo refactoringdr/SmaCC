@@ -1,26 +1,26 @@
 Class {
-	#name : #JSCastExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSCastExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'leftAngle',
 		'type',
 		'rightAngle',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitCastExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -29,42 +29,42 @@ JSCastExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> leftAngle [
 	^ leftAngle
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> leftAngle: aSmaCCToken [
 	leftAngle := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> nodeVariables [
 	^ #(#type #expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> rightAngle [
 	^ rightAngle
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> rightAngle: aSmaCCToken [
 	rightAngle := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> tokenVariables [
 	^ #(#leftAngle #rightAngle)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> type [
 	^ type
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSCastExpressionNode >> type: aJSTypeNode [
 	self type notNil
 		ifTrue: [ self type parent: nil ].

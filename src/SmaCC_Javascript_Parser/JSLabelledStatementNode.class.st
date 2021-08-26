@@ -1,55 +1,55 @@
 Class {
-	#name : #JSLabelledStatementNode,
-	#superclass : #JSStatementNode,
+	#name : 'JSLabelledStatementNode',
+	#superclass : 'JSStatementNode',
 	#instVars : [
 		'label',
 		'colonToken',
 		'statement'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitLabelledStatement: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> colonToken [
 	^ colonToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> colonToken: aSmaCCToken [
 	colonToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> ignoredTokenVariables [
 	^ #(#colonToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> label [
 	^ label
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> label: aSmaCCToken [
 	label := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> nodeVariables [
 	^ #(#statement)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> statement [
 	^ statement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> statement: aJSStatementNode [
 	self statement notNil
 		ifTrue: [ self statement parent: nil ].
@@ -58,7 +58,7 @@ JSLabelledStatementNode >> statement: aJSStatementNode [
 		ifTrue: [ self statement parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSLabelledStatementNode >> tokenVariables [
 	^ #(#label)
 ]

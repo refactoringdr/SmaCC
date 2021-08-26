@@ -1,35 +1,35 @@
 Class {
-	#name : #JSEnumMemberNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSEnumMemberNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'name',
 		'equalToken',
 		'value'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitEnumMember: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> equalToken [
 	^ equalToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> equalToken: aSmaCCToken [
 	equalToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> name: aJSProgramNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -38,22 +38,22 @@ JSEnumMemberNode >> name: aJSProgramNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> nodeVariables [
 	^ #(#name #value)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> tokenVariables [
 	^ #(#equalToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> value [
 	^ value
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSEnumMemberNode >> value: aJSExpressionNode [
 	self value notNil
 		ifTrue: [ self value parent: nil ].

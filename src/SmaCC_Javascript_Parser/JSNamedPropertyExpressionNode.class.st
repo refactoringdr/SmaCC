@@ -1,25 +1,25 @@
 Class {
-	#name : #JSNamedPropertyExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSNamedPropertyExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'expression',
 		'periodToken',
 		'name'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitNamedPropertyExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -28,32 +28,32 @@ JSNamedPropertyExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> periodToken [
 	^ periodToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> periodToken: aSmaCCToken [
 	periodToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSNamedPropertyExpressionNode >> tokenVariables [
 	^ #(#periodToken #name)
 ]

@@ -1,35 +1,35 @@
 Class {
-	#name : #JSXAttributeNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSXAttributeNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'name',
 		'equalToken',
 		'value'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitXAttribute: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> equalToken [
 	^ equalToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> equalToken: aSmaCCToken [
 	equalToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> name: aJSProgramNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -38,22 +38,22 @@ JSXAttributeNode >> name: aJSProgramNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> nodeVariables [
 	^ #(#name #value)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> tokenVariables [
 	^ #(#equalToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> value [
 	^ value
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSXAttributeNode >> value: aJSExpressionNode [
 	self value notNil
 		ifTrue: [ self value parent: nil ].

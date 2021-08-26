@@ -1,41 +1,41 @@
 Class {
-	#name : #JSPropertySignatureNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSPropertySignatureNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'name',
 		'colonToken',
 		'type',
 		'questionMarkToken'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitPropertySignature: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> colonToken [
 	^ colonToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> colonToken: aSmaCCToken [
 	colonToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> ignoredTokenVariables [
 	^ #(#colonToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> name: aJSProgramNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -44,32 +44,32 @@ JSPropertySignatureNode >> name: aJSProgramNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> nodeVariables [
 	^ #(#name #type)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> questionMarkToken [
 	^ questionMarkToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> questionMarkToken: aSmaCCToken [
 	questionMarkToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> tokenVariables [
 	^ #(#questionMarkToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> type [
 	^ type
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSPropertySignatureNode >> type: aJSTypeNode [
 	self type notNil
 		ifTrue: [ self type parent: nil ].

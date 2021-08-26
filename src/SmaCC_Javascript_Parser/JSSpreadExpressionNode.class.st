@@ -1,34 +1,34 @@
 Class {
-	#name : #JSSpreadExpressionNode,
-	#superclass : #JSExpressionNode,
+	#name : 'JSSpreadExpressionNode',
+	#superclass : 'JSExpressionNode',
 	#instVars : [
 		'ellipsis',
 		'expression'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitSpreadExpression: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> ellipsis [
 	^ ellipsis
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> ellipsis: aSmaCCToken [
 	ellipsis := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> expression [
 	^ expression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> expression: aJSExpressionNode [
 	self expression notNil
 		ifTrue: [ self expression parent: nil ].
@@ -37,12 +37,12 @@ JSSpreadExpressionNode >> expression: aJSExpressionNode [
 		ifTrue: [ self expression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> nodeVariables [
 	^ #(#expression)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSSpreadExpressionNode >> tokenVariables [
 	^ #(#ellipsis)
 ]

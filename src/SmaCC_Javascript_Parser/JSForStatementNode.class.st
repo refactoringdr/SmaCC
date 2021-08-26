@@ -1,6 +1,6 @@
 Class {
-	#name : #JSForStatementNode,
-	#superclass : #JSStatementNode,
+	#name : 'JSForStatementNode',
+	#superclass : 'JSStatementNode',
 	#instVars : [
 		'forToken',
 		'left',
@@ -15,35 +15,35 @@ Class {
 		'commas',
 		'declaration'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitForStatement: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> commas [
 	^ commas
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> commas: anOrderedCollection [
 	commas := anOrderedCollection
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> compositeNodeVariables [
 	^ #(#variables)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> condition [
 	^ condition
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> condition: aJSExpressionNode [
 	self condition notNil
 		ifTrue: [ self condition parent: nil ].
@@ -52,12 +52,12 @@ JSForStatementNode >> condition: aJSExpressionNode [
 		ifTrue: [ self condition parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> declaration [
 	^ declaration
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> declaration: aJSLexicalDeclarationNode [
 	self declaration notNil
 		ifTrue: [ self declaration parent: nil ].
@@ -66,32 +66,32 @@ JSForStatementNode >> declaration: aJSLexicalDeclarationNode [
 		ifTrue: [ self declaration parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> forToken [
 	^ forToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> forToken: aSmaCCToken [
 	forToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> ignoredCompositeTokenVariables [
 	^ #(#semicolons #commas)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> ignoredTokenVariables [
 	^ #(#left #right)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> initialExpression [
 	^ initialExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> initialExpression: aJSExpressionNode [
 	self initialExpression notNil
 		ifTrue: [ self initialExpression parent: nil ].
@@ -100,7 +100,7 @@ JSForStatementNode >> initialExpression: aJSExpressionNode [
 		ifTrue: [ self initialExpression parent: self ]
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 JSForStatementNode >> initialize [
 	super initialize.
 	semicolons := OrderedCollection new: 2.
@@ -108,12 +108,12 @@ JSForStatementNode >> initialize [
 	commas := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> iteratorExpression [
 	^ iteratorExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> iteratorExpression: aJSExpressionNode [
 	self iteratorExpression notNil
 		ifTrue: [ self iteratorExpression parent: nil ].
@@ -122,47 +122,47 @@ JSForStatementNode >> iteratorExpression: aJSExpressionNode [
 		ifTrue: [ self iteratorExpression parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> left [
 	^ left
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> nodeVariables [
 	^ #(#statement #iteratorExpression #condition #initialExpression #declaration)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> right [
 	^ right
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> semicolons [
 	^ semicolons
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> semicolons: anOrderedCollection [
 	semicolons := anOrderedCollection
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> statement [
 	^ statement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> statement: aJSStatementNode [
 	self statement notNil
 		ifTrue: [ self statement parent: nil ].
@@ -171,27 +171,27 @@ JSForStatementNode >> statement: aJSStatementNode [
 		ifTrue: [ self statement parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> tokenVariables [
 	^ #(#forToken #varToken)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> varToken [
 	^ varToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> varToken: aSmaCCToken [
 	varToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> variables [
 	^ variables
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSForStatementNode >> variables: anOrderedCollection [
 	self setParents: self variables to: nil.
 	variables := anOrderedCollection.

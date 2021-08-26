@@ -1,6 +1,6 @@
 Class {
-	#name : #JSMethodSignatureNode,
-	#superclass : #JSProgramNode,
+	#name : 'JSMethodSignatureNode',
+	#superclass : 'JSProgramNode',
 	#instVars : [
 		'name',
 		'signature',
@@ -9,35 +9,35 @@ Class {
 		'staticToken',
 		'modifier'
 	],
-	#category : #'SmaCC_Javascript_Parser'
+	#category : 'SmaCC_Javascript_Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> acceptVisitor: aProgramVisitor [
 	^ aProgramVisitor visitMethodSignature: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> ignoredTokenVariables [
 	^ #(#semicolon)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> modifier [
 	^ modifier
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> modifier: aSmaCCToken [
 	modifier := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> name: aJSProgramNode [
 	self name notNil
 		ifTrue: [ self name parent: nil ].
@@ -46,37 +46,37 @@ JSMethodSignatureNode >> name: aJSProgramNode [
 		ifTrue: [ self name parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> nodeVariables [
 	^ #(#name #signature)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> questionMarkToken [
 	^ questionMarkToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> questionMarkToken: aSmaCCToken [
 	questionMarkToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> semicolon [
 	^ semicolon
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> semicolon: aSmaCCToken [
 	semicolon := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> signature [
 	^ signature
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> signature: aJSCallSignatureNode [
 	self signature notNil
 		ifTrue: [ self signature parent: nil ].
@@ -85,17 +85,17 @@ JSMethodSignatureNode >> signature: aJSCallSignatureNode [
 		ifTrue: [ self signature parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> staticToken [
 	^ staticToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> staticToken: aSmaCCToken [
 	staticToken := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 JSMethodSignatureNode >> tokenVariables [
 	^ #(#questionMarkToken #staticToken #modifier)
 ]
