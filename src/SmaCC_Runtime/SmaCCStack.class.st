@@ -107,7 +107,7 @@ SmaCCStack >> paintWith: m [
 			[ stackNodes addFirst: n.
 			n := n next ].
 	(m nodes)
-		stencil: [ :c | BlTextElement new text: c state printString asRopedText "glamorousRegularFont" ];
+		stencil: [ :c | BlTextElement new text: c state printString asRopedText	"glamorousRegularFont" ];
 		with: stackNodes.
 	(m edges)
 		fromNearestCircle;
@@ -115,6 +115,7 @@ SmaCCStack >> paintWith: m [
 		stencil:
 				[ :d | 
 					(BlParabollaArcElement new)
+						when: BlClickEvent do: [ :e | e target phlow spawnObject: d halt node ];
 						curvatureFraction: 0.2;
 						border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
 						toHead:
