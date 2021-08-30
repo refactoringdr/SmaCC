@@ -99,35 +99,34 @@ SmaCCStack >> nodeStack: anObject [
 
 { #category : 'accessing' }
 SmaCCStack >> paintWith: m [
+
 	| stackNodes n |
 	stackNodes := OrderedCollection new.
 	n := top.
-	[ n notNil ]
-		whileTrue:
-			[ stackNodes addFirst: n.
-			n := n next ].
-	(m nodes)
-		stencil: [ :c | BlTextElement new text: c state printString asRopedText	"glamorousRegularFont" ];
+	[ n notNil ] whileTrue: [ 
+		stackNodes addFirst: n.
+		n := n next ].
+	m nodes
+		stencil: [ :c | 
+			BlTextElement new text: c state printString asRopedText "glamorousRegularFont" ];
 		with: stackNodes.
-	(m edges)
+	m edges
 		fromNearestCircle;
 		toNearestCircle;
-		stencil:
-				[ :d | 
-					(BlParabollaArcElement new)
-						when: BlClickEvent do: [ :e | e target phlow spawnObject: d halt node ];
-						curvatureFraction: 0.2;
-						border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
-						toHead:
-								(BlArrowheadSimpleArrow new
-										border:
-											((BlBorder builder)
-												paint: (Color gray alpha: 0.2);
-												width: 1;
-												build)) ];
+		stencil: [ :d | 
+			BlParabollaArcElement new
+				when: BlClickEvent do: [ :e | 
+					e consumed: true.
+					e target phlow spawnObject: d node ];
+				curvatureFraction: 0.2;
+				border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
+				toHead: (BlArrowheadSimpleArrow new border: (BlBorder builder
+								  paint: (Color gray alpha: 0.2);
+								  width: 1;
+								  build)) ];
 		connect: stackNodes
-			from: [ :each | each ]
-			to: [ :each | each next ].
+		from: [ :each | each ]
+		to: [ :each | each next ].
 	m layout tree
 ]
 
