@@ -14,6 +14,11 @@ SmaCCStackNode class >> state: aState node: anObject next: aStackNode [
 	^self new state: aState; node: anObject; next: aStackNode; yourself
 ]
 
+{ #category : 'comparing' }
+SmaCCStackNode >> <= anObject [
+	^true
+]
+
 { #category : 'copying' }
 SmaCCStackNode >> copyStackObject: anObject [
 	(anObject isKindOf: String) ifTrue: [ ^ anObject ].

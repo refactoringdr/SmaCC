@@ -2,7 +2,7 @@ Class {
 	#name : 'SmaCCStack',
 	#superclass : 'Object',
 	#instVars : [
-		'top'
+		'tops'
 	],
 	#category : 'SmaCC_Runtime'
 }
@@ -36,8 +36,11 @@ SmaCCStack >> dismissStackTopForErrorRecovery: anInteger [
 	stackContents := OrderedCollection new.
 	anInteger
 		timesRepeat:
-			[ stackContents addFirst: top node.
-			top := top next ].
+			[ | nextNode |
+			stackContents addFirst: tops first node.
+			nextNode := tops first next.
+			tops notEmpty ifTrue: [tops removeFirst].
+			tops add: nextNode ].
 	^ stackContents asArray
 ]
 
@@ -72,12 +75,12 @@ SmaCCStack >> includesObject: anObject [
 { #category : 'initialize-release' }
 SmaCCStack >> initialize [
 	super initialize.
-	top := nil
+	tops := SortedCollection new
 ]
 
 { #category : 'testing' }
 SmaCCStack >> isAtStartingState [
-	^ top isNil
+	^ tops isEmpty
 ]
 
 { #category : 'accessing' }
@@ -92,9 +95,16 @@ SmaCCStack >> nodeStack [
 { #category : 'accessing' }
 SmaCCStack >> nodeStack: anObject [
 	"Kind of a hack until this refactoring is finished"
+
 	| topState |
-	topState := top ifNil: [ 1 ] ifNotNil: [ top state ].
-	top := SmaCCStackNode state: 1 node: anObject next: nil.
+	topState := tops first ifNil: [ 1 ] ifNotNil: [ tops first state ].
+	tops removeFirst.
+	tops
+		add:
+			(SmaCCStackNode
+				state: 1
+				node: anObject
+				next: nil)
 ]
 
 { #category : 'accessing' }
@@ -102,7 +112,7 @@ SmaCCStack >> paintWith: m [
 
 	| stackNodes n |
 	stackNodes := OrderedCollection new.
-	n := top.
+	n := tops.
 	[ n notNil ] whileTrue: [ 
 		stackNodes addFirst: n.
 		n := n next ].
@@ -133,7 +143,7 @@ SmaCCStack >> paintWith: m [
 { #category : 'copying' }
 SmaCCStack >> postCopy [
 	super postCopy.
-	top := top copy
+	tops := tops collect: [ :each | each copy ]
 ]
 
 { #category : 'parser actions' }
@@ -145,15 +155,18 @@ SmaCCStack >> reduce: anInteger do: aBlock [
 		by: -1
 		do:
 			[ :i | 
-			items at: i put: top node.
-			top := top next ].
+			| nextNode |
+			items at: i put: tops first node.
+			nextNode := tops first next.
+			tops removeFirst.
+			tops add: nextNode ].
 	aBlock cull: items cull: false
 ]
 
 { #category : 'accessing' }
 SmaCCStack >> replaceNodes: aCollection [
 	| stackNode |
-	stackNode := top.
+	stackNode := tops first.
 	aCollection
 		reverseDo:
 			[ :each | 
@@ -164,13 +177,13 @@ SmaCCStack >> replaceNodes: aCollection [
 
 { #category : 'accessing' }
 SmaCCStack >> result [
-  ^top node
+  ^tops first node
 ]
 
 { #category : 'parser actions' }
 SmaCCStack >> runDeferredActionsFor: aSmaCCParser [
 	| stacknode |
-	stacknode := top.
+	stacknode := tops first.
 	[ stacknode isNil ]
 		whileFalse:
 			[ stacknode node: (stacknode node performOnSmaCCParser: aSmaCCParser).
@@ -192,22 +205,30 @@ SmaCCStack >> searchStackFor: searchItems [
 
 { #category : 'parser actions' }
 SmaCCStack >> setStartingState: startingState [
-  top := SmaCCStackNode state: startingState node: nil next: nil
+	tops
+		add:
+			(SmaCCStackNode
+				state: startingState
+				node: nil
+				next: nil)
 ]
 
 { #category : 'parser actions' }
 SmaCCStack >> shift: anObject to: anInteger [
-	top := SmaCCStackNode
+	| newNode oldTop |
+	oldTop := tops isEmpty ifTrue: [ nil ] ifFalse: [ tops removeFirst ].
+	newNode := SmaCCStackNode
 		state: anInteger
 		node: anObject
-		next: top
+		next: oldTop.
+	tops add: newNode
 ]
 
 { #category : 'accessing' }
 SmaCCStack >> size [
 	| count node |
 	count := 0.
-	node := top.
+	node := tops first.
 	[ node isNil ]
 		whileFalse:
 			[ count := count + 1.
@@ -218,7 +239,8 @@ SmaCCStack >> size [
 { #category : 'enumerating' }
 SmaCCStack >> stackDo: aBlock [
 	| stacknode |
-	stacknode := top.
+	tops isEmpty ifTrue: [^self].
+	stacknode := tops first.
 	[ stacknode isNil ]
 		whileFalse:
 			[ aBlock value: stacknode node.
@@ -236,7 +258,8 @@ SmaCCStack >> stateStack [
 { #category : 'enumerating' }
 SmaCCStack >> stateStackDo: aBlock [
 	| stacknode |
-	stacknode := top.
+	tops isEmpty ifTrue: [ ^ self ].
+	stacknode := tops first.
 	[ stacknode isNil ]
 		whileFalse:
 			[ aBlock value: stacknode state.
@@ -245,15 +268,15 @@ SmaCCStack >> stateStackDo: aBlock [
 
 { #category : 'accessing' }
 SmaCCStack >> topNode [
-	^top node
+	^tops first node
 ]
 
 { #category : 'accessing' }
 SmaCCStack >> topNode: anObject [
-	^top node: anObject
+	^ tops first node: anObject
 ]
 
 { #category : 'accessing' }
 SmaCCStack >> topState [
-	^top state
+	^tops first state
 ]
