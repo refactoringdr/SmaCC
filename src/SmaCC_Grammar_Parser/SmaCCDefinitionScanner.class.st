@@ -24,6 +24,11 @@ SmaCCDefinitionScanner >> canParse: aString [
 ]
 
 { #category : #testing }
+SmaCCDefinitionScanner >> canParseRust: aString [
+	^ false
+]
+
+{ #category : #testing }
 SmaCCDefinitionScanner >> canParseSmalltalk: aString [
 	RBParser parseExpression: aString onError: [ :error :pos | ^ false ].
 	^ true

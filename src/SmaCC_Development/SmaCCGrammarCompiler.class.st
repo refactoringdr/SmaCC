@@ -156,8 +156,8 @@ SmaCCGrammarCompiler >> createChanges [
 	self checkForEmptySymbols.
 	self checkForUnusedSymbols.
 	self compileScanner.
-	self compileParser.
-	self codeGenerator compileDefinitionComment: parserDefinitionString
+	"self compileParser.
+	self codeGenerator compileDefinitionComment: parserDefinitionString"
 ]
 
 { #category : #'action table' }
