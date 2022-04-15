@@ -86,15 +86,13 @@ SmaCCRustMethodBase >> saveSourceOn: aWriteStream [
 		cr.
 	source notEmpty
 		ifTrue:
-			[ aWriteStream
-				tab;
-				tab;
-				tab;
-				nextPutAll:
-						(source
-								copyReplaceAll: (String with: Character cr with: Character lf)
-								with: (String with: Character cr with: Character lf) , '			');
-				cr ].
+			[ source lines
+				do:
+					[ :line | 
+					aWriteStream
+						tab; tab; tab;
+						nextPutAll: line;
+						cr ] ].
 	aWriteStream
 		tab;
 		tab;

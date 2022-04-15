@@ -452,7 +452,7 @@ SmaCCTypedLanguageCodeGenerator >> writeCharacter: aCharacter on: aStream [
 		ifFalse:
 			[ (aCharacter < $  or: [ aCharacter asInteger >= 128 ])
 				ifTrue:
-					[ char := aCharacter asInteger printStringRadix: 16 showRadix: false.
+					[ char := aCharacter asInteger printStringBase: 16.
 					[ char size = 4 ] whileFalse: [ char := '0' , char ].
 					char = '000D'
 						ifFalse:

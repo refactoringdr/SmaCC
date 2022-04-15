@@ -15,14 +15,14 @@ SmaCCRustConstructor >> isConstructor [
 
 { #category : #saving }
 SmaCCRustConstructor >> saveOn: aWriteStream [
-	modifier saveOn: aWriteStream.
+"	modifier saveOn: aWriteStream.
 	aWriteStream nextPutAll: name.
 	self saveArgumentsOn: aWriteStream.
-"	initializer notNil
+	initializer notNil
 		ifTrue:
 			[ aWriteStream
 				nextPutAll: ': ';
 				nextPutAll: initializer;
-				space ]."
-	self saveSourceOn: aWriteStream
+				space ].
+	self saveSourceOn: aWriteStream"
 ]

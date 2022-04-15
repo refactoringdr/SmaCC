@@ -112,8 +112,8 @@ SmaCCScannerCompiler >> compileMethodsFor: regex [
 	keywordmap := self computeKeywordMapFor: dfa.
 	codeGenerator selectorMap: selectorMap.
 	codeGenerator compileKeywordInitializerUsing: keywordmap.
-	"codeGenerator compileNode: dfa.
-	codeGenerator
+	codeGenerator compileNode: dfa.
+	"codeGenerator
 		compileEmptySymbolTokenId: (self symbols indexOf: grammar emptySymbol).
 	codeGenerator
 		compileErrorSymbolTokenId: (self symbols indexOf: grammar errorSymbol).
@@ -124,7 +124,7 @@ SmaCCScannerCompiler >> compileMethodsFor: regex [
 SmaCCScannerCompiler >> compileScanner [
 	| regex |
 	regex := self createRegex.
-	self compileTokenIdMethods.
+	"self compileTokenIdMethods".
 	self compileMethodsFor: regex
 ]
 

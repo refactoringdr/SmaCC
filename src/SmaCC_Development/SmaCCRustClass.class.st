@@ -139,7 +139,6 @@ SmaCCRustClass >> saveOn: aWriteStream [
 		nextPutAll: 'use lazy_static::lazy_static;';
 		cr;
 		cr;
-		tab;
 		nextPutAll: 'impl<''a> SmaCCScanner<''a> for Scanner<''a> { '.
 	variables
 		do:
