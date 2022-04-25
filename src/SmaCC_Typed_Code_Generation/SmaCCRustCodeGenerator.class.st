@@ -104,6 +104,18 @@ SmaCCRustCodeGenerator >> asStatement: methodMap forNode: aSmaCCNode lastNeedsRe
 		ifTrue: [ self nextPutStatement: (self return: (self send: #reportLastMatch to: self receiverName)) ]
 ]
 
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> camelToSnakeCase: aString [
+	| result |
+	result := WriteStream on: String new.
+	aString
+		do:
+			[ :ch | 
+			ch isUppercase ifTrue: [ result nextPut: $_ ].
+			result nextPut: ch asLowercase ].
+	^ result contents
+]
+
 { #category : #compiling }
 SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 	| method stream dataStream |
@@ -190,7 +202,9 @@ SmaCCRustCodeGenerator >> compileStaticIn: modelClass [
 
 { #category : #accessing }
 SmaCCRustCodeGenerator >> compileTokenIdMethodNamed: aString withId: symbolId [
-	self nextPutLine: 'pub static ' , aString , 'Id : usize = ' , symbolId printString , ';'.
+	| name |
+	name := (self camelToSnakeCase: aString , 'Id') asUppercase.
+	self nextPutLine: 'pub static ' , name , ' : usize = ' , symbolId printString , ';'.
 	self compileStaticIn: scannerClass
 ]
 
@@ -282,8 +296,8 @@ SmaCCRustCodeGenerator >> scannerClass: aString [
 		source: '{
 	let mut scanner = crate::SmaCC::on(stream);
 	scanner.scanForToken = scanForToken;
-	scanner.emptySymbolTokenId = emptySymbolTokenId;
-	scanner.errorTokenId = errorTokenId;
+	scanner.emptySymbolTokenId = EMPTY_SYMBOL_TOKEN_ID;
+	scanner.errorTokenId = ERROR_TOKEN_ID;
 	scanner.tokenActions = TOKEN_ACTIONS.to_vec();
 	scanner.keywordMap = &(*KEYWORD_MAP);
 	scanner
