@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'classes'
 	],
-	#category : #'SmaCC_Development-Compiler'
+	#category : #'SmaCC_Typed_Code_Generation'
 }
 
 { #category : #adding }

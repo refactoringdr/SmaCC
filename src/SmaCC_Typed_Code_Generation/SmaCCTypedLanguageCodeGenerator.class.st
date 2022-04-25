@@ -5,7 +5,7 @@ Class {
 		'matchActions',
 		'reduceActions'
 	],
-	#category : #'SmaCC_Development-Compiler'
+	#category : #'SmaCC_Typed_Code_Generation'
 }
 
 { #category : #'code generation templates' }

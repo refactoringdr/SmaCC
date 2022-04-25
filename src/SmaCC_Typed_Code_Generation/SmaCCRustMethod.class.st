@@ -8,7 +8,7 @@ Class {
 		'source',
 		'type'
 	],
-	#category : #'SmaCC_Development-Compiler'
+	#category : #'SmaCC_Typed_Code_Generation'
 }
 
 { #category : #'as yet unclassified' }
