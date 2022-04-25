@@ -19,7 +19,7 @@ SmaCCRustCodeGenerator class >> codeTemplatesArray [
 			#(#copyNode: 'Copy(<1s>)')
 			#(#copyNodeCollection: 'Copy(<1s>)')
 			#(#dictionaryType 'IDictionary')
-			#(#endDoWhileLoopWithClause: ' if (<1s>) break; }')
+			#(#endDoWhileLoopWithClause: ' if <1s> { break; } }')
 			#(#hashFor: '<1s>.GetHashCode()')
 			#(#isKindOfTest:class: 'if (<1s> is <2s>) {')
 			#(#iterateObjects:name: 'foreach (object <2s> in <1s>) {')
@@ -34,11 +34,11 @@ SmaCCRustCodeGenerator class >> codeTemplatesArray [
 			#(#parentName 'Parent')
 			#(#protected '')
 			#(#public 'pub ')
-			#(#readerType 'System.IO.TextReader')
-			#(#receiverName 'self')
+			#(#readerType '&''a str ')
 			#(#reduceActionArrayType 'ReduceAction[]') 
 			#(#reduceActionLiteralStart 'new ReduceAction[] {') 
 			#(#startDoWhileLoop 'loop {')
+			#(#startIfWithClause: 'if <1s> {')
 			#(#stringType '&str') 
 			#(#unsignedShort 'usize') 
 			#(#unsignedShortArray 'usize[]') 
@@ -55,6 +55,26 @@ SmaCCRustCodeGenerator class >> parseSourceSelector [
 { #category : #'code generation templates' }
 SmaCCRustCodeGenerator class >> typeName [
 	^ #Rust
+]
+
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> acceptCharacterEdge: aSmaCCCharacterEdge seen: aCollection [
+	| stream |
+	stream := WriteStream with: String new.
+	aSmaCCCharacterEdge transitionObjects size + aCollection size
+		> SmaCCGrammar maximumCharacterValue
+		ifTrue: [ ^ self trueValue ].
+	aSmaCCCharacterEdge transitionObjects size
+		= SmaCCGrammar maximumCharacterValue
+		ifTrue: [ self
+				outputInvertedMatchFor: aSmaCCCharacterEdge
+				on: stream ]
+		ifFalse:
+			[ self
+				outputMatchFor: aSmaCCCharacterEdge
+				seen: aCollection
+				on: stream ].
+	^ stream contents
 ]
 
 { #category : #accessing }
@@ -87,66 +107,91 @@ SmaCCRustCodeGenerator >> asStatement: methodMap forNode: aSmaCCNode lastNeedsRe
 { #category : #compiling }
 SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 	| method stream dataStream |
-	keywordMapDictionary isEmpty ifTrue: [ ^ self ].
 	stream := self outputStreamClass on: String new.
 	stream
 		nextPutAll: 'let mut map: HashMap<usize, HashMap<&str, usize>> = HashMap::new();';
-		cr;
-		nextPutAll: 'let arr = [';
-		cr. 
-	dataStream := WriteStream with: Array new.
-	keywordMapDictionary
-		keysAndValuesDo:
-			[ :key :value | 
-			value keys asSortedCollection
-				do:
-					[ :each | 
-					dataStream
-						nextPut:
-							(Array
-								with: key
-								with: each
-								with: (value at: each)) ] ].
-	stream
-		indentWhile:
-			[ dataStream contents
-				do:
-					[ :each | 
-					stream nextPutAll: '('.
-					each first storeOn: stream.
-					stream
-						nextPutAll: ',"';
-						nextPutAll: each second;
-						nextPutAll: '",'.
-					each third storeOn: stream.
-					stream nextPutAll: '),' ]
-				separatedBy: [ stream cr ] ].
-	stream
-		nextPutAll: '];';
 		cr.
-	stream
-		nextPutAll:
-			'
+	keywordMapDictionary isEmpty
+		ifFalse:
+			[ stream
+				nextPutAll: 'let arr = [';
+				cr.
+			dataStream := WriteStream with: Array new.
+			keywordMapDictionary
+				keysAndValuesDo:
+					[ :key :value | 
+					value keys asSortedCollection
+						do:
+							[ :each | 
+							dataStream
+								nextPut:
+									(Array
+										with: key
+										with: each
+										with: (value at: each)) ] ].
+			stream
+				indentWhile:
+					[ dataStream contents
+						do:
+							[ :each | 
+							stream nextPutAll: '('.
+							each first storeOn: stream.
+							stream
+								nextPutAll: ',"';
+								nextPutAll: each second;
+								nextPutAll: '",'.
+							each third storeOn: stream.
+							stream nextPutAll: '),' ]
+						separatedBy: [ stream cr ] ].
+			stream
+				nextPutAll: '];';
+				cr.
+			stream
+				nextPutAll:
+						'
 for (state, word, id) in arr {
 	let dict = map.entry(state).or_insert(HashMap::new());
 	dict.insert(word, id);
-}
-map'.
+}';
+				cr ].
+	stream nextPutAll: 'map'.
 	method := scannerClass
 		compile: (self methodNameFor: 'initializeKeywordMap')
 		type: 'HashMap<usize, HashMap<&''static str, usize>>'
 		arguments: #()
-		source: stream contents
+		source: stream contents.
+	(self codeStream)
+		cr;
+		cr.
+	self
+		nextPutLine:
+			'lazy_static! {
+	static ref KEYWORD_MAP: HashMap<usize, HashMap<&''static str, usize>> = initializeKeywordMap();
+}'.
+	self compileStaticIn: scannerClass	
 ]
 
-{ #category : #compiling }
+{ #category : #visiting }
 SmaCCRustCodeGenerator >> compileMethodIn: modelClass [
-	modelClass compileMethod: self codeStream contents
+	modelClass compileMethod: self codeStream contents.
+	self codeStream reset
 ]
 
 { #category : #compiling }
 SmaCCRustCodeGenerator >> compileOptimizedMethodIn: modelClass [
 	self compileMethodIn: modelClass
+]
+
+{ #category : #visiting }
+SmaCCRustCodeGenerator >> compileStaticIn: modelClass [
+	modelClass compileStatic: self codeStream contents.
+	self codeStream reset
+]
+
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> compileTokenIdMethodNamed: aString withId: symbolId [
+	self nextPutLine: 'pub static ' , aString , 'Id : usize = ' , symbolId printString , ';'.
+	self compileStaticIn: scannerClass
 ]
 
 { #category : #compiling }
@@ -162,7 +207,7 @@ SmaCCRustCodeGenerator >> keywords [
 
 { #category : #accessing }
 SmaCCRustCodeGenerator >> method: aString type: typeString [
-	^ 'fn ' , (self methodNameFor: aString) , '(&mut self) -> ', typeString , ' {'
+	^ 'fn ' , (self methodNameFor: aString) , '<''a>(this : &mut Scanner<''a>) -> ', typeString , ' {'
 ]
 
 { #category : #compiling }
@@ -179,10 +224,10 @@ SmaCCRustCodeGenerator >> methodNameFor: selectorString [
 		#('CreateScanner' 'CreateScanner') 
 		#('CreateToken(value)' 'CreateToken(value)') 
 		#('processReduceAction' 'ProcessReduceAction') 
-		#('RecordAndReportMatch' 'self.recordAndReportMatch') 
-		#('RecordMatch(' 'self.recordMatch(') 
+		#('RecordAndReportMatch' 'this.recordAndReportMatch') 
+		#('RecordMatch(' 'this.recordMatch(') 
 		#('ReduceFor' 'ReduceFor') 
-		#('Step();' 'self.step()?;') 
+		#('Step();' 'this.step()?;') 
 		#('Whitespace' 'whitespace'))
 		do: [ :each | each first = selectorString asString ifTrue: [ ^ each last ] ].
 	name := selectorString asSymbol keywords first asString copy.
@@ -202,7 +247,7 @@ SmaCCRustCodeGenerator >> outputClosureFor: anObject [
 
 { #category : #accessing }
 SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream without: aSelector [
-	| pairs |
+	| pairs | 
 	pairs := self minMaxPairsFor: aSmaCCCharacterEdge without: #().
 	pairs size == 1 ifFalse: [ aStream nextPut: $( ].
 	pairs
@@ -210,7 +255,7 @@ SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream withou
 			[ :each | 
 			each first = each last
 				ifTrue:
-					[ aStream nextPutAll: 'self.current_char == '''.
+					[ aStream nextPutAll: 'this.current_char == '''.
 					self writeCharacter: each first on: aStream.
 					aStream nextPut: $' ]
 				ifFalse:
@@ -218,7 +263,7 @@ SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream withou
 					self writeCharacter: each first on: aStream.
 					aStream nextPutAll: '''..='''.
 					self writeCharacter: each last on: aStream.
-					aStream nextPutAll: ''').contains(self.current_char)' ] ]
+					aStream nextPutAll: ''').contains(&this.current_char)' ] ]
 		separatedBy: [ aStream nextPutAll: ') || (' ].
 	pairs size == 1 ifFalse: [ aStream nextPut: $) ]
 ]
@@ -228,18 +273,35 @@ SmaCCRustCodeGenerator >> returnSuper [
 	^''
 ]
 
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> scannerClass: aString [
+	| constructor |
+	scannerClass := model defineClass: aString asSubclassOf: SmaCCScanner.
+	constructor := scannerClass
+		compileConstructorArguments: (OrderedCollection with: (self variableClass name: 'stream' type: self readerType))
+		source: '{
+	let mut scanner = crate::SmaCC::on(stream);
+	scanner.scanForToken = scanForToken;
+	scanner.emptySymbolTokenId = emptySymbolTokenId;
+	scanner.errorTokenId = errorTokenId;
+	scanner.tokenActions = TOKEN_ACTIONS.to_vec();
+	scanner.keywordMap = &(*KEYWORD_MAP);
+	scanner
+}'.
+	constructor modifier public
+]
+
 { #category : #visiting }
 SmaCCRustCodeGenerator >> selectorMap: aDictionary [
 	| arrayMap |
-	aDictionary isEmpty ifTrue: [ ^ self ].
-	arrayMap := Array new: aDictionary keys asSortedCollection last.
+	arrayMap := aDictionary isEmpty ifTrue: [ #() ] ifFalse: [ Array new: aDictionary keys asSortedCollection last ].
 	aDictionary keysAndValuesDo: [ :key :value | arrayMap at: key put: value ].
 	(self codeStream)
 		cr;
 		cr.
 	self
 		nextPutLine:
-			'static TOKEN_ACTIONS: [Option<for<''a> fn(&mut Scanner<''a>) -> Result<SmaCCToken<''a>, ScannerError>; '
+			'static TOKEN_ACTIONS: [Option<for<''a> fn(&mut Scanner<''a>) -> Result<SmaCCToken<''a>, SmaCCToken<''a>>>; '
 				, arrayMap size printString , '] = ['.
 	arrayMap
 		do: [ :each | self outputClosureFor: each ]
@@ -248,12 +310,7 @@ SmaCCRustCodeGenerator >> selectorMap: aDictionary [
 				nextPut: $,;
 				cr ].
 	self codeStream nextPutAll: '];'.
-	self compileMethodIn: scannerClass	"self
-		startPublicOverrideMethod;
-		nextPutLine: (self method: 'tokenActions' type: self collectionType);
-		nextPutStatement: (self return: arrayMap storeString);
-		endMethod;
-		compileMethodIn: self scannerClass"
+	self compileStaticIn: scannerClass
 ]
 
 { #category : #compiling }
@@ -288,4 +345,25 @@ SmaCCRustCodeGenerator >> writeCharacter: aCharacter on: aStream [
 								ifTrue: [ aStream nextPutAll: '\n' ] ]
 						ifTrue: [ aStream nextPutAll: '\r' ] ]
 				ifFalse: [ aStream nextPut: aCharacter ] ]
+]
+
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> writeMatchingCodeFor: aSmaCCNode [
+	| matchedItem |
+	(aSmaCCNode action notNil and: [ aSmaCCNode action size > 0 ])
+		ifTrue:
+			[ matchedItem := aSmaCCNode action asArray.
+			(self codeStream)
+				nextPutAll:
+						(aSmaCCNode transitions isEmpty
+								ifTrue: [ 'return ' , (self methodNameFor: 'RecordAndReportMatch') , '(' ]
+								ifFalse: [ self methodNameFor: 'RecordMatch(' ]);
+				nextPutAll: 'vec!['.
+			matchedItem do: [ :each | self codeStream nextPutAll: each storeString ] separatedBy: [ self codeStream nextPut: $, ].
+			self codeStream nextPutAll: '])'.
+			(self codeStream)
+				nextPut: $;;
+				cr ].
+	(aSmaCCNode transitions anySatisfy: [ :each | each isCharacterTransition ])
+		ifTrue: [ self nextPutLine: (self methodNameFor: 'Step();') ]
 ]

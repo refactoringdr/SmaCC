@@ -8,7 +8,8 @@ Class {
 		'methods',
 		'variables',
 		'methodStrings',
-		'doNotGenerate'
+		'doNotGenerate',
+		'staticStrings'
 	],
 	#category : #'SmaCC_Development-Compiler'
 }
@@ -47,7 +48,8 @@ SmaCCRustClass >> compile: origName type: typeString arguments: aCollection sour
 { #category : #visiting }
 SmaCCRustClass >> compileConstructorArguments: aCollection source: sourceString [ 
 	^methods add: (self constructorClass 
-				name: self simpleName
+				type: 'Scanner<''a>'
+				name: 'on<''a>'
 				arguments: aCollection
 				source: sourceString)
 ]
@@ -57,9 +59,14 @@ SmaCCRustClass >> compileMethod: aString [
 	methodStrings add: aString
 ]
 
+{ #category : #compiling }
+SmaCCRustClass >> compileStatic: aString [
+	staticStrings add: aString
+]
+
 { #category : #accessing }
 SmaCCRustClass >> constructorClass [
-	^ SmaCCRustConstructor
+	^ SmaCCRustMethod
 ]
 
 { #category : #accessing }
@@ -113,6 +120,7 @@ SmaCCRustClass >> name: anObject [
 	variables := OrderedCollection new.
 	methods := OrderedCollection new.
 	methodStrings := Set new.
+	staticStrings := Set new.
 	doNotGenerate := false
 ]
 
@@ -126,7 +134,9 @@ SmaCCRustClass >> namespace [
 { #category : #actions }
 SmaCCRustClass >> save [
 	self doNotGenerate ifTrue: [ ^ self ].
-	self fileName asFileReference writeStreamDo: [ :stream | self saveOn: stream ]
+	(self fileName asFileReference)
+		ensureDelete;
+		writeStreamDo: [ :stream | self saveOn: stream ]
 ]
 
 { #category : #actions }
@@ -137,9 +147,7 @@ SmaCCRustClass >> saveOn: aWriteStream [
 		nextPutAll: 'use std::collections::HashMap;';
 		cr;
 		nextPutAll: 'use lazy_static::lazy_static;';
-		cr;
-		cr;
-		nextPutAll: 'impl<''a> SmaCCScanner<''a> for Scanner<''a> { '.
+		cr.
 	variables
 		do:
 			[ :each | 
@@ -164,12 +172,13 @@ SmaCCRustClass >> saveOn: aWriteStream [
 				cr;
 				nextPutAll: each;
 				cr ].
-	aWriteStream
-		cr;
-		cr;
-		tab;
-		nextPut: $};
-		cr
+	staticStrings asSortedCollection
+		do:
+			[ :each | 
+			aWriteStream
+				cr;
+				nextPutAll: each;
+				cr ]
 ]
 
 { #category : #visiting }

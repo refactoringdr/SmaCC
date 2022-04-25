@@ -75,7 +75,8 @@ SmaCCRustVariable >> saveOn: aWriteStream [
 { #category : #saving }
 SmaCCRustVariable >> saveShortDefinitionOn: aWriteStream [
 	aWriteStream
-		nextPutAll: type;
-		space;
-		nextPutAll: name
+		nextPutAll: name;
+		nextPutAll: ' : ';
+		nextPutAll: type
+		
 ]

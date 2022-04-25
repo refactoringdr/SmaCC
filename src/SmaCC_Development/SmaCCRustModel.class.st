@@ -14,7 +14,7 @@ SmaCCRustModel >> addClass: aSmaCCCSharpClass [
 
 { #category : #accessing }
 SmaCCRustModel >> classFor: aBehavior [
-	#(#(#Object nil 'object') #(#SmaCCToken #Object 'Result<SmaCCToken<''a>, ScannerError>') #(#Collection #Object 'IList') #(#OrderedCollection #Object 'IList') #(#SmaCCParseNodeVisitor #Object 'ParseNodeVisitor') #(#SmaCCParseNode #Object 'ParseNode') #(#UndefinedObject #Object 'UndefinedObject'))
+	#(#(#Object nil 'object') #(#SmaCCToken #Object 'Result<SmaCCToken<''a>, SmaCCToken<''a>>') #(#Collection #Object 'IList') #(#OrderedCollection #Object 'IList') #(#SmaCCParseNodeVisitor #Object 'ParseNodeVisitor') #(#SmaCCParseNode #Object 'ParseNode') #(#UndefinedObject #Object 'UndefinedObject'))
 		do:
 			[ :each | 
 			each first = aBehavior name
