@@ -359,7 +359,9 @@ SmaCCTypedLanguageCodeGenerator >> scannerClass: aString [
 
 { #category : #visiting }
 SmaCCTypedLanguageCodeGenerator >> send: selectorString to: receiverString [
-	^receiverString , '.' , (self methodNameFor: selectorString) , '()'
+	| name |
+	name := self methodNameFor: selectorString.
+	^ receiverString , '.' , name , '()'
 ]
 
 { #category : #visiting }

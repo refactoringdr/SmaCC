@@ -43,7 +43,7 @@ SmaCCRustCodeGenerator class >> codeTemplatesArray [
 			#(#unsignedShort 'usize') 
 			#(#unsignedShortArray 'usize[]') 
 			#(#unsignedShortArrayArray 'usize[][]') 
-			#(#uppercaseString: '<1s>.ToUpper()')
+			#(#uppercaseString: '&<1s>.to_uppercase()')
 			#(#virtual ''))
 ]
 
@@ -114,6 +114,23 @@ SmaCCRustCodeGenerator >> camelToSnakeCase: aString [
 			ch isUppercase ifTrue: [ result nextPut: $_ ].
 			result nextPut: ch asLowercase ].
 	^ result contents
+]
+
+{ #category : #compiling }
+SmaCCRustCodeGenerator >> compileIgnoreCaseMethods [
+	self grammar ignoreCase
+		ifFalse: [ ^ self ].
+	self
+		startPublicOverrideMethod;
+		nextPutLine:
+			(self
+				method: #keywordFor:
+				type: self stringType
+				argumentName: 'aString'
+				argumentType: self stringType);
+		nextPutStatement: (self return: (self uppercaseString: 'aString'));
+		endMethod;
+		compileMethodIn: scannerClass
 ]
 
 { #category : #compiling }
@@ -225,6 +242,11 @@ SmaCCRustCodeGenerator >> method: aString type: typeString [
 ]
 
 { #category : #compiling }
+SmaCCRustCodeGenerator >> method: aString type: typeString argumentName: argumentNameString argumentType: argumentTypeString [
+	^ 'fn ' , (self methodNameFor: aString) , '(' , argumentNameString , ' : ' , argumentTypeString , ') -> ' , typeString , ' {'
+]
+
+{ #category : #compiling }
 SmaCCRustCodeGenerator >> methodNameFor: selectorString [
 	| name |
 	#(
@@ -325,6 +347,13 @@ SmaCCRustCodeGenerator >> selectorMap: aDictionary [
 				cr ].
 	self codeStream nextPutAll: '];'.
 	self compileStaticIn: scannerClass
+]
+
+{ #category : #visiting }
+SmaCCRustCodeGenerator >> send: selectorString to: receiverString [
+	| name |
+	name := self methodNameFor: selectorString.
+	^ name , '(' , receiverString , ')'
 ]
 
 { #category : #compiling }
