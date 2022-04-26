@@ -43,7 +43,7 @@ SmaCCRustCodeGenerator class >> codeTemplatesArray [
 			#(#unsignedShort 'usize') 
 			#(#unsignedShortArray 'usize[]') 
 			#(#unsignedShortArrayArray 'usize[][]') 
-			#(#uppercaseString: '&<1s>.to_uppercase()')
+			#(#uppercaseString: '<1s>.to_uppercase()')
 			#(#virtual ''))
 ]
 
@@ -125,7 +125,7 @@ SmaCCRustCodeGenerator >> compileIgnoreCaseMethods [
 		nextPutLine:
 			(self
 				method: #keywordFor:
-				type: self stringType
+				type: 'String'
 				argumentName: 'aString'
 				argumentType: self stringType);
 		nextPutStatement: (self return: (self uppercaseString: 'aString'));
