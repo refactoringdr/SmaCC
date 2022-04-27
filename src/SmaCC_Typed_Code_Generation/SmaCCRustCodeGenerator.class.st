@@ -19,7 +19,7 @@ SmaCCRustCodeGenerator class >> codeTemplatesArray [
 			#(#copyNode: 'Copy(<1s>)')
 			#(#copyNodeCollection: 'Copy(<1s>)')
 			#(#dictionaryType 'IDictionary')
-			#(#endDoWhileLoopWithClause: ' if <1s> { break; } }')
+			#(#endDoWhileLoopWithClause: ' if !(<1s>) { break; } }')
 			#(#hashFor: '<1s>.GetHashCode()')
 			#(#isKindOfTest:class: 'if (<1s> is <2s>) {')
 			#(#iterateObjects:name: 'foreach (object <2s> in <1s>) {')
