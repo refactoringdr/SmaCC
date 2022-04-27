@@ -311,19 +311,23 @@ SmaCCRustCodeGenerator >> returnSuper [
 
 { #category : #accessing }
 SmaCCRustCodeGenerator >> scannerClass: aString [
-	| constructor |
+	| constructor source |
 	scannerClass := model defineClass: aString asSubclassOf: SmaCCScanner.
-	constructor := scannerClass
-		compileConstructorArguments: (OrderedCollection with: (self variableClass name: 'stream' type: self readerType))
-		source: '{
+	source := '{
 	let mut scanner = crate::SmaCC::on(stream);
 	scanner.scanForToken = scanForToken;
 	scanner.emptySymbolTokenId = EMPTY_SYMBOL_TOKEN_ID;
 	scanner.errorTokenId = ERROR_TOKEN_ID;
 	scanner.tokenActions = TOKEN_ACTIONS.to_vec();
-	scanner.keywordMap = &(*KEYWORD_MAP);
+	scanner.keywordMap = &(*KEYWORD_MAP);'.
+	self grammar ignoreCase ifTrue: [ source := source , '
+	scanner.keywordFor = keywordFor;'].
+	source := source , '
 	scanner
 }'.
+	constructor := scannerClass
+		compileConstructorArguments: (OrderedCollection with: (self variableClass name: 'stream' type: self readerType))
+		source: source.
 	constructor modifier public
 ]
 

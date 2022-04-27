@@ -256,7 +256,7 @@ SmaCCTypedLanguageCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge o
 				detect: [ :each | (aSmaCCCharacterEdge transitionObjects includes: (Character value: each)) not ]).
 	stream
 		nextPutAll: 'currentCharacter !!= ''';
-		nextPutAll: char;
+		nextPut: char;
 		nextPut: $'
 ]
 
