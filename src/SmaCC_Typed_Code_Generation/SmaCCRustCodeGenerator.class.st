@@ -225,6 +225,18 @@ SmaCCRustCodeGenerator >> compileTokenIdMethodNamed: aString withId: symbolId [
 	self compileStaticIn: scannerClass
 ]
 
+{ #category : #initialization }
+SmaCCRustCodeGenerator >> initializeIsExpressions [
+	isExpressions := Dictionary new.
+	isExpressions at: '0123456789' put: 'is_ascii_digit()'.
+	isExpressions at: '0123456789ABCDEFabcdef' put: 'is_ascii_hexdigit()'.
+	isExpressions at: (($0 to: $9), ($A to: $Z) , ($a to: $z)) put: 'is_ascii_alphanumeric()'.
+	isExpressions at: (SmaCCGrammar isExpressionMap at: #isLetter) put: 'is_alphabetic()'.
+	isExpressions at: (SmaCCGrammar isExpressionMap at: #isDigit) put: 'is_numeric()'.
+	isExpressions at: (SmaCCGrammar isExpressionMap at: #isAlphaNumeric) put: 'is_alphanumeric()'.	
+	isExpressions at: (SmaCCGrammar isExpressionMap at: #isSeparator) put: 'is_ascii_whitespace()'.
+]
+
 { #category : #compiling }
 SmaCCRustCodeGenerator >> keywords [
 	^ "CSharpScanner keywordMap
@@ -282,10 +294,28 @@ SmaCCRustCodeGenerator >> outputClosureFor: anObject [
 ]
 
 { #category : #accessing }
+SmaCCRustCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge on: stream [
+	| char |
+	char := Character
+		value:
+			((0 to: SmaCCGrammar maximumCharacterValue)
+				detect: [ :each | (aSmaCCCharacterEdge transitionObjects includes: (Character value: each)) not ]).
+	stream nextPutAll: 'this.current_char != '''.
+	self writeCharacter: char on: stream.
+	stream nextPut: $'
+]
+
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> outputIsSelector: isSelector on: stream [
+	stream nextPutAll: 'this.current_char.', isSelector
+]
+
+{ #category : #accessing }
 SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream without: aSelector [
-	| pairs | 
-	pairs := self minMaxPairsFor: aSmaCCCharacterEdge without: #().
-	pairs size == 1 ifFalse: [ aStream nextPut: $( ].
+	| pairs |
+	pairs := self minMaxPairsFor: aSmaCCCharacterEdge without: aSelector.
+	(aSelector notEmpty and: [ pairs notEmpty ]) ifTrue: [ aStream nextPutAll: ' || ' ].
+	pairs size > 1 ifTrue: [ aStream nextPut: $( ].
 	pairs
 		do:
 			[ :each | 
@@ -301,7 +331,23 @@ SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream withou
 					self writeCharacter: each last on: aStream.
 					aStream nextPutAll: ''').contains(&this.current_char)' ] ]
 		separatedBy: [ aStream nextPutAll: ') || (' ].
-	pairs size == 1 ifFalse: [ aStream nextPut: $) ]
+	pairs size > 1 ifTrue: [ aStream nextPut: $) ]
+]
+
+{ #category : #accessing }
+SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge seen: aCollection on: stream [
+	| isSelectors |
+	isSelectors := self
+		closestIsExpressionsFor: aSmaCCCharacterEdge
+		seen: aCollection.
+	isSelectors
+		do: [ :each | self outputIsSelector: each on: stream ]
+		separatedBy: [ stream nextPutAll: ' || ' ].
+	self
+		outputMatchFor: aSmaCCCharacterEdge
+		on: stream
+		without: isSelectors
+
 ]
 
 { #category : #compiling }
@@ -380,7 +426,7 @@ SmaCCRustCodeGenerator >> writeCharacter: aCharacter on: aStream [
 			[ (aCharacter < $  or: [ aCharacter asInteger >= 128 ])
 				ifTrue:
 					[ char := aCharacter asInteger printStringBase: 16.
-					[ char size = 4 ] whileFalse: [ char := '0' , char ].
+					[ char size >= 4 ] whileFalse: [ char := '0' , char ].
 					char = '000D'
 						ifFalse:
 							[ char = '000A'

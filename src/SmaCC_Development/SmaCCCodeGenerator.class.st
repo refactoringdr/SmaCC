@@ -65,7 +65,8 @@ Class {
 		'reduceActionCache',
 		'ambiguousActions',
 		'grammar',
-		'defaultCategory'
+		'defaultCategory',
+		'isExpressions'
 	],
 	#classInstVars : [
 		'codeTemplates'
@@ -274,8 +275,47 @@ SmaCCCodeGenerator >> basicCompileSourceFor: aSmaCCReduceAction [
 ]
 
 { #category : #'compiling-scanner' }
-SmaCCCodeGenerator >> closestIsExpressionsFor: aSmaCCCharacterEdge seen: anObject [
-	self subclassResponsibility
+SmaCCCodeGenerator >> closestIsExpressionsFor: aSmaCCCharacterEdge seen: aCollection [
+	| expressions |
+	expressions := OrderedCollection new.
+	self isExpressions
+		keysAndValuesDo: [ :string :selector | 
+			| isInString |
+			isInString := false.
+			((string
+				allSatisfy: [ :each | 
+					(aSmaCCCharacterEdge transitionObjects includes: each)
+						ifTrue: [ isInString := true ]
+						ifFalse: [ aCollection includes: each ] ]) and: [ isInString ])
+				ifTrue: [ expressions add: selector ] ].
+	(expressions isEmpty
+		or: [ (self minMaxPairsFor: aSmaCCCharacterEdge without: expressions) size
+				> (self minMaxPairsFor: aSmaCCCharacterEdge without: #()) size ])
+		ifTrue: [ ^ #() ].
+	expressions size > 1
+		ifTrue: [ | strings newExpressions |
+			strings := expressions
+				collect: [ :each | 
+					each
+						->
+							((self isExpressions keyAtValue: each)
+								select: [ :char | aSmaCCCharacterEdge transitionObjects includes: char ]) ].
+			strings := strings
+				asSortedCollection: [ :a :b | 
+					a value size > b value size
+						or: [ a value size = b value size
+								and: [ (self isExpressions keyAtValue: a key) size
+										< (self isExpressions keyAtValue: b key) size ] ] ].
+			newExpressions := OrderedCollection with: strings first.
+			2 to: strings size do: [ :i | 
+				| left |
+				left := (strings at: i) value.
+				newExpressions
+					do: [ :each | left := left reject: [ :char | each value includes: char ] ].
+				left notEmpty
+					ifTrue: [ newExpressions add: (strings at: i) ] ].
+			expressions := newExpressions collect: [ :each | each key ] ].
+	^ expressions
 ]
 
 { #category : #private }
@@ -867,10 +907,21 @@ SmaCCCodeGenerator >> initializeArrayContentsToNull: aSmaCCRHS [
 	
 ]
 
+{ #category : #initialization }
+SmaCCCodeGenerator >> initializeIsExpressions [
+]
+
 { #category : #'compiling-parser' }
 SmaCCCodeGenerator >> initializeResultForReduceAction: aSmaCCRHS [
 	^ self
 		newArrayOfSize: aSmaCCRHS productionSymbol variableDefinitions size
+]
+
+{ #category : #private }
+SmaCCCodeGenerator >> isExpressions [
+	isExpressions isNil
+		ifTrue: [ self initializeIsExpressions ].
+	^ isExpressions
 ]
 
 { #category : #private }
@@ -925,18 +976,24 @@ SmaCCCodeGenerator >> minMaxPairsFor: aSmaCCCharacterEdge without: isSelectors [
 	| start last pairs charsLeft |
 	charsLeft := aSmaCCCharacterEdge transitionObjects.
 	isSelectors notEmpty
-		ifTrue: [ charsLeft := charsLeft copy.
-			isSelectors do: [ :each | charsLeft smaccRemoveAll: (SmaCCGrammar isExpressionMap at: each) ] ].
+		ifTrue:
+			[ charsLeft := charsLeft copy.
+			isSelectors
+				do:
+					[ :each | 
+					| chars |
+					chars := self isExpressions keyAtValue: each.
+					charsLeft smaccRemoveAll: chars ] ].
 	pairs := OrderedCollection new.
-	charsLeft isEmpty
-		ifTrue: [ ^ pairs ].
+	charsLeft isEmpty ifTrue: [ ^ pairs ].
 	last := charsLeft first.
 	start := nil.
 	charsLeft
-		do: [ :each | 
+		do:
+			[ :each | 
 			last asInteger + 1 = each asInteger
-				ifFalse: [ start notNil
-						ifTrue: [ pairs add: (Array with: start with: last) ].
+				ifFalse:
+					[ start notNil ifTrue: [ pairs add: (Array with: start with: last) ].
 					start := each ].
 			last := each ].
 	pairs add: (Array with: start with: last).

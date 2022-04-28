@@ -95,11 +95,6 @@ SmaCCTypedLanguageCodeGenerator >> basicCompileSourceFor: aSmaCCReduceAction [
 ]
 
 { #category : #visiting }
-SmaCCTypedLanguageCodeGenerator >> closestIsExpressionsFor: aSmaCCCharacterEdge seen: anObject [
-	^ #()
-]
-
-{ #category : #visiting }
 SmaCCTypedLanguageCodeGenerator >> comment: aString [
 	^ '/*' , (aString copyReplaceAll: '*/' with: '* /') , '*/'
 ]
@@ -255,14 +250,9 @@ SmaCCTypedLanguageCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge o
 			((0 to: SmaCCGrammar maximumCharacterValue)
 				detect: [ :each | (aSmaCCCharacterEdge transitionObjects includes: (Character value: each)) not ]).
 	stream
-		nextPutAll: 'currentCharacter !!= ''';
+		nextPutAll: 'currentCharacter != ''';
 		nextPut: char;
 		nextPut: $'
-]
-
-{ #category : #visiting }
-SmaCCTypedLanguageCodeGenerator >> outputIsSelector: isSelector on: stream [
-	self error: 'Not Implemented yet'
 ]
 
 { #category : #visiting }
