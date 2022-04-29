@@ -78,6 +78,21 @@ SmaCCRustCodeGenerator >> acceptCharacterEdge: aSmaCCCharacterEdge seen: aCollec
 ]
 
 { #category : #accessing }
+SmaCCRustCodeGenerator >> acceptStateEdge: aSmaCCStateEdge [
+	| stream |
+	stream := self outputStreamClass on: String new.
+	aSmaCCStateEdge transitionObjects
+		do:
+			[ :each | 
+			stream
+				nextPutAll: 'this.state == Some("';
+				nextPutAll: each;
+				nextPutAll: '")' ]
+		separatedBy: [ stream nextPutAll: ' || ' ].
+	^ stream contents
+]
+
+{ #category : #accessing }
 SmaCCRustCodeGenerator >> asStatement: methodMap forNode: aSmaCCNode lastNeedsReturn: aBoolean [
 	| transitions seen | 
 	aSmaCCNode hasSimpleLoop ifTrue: [ self nextPutLine: self startDoWhileLoop ].
@@ -142,9 +157,7 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 		cr.
 	keywordMapDictionary isEmpty
 		ifFalse:
-			[ stream
-				nextPutAll: 'let arr = [';
-				cr.
+			[ 
 			dataStream := WriteStream with: Array new.
 			keywordMapDictionary
 				keysAndValuesDo:
@@ -159,6 +172,11 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 										with: each
 										with: (value at: each)) ] ].
 			stream
+				nextPutAll: 'let arr : [(usize, &str, usize, Option<&str>);';
+				nextPutAll: dataStream contents size printString;
+				nextPutAll: ']  = [';
+				cr.
+			stream
 				indentWhile:
 					[ dataStream contents
 						do:
@@ -169,7 +187,13 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 								nextPutAll: ',"';
 								nextPutAll: each second;
 								nextPutAll: '",'.
-							each third storeOn: stream.
+							each third isInteger
+								ifTrue:
+									[ each third storeOn: stream.
+									stream nextPutAll: ',None' ]
+								ifFalse:
+									[ each third first storeOn: stream.
+									stream nextPutAll: ',Some("' , each third second first , '")' ].
 							stream nextPutAll: '),' ]
 						separatedBy: [ stream cr ] ].
 			stream
@@ -178,7 +202,7 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 			stream
 				nextPutAll:
 						'
-for (state, word, id) in arr {
+for (state, word, id, scope) in arr {
 	let dict = map.entry(state).or_insert(HashMap::new());
 	dict.insert(word, id);
 }';
@@ -197,7 +221,7 @@ for (state, word, id) in arr {
 			'lazy_static! {
 	static ref KEYWORD_MAP: HashMap<usize, HashMap<&''static str, usize>> = initializeKeywordMap();
 }'.
-	self compileStaticIn: scannerClass	
+	self compileStaticIn: scannerClass
 ]
 
 { #category : #visiting }
