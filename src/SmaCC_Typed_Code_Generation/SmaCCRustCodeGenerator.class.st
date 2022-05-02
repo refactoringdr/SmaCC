@@ -58,26 +58,6 @@ SmaCCRustCodeGenerator class >> typeName [
 ]
 
 { #category : #accessing }
-SmaCCRustCodeGenerator >> acceptCharacterEdge: aSmaCCCharacterEdge seen: aCollection [
-	| stream |
-	stream := WriteStream with: String new.
-	aSmaCCCharacterEdge transitionObjects size + aCollection size
-		> SmaCCGrammar maximumCharacterValue
-		ifTrue: [ ^ self trueValue ].
-	aSmaCCCharacterEdge transitionObjects size
-		= SmaCCGrammar maximumCharacterValue
-		ifTrue: [ self
-				outputInvertedMatchFor: aSmaCCCharacterEdge
-				on: stream ]
-		ifFalse:
-			[ self
-				outputMatchFor: aSmaCCCharacterEdge
-				seen: aCollection
-				on: stream ].
-	^ stream contents
-]
-
-{ #category : #accessing }
 SmaCCRustCodeGenerator >> acceptStateEdge: aSmaCCStateEdge [
 	| stream |
 	stream := self outputStreamClass on: String new.
@@ -90,33 +70,6 @@ SmaCCRustCodeGenerator >> acceptStateEdge: aSmaCCStateEdge [
 				nextPutAll: '")' ]
 		separatedBy: [ stream nextPutAll: ' || ' ].
 	^ stream contents
-]
-
-{ #category : #accessing }
-SmaCCRustCodeGenerator >> asStatement: methodMap forNode: aSmaCCNode lastNeedsReturn: aBoolean [
-	| transitions seen | 
-	aSmaCCNode hasSimpleLoop ifTrue: [ self nextPutLine: self startDoWhileLoop ].
-	self writeMatchingCodeFor: aSmaCCNode.
-	transitions := self sortedTransitionsForNode: aSmaCCNode.
-	seen := (transitions notEmpty ifTrue: [ transitions first setClass ] ifFalse: [ Set ]) new.
-	transitions
-		do:
-			[ :each | 
-			each to = aSmaCCNode
-				ifTrue: [ self nextPutStatement: (self endDoWhileLoopWithClause: (each dispatchTo: self seen: seen)) ]
-				ifFalse:
-					[ self nextPutLine: (self startIfWithClause: (each dispatchTo: self seen: seen)).
-					(methodMap at: each to ifAbsent: [ nil ])
-						ifNil:
-							[ self
-								asStatement: methodMap
-								forNode: each to
-								lastNeedsReturn: each ~= transitions last ]
-						ifNotNil: [ :methodCall | self nextPutStatement: (self return: (self send: methodCall to: self receiverName)) ].
-					self nextPutStatement: self endConditionalString ].
-			seen addAll: each transitionObjects ].
-	(aBoolean and: [ aSmaCCNode transitions notEmpty or: [ aSmaCCNode action isNil ] ])
-		ifTrue: [ self nextPutStatement: (self return: (self send: #reportLastMatch to: self receiverName)) ]
 ]
 
 { #category : #accessing }
@@ -172,9 +125,7 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 										with: each
 										with: (value at: each)) ] ].
 			stream
-				nextPutAll: 'let arr : [(usize, &str, usize, Option<&str>);';
-				nextPutAll: dataStream contents size printString;
-				nextPutAll: ']  = [';
+				nextPutAll: 'let arr = [';
 				cr.
 			stream
 				indentWhile:
@@ -190,10 +141,10 @@ SmaCCRustCodeGenerator >> compileKeywordInitializerUsing: keywordMapDictionary [
 							each third isInteger
 								ifTrue:
 									[ each third storeOn: stream.
-									stream nextPutAll: ',None' ]
+									stream nextPutAll: ',"default"' ]
 								ifFalse:
 									[ each third first storeOn: stream.
-									stream nextPutAll: ',Some("' , each third second first , '")' ].
+									stream nextPutAll: ',"' , each third second first , '"' ].
 							stream nextPutAll: '),' ]
 						separatedBy: [ stream cr ] ].
 			stream
@@ -247,6 +198,12 @@ SmaCCRustCodeGenerator >> compileTokenIdMethodNamed: aString withId: symbolId [
 	name := (self camelToSnakeCase: aString , 'Id') asUppercase.
 	self nextPutLine: 'pub static ' , name , ' : usize = ' , symbolId printString , ';'.
 	self compileStaticIn: scannerClass
+]
+
+{ #category : #initialization }
+SmaCCRustCodeGenerator >> initialize [
+	super initialize.
+	parenthesizeConditions := false
 ]
 
 { #category : #initialization }

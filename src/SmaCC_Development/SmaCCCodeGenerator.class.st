@@ -66,7 +66,8 @@ Class {
 		'ambiguousActions',
 		'grammar',
 		'defaultCategory',
-		'isExpressions'
+		'isExpressions',
+		'parenthesizeConditions'
 	],
 	#classInstVars : [
 		'codeTemplates'
@@ -111,21 +112,17 @@ SmaCCCodeGenerator class >> typeName [
 SmaCCCodeGenerator >> acceptCharacterEdge: aSmaCCCharacterEdge seen: aCollection [
 	| stream |
 	stream := WriteStream with: String new.
-	aSmaCCCharacterEdge transitionObjects size + aCollection size
-		> SmaCCGrammar maximumCharacterValue
+	aSmaCCCharacterEdge transitionObjects size + aCollection size > SmaCCGrammar maximumCharacterValue
 		ifTrue: [ ^ self trueValue ].
-	stream nextPut: $(.
-	aSmaCCCharacterEdge transitionObjects size
-		= SmaCCGrammar maximumCharacterValue
-		ifTrue: [ self
-				outputInvertedMatchFor: aSmaCCCharacterEdge
-				on: stream ]
+	parenthesizeConditions ifTrue: [ stream nextPut: $( ].
+	aSmaCCCharacterEdge transitionObjects size = SmaCCGrammar maximumCharacterValue
+		ifTrue: [ self outputInvertedMatchFor: aSmaCCCharacterEdge on: stream ]
 		ifFalse:
 			[ self
 				outputMatchFor: aSmaCCCharacterEdge
 				seen: aCollection
 				on: stream ].
-	stream nextPut: $).
+	parenthesizeConditions ifTrue: [ stream nextPut: $) ].
 	^ stream contents
 ]
 
@@ -904,7 +901,8 @@ SmaCCCodeGenerator >> initialMethodStatesFor: aSmaCCNode [
 SmaCCCodeGenerator >> initialize [
 	super initialize.
 	reduceActionCache := Dictionary new.
-	ambiguousActions := OrderedCollection new
+	ambiguousActions := OrderedCollection new.
+	parenthesizeConditions := true
 ]
 
 { #category : #'compiling-parser' }
