@@ -65,7 +65,8 @@ Class {
 		'reduceActionCache',
 		'ambiguousActions',
 		'grammar',
-		'defaultCategory'
+		'defaultCategory',
+		'isExpressions'
 	],
 	#classInstVars : [
 		'codeTemplates'
@@ -274,8 +275,52 @@ SmaCCCodeGenerator >> basicCompileSourceFor: aSmaCCReduceAction [
 ]
 
 { #category : #'compiling-scanner' }
-SmaCCCodeGenerator >> closestIsExpressionsFor: charsCollection seen: anObject [
-	self subclassResponsibility
+SmaCCCodeGenerator >> closestIsExpressionsFor: charsCollection seen: aCollection [
+	| expressions |
+	expressions := OrderedCollection new.
+	self isExpressions
+		keysAndValuesDo:
+			[ :string :selector | 
+			| isInString |
+			isInString := false.
+			((string
+				allSatisfy:
+					[ :each | (charsCollection includes: each) ifTrue: [ isInString := true ] ifFalse: [ aCollection includes: each ] ])
+				and: [ isInString ]) ifTrue: [ expressions add: selector ] ].
+	(expressions isEmpty
+		or:
+			[ (self
+				minMaxPairsFor: charsCollection
+				without: expressions
+				seen: aCollection) size
+				>
+					(self
+						minMaxPairsFor: charsCollection
+						without: #()
+						seen: aCollection) size ]) ifTrue: [ ^ #() ].
+	expressions size > 1
+		ifTrue:
+			[ | strings newExpressions |
+			strings := expressions
+				collect: [ :each | each -> ((self isExpressions keyAtValue: each) select: [ :char | charsCollection includes: char ]) ].
+			strings := strings
+				asSortedCollection:
+					[ :a :b | 
+					a value size > b value size
+						or:
+							[ a value size = b value size
+								and: [ (self isExpressions keyAtValue: a key) size < (self isExpressions keyAtValue: b key) size ] ] ].
+			newExpressions := OrderedCollection with: strings first.
+			2
+				to: strings size
+				do:
+					[ :i | 
+					| left |
+					left := (strings at: i) value.
+					newExpressions do: [ :each | left := left reject: [ :char | each value includes: char ] ].
+					left notEmpty ifTrue: [ newExpressions add: (strings at: i) ] ].
+			expressions := newExpressions collect: [ :each | each key ] ].
+	^ expressions
 ]
 
 { #category : #private }
@@ -867,10 +912,22 @@ SmaCCCodeGenerator >> initializeArrayContentsToNull: aSmaCCRHS [
 	
 ]
 
+{ #category : #private }
+SmaCCCodeGenerator >> initializeIsExpressions [
+	self subclassResponsibility 
+]
+
 { #category : #'compiling-parser' }
 SmaCCCodeGenerator >> initializeResultForReduceAction: aSmaCCRHS [
 	^ self
 		newArrayOfSize: aSmaCCRHS productionSymbol variableDefinitions size
+]
+
+{ #category : #private }
+SmaCCCodeGenerator >> isExpressions [
+	isExpressions isNil
+		ifTrue: [ self initializeIsExpressions ].
+	^ isExpressions
 ]
 
 { #category : #private }
@@ -935,7 +992,7 @@ SmaCCCodeGenerator >> minMaxPairsFor: charsCollection without: isSelectors seen:
 	isSelectors notEmpty
 		ifTrue:
 			[ charsLeft := charsLeft copy.
-			isSelectors do: [ :each | charsLeft smaccRemoveAll: (SmaCCGrammar isExpressionMap at: each) ] ].
+			isSelectors do: [ :each | charsLeft smaccRemoveAll: (self isExpressions keyAtValue: each) ] ].
 	pairs := OrderedCollection new.
 	charsLeft isEmpty ifTrue: [ ^ pairs ].
 	last := charsLeft first.
@@ -1006,6 +1063,11 @@ SmaCCCodeGenerator >> objectClass [
 ]
 
 { #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> outputGreaterThanMatch: each on: stream [
+	self subclassResponsibility 
+]
+
+{ #category : #'compiling-scanner' }
 SmaCCCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge on: stream [
 	self subclassResponsibility
 ]
@@ -1016,8 +1078,34 @@ SmaCCCodeGenerator >> outputIsSelector: isSelector on: stream [
 ]
 
 { #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> outputLessThanMatch: each on: stream [
+	self subclassResponsibility 
+]
+
+{ #category : #'compiling-scanner' }
 SmaCCCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge seen: aCollection on: stream [
 	self subclassResponsibility
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> outputMatchForTransition: each on: stream [
+	each first = each last
+		ifTrue: [ ^ self outputSingleCharacterMatch: each on: stream ].
+	each first = (Character value: 0)
+		ifTrue: [ ^ self outputLessThanMatch: each on: stream ].
+	each last = (Character value: SmaCCGrammar maximumCharacterValue)
+		ifTrue: [ ^ self outputGreaterThanMatch: each on: stream ].
+	self outputRangeMatch: each on: stream
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> outputRangeMatch: each on: stream [
+	self subclassResponsibility 
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> outputSingleCharacterMatch: each on: stream [
+	self subclassResponsibility 
 ]
 
 { #category : #private }

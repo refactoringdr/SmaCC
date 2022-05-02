@@ -10,7 +10,6 @@ Class {
 	#name : #SmaCCSmalltalkCodeGenerator,
 	#superclass : #SmaCCCodeGenerator,
 	#instVars : [
-		'isExpressions',
 		'parseTreeCache'
 	],
 	#classVars : [
@@ -221,55 +220,6 @@ SmaCCSmalltalkCodeGenerator >> basicCompileSourceFor: aSmaCCReduceAction [
 { #category : #accessing }
 SmaCCSmalltalkCodeGenerator >> changes [
 	^ model changes
-]
-
-{ #category : #'compiling-scanner' }
-SmaCCSmalltalkCodeGenerator >> closestIsExpressionsFor: charsCollection seen: aCollection [
-	| expressions |
-	expressions := OrderedCollection new.
-	self isExpressions
-		keysAndValuesDo:
-			[ :string :selector | 
-			| isInString |
-			isInString := false.
-			((string
-				allSatisfy:
-					[ :each | (charsCollection includes: each) ifTrue: [ isInString := true ] ifFalse: [ aCollection includes: each ] ])
-				and: [ isInString ]) ifTrue: [ expressions add: selector ] ].
-	(expressions isEmpty
-		or:
-			[ (self
-				minMaxPairsFor: charsCollection
-				without: expressions
-				seen: aCollection) size
-				>
-					(self
-						minMaxPairsFor: charsCollection
-						without: #()
-						seen: aCollection) size ]) ifTrue: [ ^ #() ].
-	expressions size > 1
-		ifTrue:
-			[ | strings newExpressions |
-			strings := expressions
-				collect: [ :each | each -> ((self isExpressions keyAtValue: each) select: [ :char | charsCollection includes: char ]) ].
-			strings := strings
-				asSortedCollection:
-					[ :a :b | 
-					a value size > b value size
-						or:
-							[ a value size = b value size
-								and: [ (self isExpressions keyAtValue: a key) size < (self isExpressions keyAtValue: b key) size ] ] ].
-			newExpressions := OrderedCollection with: strings first.
-			2
-				to: strings size
-				do:
-					[ :i | 
-					| left |
-					left := (strings at: i) value.
-					newExpressions do: [ :each | left := left reject: [ :char | each value includes: char ] ].
-					left notEmpty ifTrue: [ newExpressions add: (strings at: i) ] ].
-			expressions := newExpressions collect: [ :each | each key ] ].
-	^ expressions
 ]
 
 { #category : #'code generation templates' }
@@ -711,13 +661,6 @@ SmaCCSmalltalkCodeGenerator >> initializeIsExpressions [
 ]
 
 { #category : #private }
-SmaCCSmalltalkCodeGenerator >> isExpressions [
-	isExpressions isNil
-		ifTrue: [ self initializeIsExpressions ].
-	^ isExpressions
-]
-
-{ #category : #private }
 SmaCCSmalltalkCodeGenerator >> keywords [
 	^ self class keywords
 ]
@@ -905,17 +848,6 @@ SmaCCSmalltalkCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge seen: aCollec
 			stream next: pairs size - 1 put: $].
 			stream next: isSelectors size put: $] ].
 	invertMatch ifTrue: [ stream nextPutAll: ') not' ]
-]
-
-{ #category : #'compiling-scanner' }
-SmaCCSmalltalkCodeGenerator >> outputMatchForTransition: each on: stream [
-	each first = each last
-		ifTrue: [ ^ self outputSingleCharacterMatch: each on: stream ].
-	each first = (Character value: 0)
-		ifTrue: [ ^ self outputLessThanMatch: each on: stream ].
-	each last = (Character value: SmaCCGrammar maximumCharacterValue)
-		ifTrue: [ ^ self outputGreaterThanMatch: each on: stream ].
-	self outputRangeMatch: each on: stream
 ]
 
 { #category : #'compiling-scanner' }

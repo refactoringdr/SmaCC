@@ -317,6 +317,13 @@ SmaCCRustCodeGenerator >> outputClosureFor: anObject [
 	self codeStream nextPutAll: (anObject isNil ifTrue: [ 'None' ] ifFalse: [ 'Some(|this| this.' , anObject , '())' ])
 ]
 
+{ #category : #'compiling-scanner' }
+SmaCCRustCodeGenerator >> outputGreaterThanMatch: each on: stream [
+	stream nextPutAll: 'this.current_char >= '''.
+	self writeCharacter: each first on: stream.
+	stream nextPut: $'
+]
+
 { #category : #accessing }
 SmaCCRustCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge on: stream [
 	| char |
@@ -332,6 +339,13 @@ SmaCCRustCodeGenerator >> outputInvertedMatchFor: aSmaCCCharacterEdge on: stream
 { #category : #accessing }
 SmaCCRustCodeGenerator >> outputIsSelector: isSelector on: stream [
 	stream nextPutAll: 'this.current_char.', isSelector
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCRustCodeGenerator >> outputLessThanMatch: each on: stream [
+	stream nextPutAll: 'this.current_char <= '''.
+	self writeCharacter: each first on: stream.
+	stream nextPut: $'
 ]
 
 { #category : #accessing }
@@ -360,18 +374,61 @@ SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream withou
 
 { #category : #accessing }
 SmaCCRustCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge seen: aCollection on: stream [
-	| isSelectors |
+
+	| isSelectors pairs invertedSelectors invertedPairs invertedChars invertMatch |
 	isSelectors := self
-		closestIsExpressionsFor: aSmaCCCharacterEdge
-		seen: aCollection.
+		               closestIsExpressionsFor:
+		               aSmaCCCharacterEdge transitionObjects
+		               seen: aCollection.
+	pairs := self
+		         minMaxPairsFor: aSmaCCCharacterEdge transitionObjects
+		         without: isSelectors
+		         seen: aCollection.
+	invertMatch := false.
+	(SmaCCGrammar maximumCharacterValue > 255 and: [ 
+		 isSelectors size + pairs size > 3 ]) ifTrue: [ 
+		invertedChars := SmaCCGrammar allCharacters
+			                 smaccRemoveAll:
+				                 aSmaCCCharacterEdge transitionObjects;
+			                 yourself.
+		invertedSelectors := self
+			                     closestIsExpressionsFor: invertedChars
+			                     seen: aCollection.
+		invertedPairs := self
+			                 minMaxPairsFor: invertedChars
+			                 without: invertedSelectors
+			                 seen: aCollection.
+		isSelectors size + pairs size
+		> (invertedSelectors size + invertedPairs size) ifTrue: [ 
+			isSelectors := invertedSelectors.
+			pairs := invertedPairs.
+			invertMatch := true ] ].
+	invertMatch ifTrue: [ stream nextPutAll: '!(' ].
 	isSelectors
 		do: [ :each | self outputIsSelector: each on: stream ]
 		separatedBy: [ stream nextPutAll: ' || ' ].
-	self
-		outputMatchFor: aSmaCCCharacterEdge
-		on: stream
-		without: isSelectors
+	pairs isEmpty ifFalse: [ 
+		isSelectors notEmpty ifTrue: [ stream nextPutAll: ' || ' ].
+		pairs
+			do: [ :each1 | self outputMatchForTransition: each1 on: stream ]
+			separatedBy: [ stream nextPutAll: ' || ' ] ].
+	invertMatch ifTrue: [ stream nextPutAll: ')' ]
+]
 
+{ #category : #'compiling-scanner' }
+SmaCCRustCodeGenerator >> outputRangeMatch: each on: stream [
+	stream nextPutAll: '('''.
+	self writeCharacter: each first on: stream.
+	stream nextPutAll: '''..='''.
+	self writeCharacter: each last on: stream.
+	stream nextPutAll: ''').contains(&this.current_char)'
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCRustCodeGenerator >> outputSingleCharacterMatch: each on: stream [
+	stream nextPutAll: 'this.current_char == '''.
+	self writeCharacter: each first on: stream.
+	stream nextPut: $'
 ]
 
 { #category : #compiling }
