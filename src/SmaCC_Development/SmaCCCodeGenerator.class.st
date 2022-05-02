@@ -65,8 +65,7 @@ Class {
 		'reduceActionCache',
 		'ambiguousActions',
 		'grammar',
-		'defaultCategory',
-		'isExpressions'
+		'defaultCategory'
 	],
 	#classInstVars : [
 		'codeTemplates'
@@ -275,47 +274,8 @@ SmaCCCodeGenerator >> basicCompileSourceFor: aSmaCCReduceAction [
 ]
 
 { #category : #'compiling-scanner' }
-SmaCCCodeGenerator >> closestIsExpressionsFor: aSmaCCCharacterEdge seen: aCollection [
-	| expressions |
-	expressions := OrderedCollection new.
-	self isExpressions
-		keysAndValuesDo: [ :string :selector | 
-			| isInString |
-			isInString := false.
-			((string
-				allSatisfy: [ :each | 
-					(aSmaCCCharacterEdge transitionObjects includes: each)
-						ifTrue: [ isInString := true ]
-						ifFalse: [ aCollection includes: each ] ]) and: [ isInString ])
-				ifTrue: [ expressions add: selector ] ].
-	(expressions isEmpty
-		or: [ (self minMaxPairsFor: aSmaCCCharacterEdge without: expressions) size
-				> (self minMaxPairsFor: aSmaCCCharacterEdge without: #()) size ])
-		ifTrue: [ ^ #() ].
-	expressions size > 1
-		ifTrue: [ | strings newExpressions |
-			strings := expressions
-				collect: [ :each | 
-					each
-						->
-							((self isExpressions keyAtValue: each)
-								select: [ :char | aSmaCCCharacterEdge transitionObjects includes: char ]) ].
-			strings := strings
-				asSortedCollection: [ :a :b | 
-					a value size > b value size
-						or: [ a value size = b value size
-								and: [ (self isExpressions keyAtValue: a key) size
-										< (self isExpressions keyAtValue: b key) size ] ] ].
-			newExpressions := OrderedCollection with: strings first.
-			2 to: strings size do: [ :i | 
-				| left |
-				left := (strings at: i) value.
-				newExpressions
-					do: [ :each | left := left reject: [ :char | each value includes: char ] ].
-				left notEmpty
-					ifTrue: [ newExpressions add: (strings at: i) ] ].
-			expressions := newExpressions collect: [ :each | each key ] ].
-	^ expressions
+SmaCCCodeGenerator >> closestIsExpressionsFor: charsCollection seen: anObject [
+	self subclassResponsibility
 ]
 
 { #category : #private }
@@ -907,21 +867,10 @@ SmaCCCodeGenerator >> initializeArrayContentsToNull: aSmaCCRHS [
 	
 ]
 
-{ #category : #initialization }
-SmaCCCodeGenerator >> initializeIsExpressions [
-]
-
 { #category : #'compiling-parser' }
 SmaCCCodeGenerator >> initializeResultForReduceAction: aSmaCCRHS [
 	^ self
 		newArrayOfSize: aSmaCCRHS productionSymbol variableDefinitions size
-]
-
-{ #category : #private }
-SmaCCCodeGenerator >> isExpressions [
-	isExpressions isNil
-		ifTrue: [ self initializeIsExpressions ].
-	^ isExpressions
 ]
 
 { #category : #private }
@@ -972,18 +921,21 @@ SmaCCCodeGenerator >> methodNameMap: aSmaCCNode forMethods: methodNodes [
 ]
 
 { #category : #'compiling-scanner' }
-SmaCCCodeGenerator >> minMaxPairsFor: aSmaCCCharacterEdge without: isSelectors [
+SmaCCCodeGenerator >> minMaxPairsFor: charsCollection without: isSelectors [
+	^ self
+		minMaxPairsFor: charsCollection
+		without: isSelectors
+		seen: SmaCCCharacterSet new
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> minMaxPairsFor: charsCollection without: isSelectors seen: seenCollection [
 	| start last pairs charsLeft |
-	charsLeft := aSmaCCCharacterEdge transitionObjects.
+	charsLeft := charsCollection.
 	isSelectors notEmpty
 		ifTrue:
 			[ charsLeft := charsLeft copy.
-			isSelectors
-				do:
-					[ :each | 
-					| chars |
-					chars := self isExpressions keyAtValue: each.
-					charsLeft smaccRemoveAll: chars ] ].
+			isSelectors do: [ :each | charsLeft smaccRemoveAll: (SmaCCGrammar isExpressionMap at: each) ] ].
 	pairs := OrderedCollection new.
 	charsLeft isEmpty ifTrue: [ ^ pairs ].
 	last := charsLeft first.
@@ -993,8 +945,13 @@ SmaCCCodeGenerator >> minMaxPairsFor: aSmaCCCharacterEdge without: isSelectors [
 			[ :each | 
 			last asInteger + 1 = each asInteger
 				ifFalse:
-					[ start notNil ifTrue: [ pairs add: (Array with: start with: last) ].
-					start := each ].
+					[ start isNil
+						ifTrue: [ start := each ]
+						ifFalse:
+							[ ((last asInteger + 1 to: each asInteger - 1) allSatisfy: [ :i | seenCollection includes: (Character value: i) ])
+								ifFalse:
+									[ pairs add: (Array with: start with: last).
+									start := each ] ] ].
 			last := each ].
 	pairs add: (Array with: start with: last).
 	^ pairs
@@ -1059,23 +1016,8 @@ SmaCCCodeGenerator >> outputIsSelector: isSelector on: stream [
 ]
 
 { #category : #'compiling-scanner' }
-SmaCCCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge on: aStream without: aSelector [
-	self subclassResponsibility
-]
-
-{ #category : #'compiling-scanner' }
 SmaCCCodeGenerator >> outputMatchFor: aSmaCCCharacterEdge seen: aCollection on: stream [
-	| isSelectors |
-	isSelectors := self
-		closestIsExpressionsFor: aSmaCCCharacterEdge
-		seen: aCollection.
-	isSelectors
-		do: [ :each | self outputIsSelector: each on: stream ]
-		separatedBy: [ stream nextPutAll: ' or: [' ].
-	self
-		outputMatchFor: aSmaCCCharacterEdge
-		on: stream
-		without: isSelectors
+	self subclassResponsibility
 ]
 
 { #category : #private }
@@ -1349,8 +1291,8 @@ SmaCCCodeGenerator >> sortedTransitionsForNode: aSmaCCNode [
 					[ b isCharacterTransition not
 						or:
 							[ | aPairs bPairs |
-							aPairs := self minMaxPairsFor: a without: #().
-							bPairs := self minMaxPairsFor: b without: #().
+							aPairs := self minMaxPairsFor: a transitionObjects without: #().
+							bPairs := self minMaxPairsFor: b transitionObjects without: #().
 							aPairs size < bPairs size
 								or:
 									[ aPairs size = bPairs size
