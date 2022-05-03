@@ -301,7 +301,7 @@ SmaCCRustCodeGenerator >> outputIsSelector: isSelector on: stream [
 { #category : #'compiling-scanner' }
 SmaCCRustCodeGenerator >> outputLessThanMatch: each on: stream [
 	stream nextPutAll: 'this.current_char <= '''.
-	self writeCharacter: each first on: stream.
+	self writeCharacter: each last on: stream.
 	stream nextPut: $'
 ]
 
@@ -459,23 +459,30 @@ SmaCCRustCodeGenerator >> writeCharacter: aCharacter on: aStream [
 		ifTrue:
 			[ aStream
 				nextPut: $\;
-				nextPut: aCharacter ]
+				nextPut: aCharacter.
+			^ self ].
+	(aCharacter < $  or: [ aCharacter asInteger >= 128 ])
 		ifFalse:
-			[ (aCharacter < $  or: [ aCharacter asInteger >= 128 ])
-				ifTrue:
-					[ char := aCharacter asInteger printStringBase: 16.
-					[ char size >= 4 ] whileFalse: [ char := '0' , char ].
-					char = '000D'
-						ifFalse:
-							[ char = '000A'
-								ifFalse:
-									[ aStream
-										nextPutAll: '\u{';
-										nextPutAll: char;
-										nextPut: $} ]
-								ifTrue: [ aStream nextPutAll: '\n' ] ]
-						ifTrue: [ aStream nextPutAll: '\r' ] ]
-				ifFalse: [ aStream nextPut: aCharacter ] ]
+			[ aStream nextPut: aCharacter.
+			^ self ].
+	char := aCharacter asInteger printStringBase: 16.
+	[ char size >= 4 ] whileFalse: [ char := '0' , char ].
+	char = '0009'
+		ifTrue:
+			[ aStream nextPutAll: '\t'.
+			^ self ].
+	char = '000A'
+		ifTrue:
+			[ aStream nextPutAll: '\n'.
+			^ self ].
+	char = '000D'
+		ifTrue:
+			[ aStream nextPutAll: '\r'.
+			^ self ].
+	aStream
+		nextPutAll: '\u{';
+		nextPutAll: char;
+		nextPut: $}
 ]
 
 { #category : #accessing }
