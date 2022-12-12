@@ -26,11 +26,9 @@ Class {
 		'nextScannerState',
 		'parseAsEmbedded'
 	],
-	#classVars : [
-		'maxParallelParses'
-	],
 	#classInstVars : [
-		'cachedTrees'
+		'cachedTrees',
+		'maxParallelParses'
 	],
 	#category : #'SmaCC_GLR_Runtime'
 }
@@ -42,8 +40,7 @@ SmaCCGLRParser class >> cachedTrees [
 
 { #category : #accessing }
 SmaCCGLRParser class >> maxParallelParses [
-	^ maxParallelParses
-		ifNil: [ maxParallelParses := SmallInteger maxVal ]
+	^ maxParallelParses ifNil: [ maxParallelParses := SmallInteger maxVal ]
 ]
 
 { #category : #accessing }
@@ -521,9 +518,8 @@ SmaCCGLRParser >> setAllStartingStates [
 
 { #category : #private }
 SmaCCGLRParser >> setStartingStatesIfNone [
-	states isEmpty
-		ifTrue:
-			[ states add: self initialParserState ]
+	states isEmpty ifTrue: [ states add: self initialParserState ].
+	parseAsEmbedded ifTrue: [ self addEmbeddedActions ]
 ]
 
 { #category : #parsing }

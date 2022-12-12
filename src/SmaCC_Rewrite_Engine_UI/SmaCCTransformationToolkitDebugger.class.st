@@ -1,300 +1,243 @@
 Class {
 	#name : #SmaCCTransformationToolkitDebugger,
-	#superclass : #GTGenericStackDebugger,
+	#superclass : #SpPresenter,
+	#traits : 'TDebugger',
+	#classTraits : 'TDebugger classTrait',
+	#instVars : [
+		'session',
+		'stack',
+		'source',
+		'input',
+		'output',
+		'inspector'
+	],
 	#category : #'SmaCC_Rewrite_Engine_UI'
 }
 
-{ #category : #testing }
-SmaCCTransformationToolkitDebugger class >> availableAutomatically [
-	^ true
+{ #category : #accessing }
+SmaCCTransformationToolkitDebugger class >> closeAllDebuggers [
+	^ self allInstancesDo: [ :each | each close ]
+]
+
+{ #category : #'instance creation' }
+SmaCCTransformationToolkitDebugger class >> debugSession: aDebugSession [
+	| session |
+	session := SmaCCTransformationToolkitDebugSession from: aDebugSession.
+	^ (self on: session)
+		open;
+		yourself
 ]
 
 { #category : #accessing }
-SmaCCTransformationToolkitDebugger class >> defaultTitle [
-	^ 'Transformation'
+SmaCCTransformationToolkitDebugger class >> defaultDebuggerRank [
+	^ 12
 ]
 
-{ #category : #testing }
+{ #category : #debugging }
 SmaCCTransformationToolkitDebugger class >> handlesContext: aContext [
 	^ SmaCCTransformationToolkitDebugSession handlesContext: aContext
 ]
 
-{ #category : #'class initialization' }
-SmaCCTransformationToolkitDebugger class >> initialize [
-	self register
+{ #category : #actions }
+SmaCCTransformationToolkitDebugger >> close [
+	self window ifNotNil: [ :window | window close ]
 ]
 
-{ #category : #'tools registry' }
-SmaCCTransformationToolkitDebugger class >> register [
-	self registerToolsOn: Smalltalk tools
-]
-
-{ #category : #'tools registry' }
-SmaCCTransformationToolkitDebugger class >> registerToolsOn: aRegistry [
-	(aRegistry respondsTo: #registerDebugger:withRank:) ifTrue: [ 
-		aRegistry registerDebugger: self withRank: 70 ]
-]
-
-{ #category : #accessing }
-SmaCCTransformationToolkitDebugger class >> sessionClass [
-	^ SmaCCTransformationToolkitDebugSession
-]
-
-{ #category : #building }
-SmaCCTransformationToolkitDebugger >> buildInputOutputSourceIn: browser [
-	browser transmit
-		to: #originalSource;
-		andShow: [ :presentation | 
-			presentation text
-				title: 'Original Source';
-				wrapped: false;
-				withLineNumbers: true;
-				display: self session originalSource;
-				with: [ :text | self installActionsForRootPragmas: #(#SmaCCTransformationInput) in: text ] ].
-	browser transmit
-		to: #newSource;
-		andShow: [ :presentation | 
-			presentation text
-				title: 'New Source';
-				wrapped: false;
-				withLineNumbers: true;
-				display: self session newSource ].
-	browser transmit
-		from: #ruleStack port: #selection;
-		transformed: [ :selection | self inputSelectionIntervalFor: selection ];
-		to: #originalSource port: #selectionInterval.
-	browser transmit
-		from: #ruleStack port: #selection;
-		transformed: [ :selection | self outputSelectionIntervalFor: selection ];
-		to: #newSource port: #selectionInterval
-]
-
-{ #category : #building }
-SmaCCTransformationToolkitDebugger >> buildRuleSourceIn: browser [
-	browser transmit
-		from: #ruleStack port: #selection;
-		when: [ :selection | selection notNil and: [ selection first isKindOf: SmaCCRewrite ] ];
-		to: #ruleSource;
-		andShow: [ :presentation :selection | 
-			presentation pharoScript
-				title:
-					(selection isNil
-						ifTrue: [ 'Source' ]
-						ifFalse: [ (self codeObjectForSelection: selection) title ]);
-				morphicSelectionAct: [ :text | self saveRule: text text asString in: selection ] entitled: 'Save';
-				display: [ :each | self sourceForSelection: each ];
-				smalltalkClass: [ selection ifNotNil: [ selection last methodClass ] ];
-				doItReceiver: [ selection ifNotNil: [ selection last receiver ] ];
-				doItContext: [ selection ifNotNil: [ selection last ] ];
-				initialize: [ :text | text selectionInterval: (self sourceSelectionIntervalFor: selection) ];
-				with: [ :text | self installActionsForRootPragmas: #(#SmaCCTransformationStack) in: text ] ].
-	browser transmit
-		from: #ruleStack port: #selection;
-		when: [ :selection | selection notNil and: [ selection first isKindOf: SmaCCRewriteMethodDefinition ] ];
-		to: #ruleSource;
-		andShow: [ :presentation :selection | 
-			presentation pharoMethod
-				title: 'Method';
-				morphicSelectionAct: [ :text | self saveMethod: text text asString in: selection ] entitled: 'Save';
-				display: [ :each | self sourceForSelection: each ];
-				smalltalkClass: [ selection ifNotNil: [ selection last methodClass ] ];
-				doItReceiver: [ selection ifNotNil: [ selection last receiver ] ];
-				doItContext: [ selection ifNotNil: [ selection last ] ];
-				initialize: [ :text | text selectionInterval: (selection last method sourceNodeForPC: selection last pc) debugHighlightRange ];
-				with: [ :text | self installActionsForRootPragmas: #(#SmaCCTransformationStack) in: text ] ]
-]
-
-{ #category : #building }
-SmaCCTransformationToolkitDebugger >> buildRuleStackIn: browser [
-	browser transmit
-		to: #ruleStack;
-		andShow: [ :presentation | 
-			| stack |
-			stack := self session transformationStack.
-			presentation list
-				title: 'Stack';
-				display: [ stack ];
-				initialize: [ :list | 
-					stack isEmpty
-						ifFalse: [ list selection: stack first ] ];
-				format: [ :each | 
-					| isBlock |
-					isBlock := each last isBlockContext.
-					(isBlock
-						ifTrue: [ '[' ]
-						ifFalse: [ '' ]) , each first displayString
-						,
-							(isBlock
-								ifTrue: [ ']' ]
-								ifFalse: [ '' ]) ] ].
-	browser transmit
-		from: #ruleStack port: #selection;
-		transformed: [ :each | each ifNotNil: [ each last ] ];
-		to: #stack port: #selection
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> codeObjectForSelection: anArray [
-	(anArray first isKindOf: SmaCCRewriteMethodDefinition)
-		ifTrue: [ ^ anArray first ].
-	^ (self isTransformation: anArray)
-		ifTrue: [ anArray first transformation ]
-		ifFalse: [ anArray first match ]
+{ #category : #initialization }
+SmaCCTransformationToolkitDebugger >> createToolBar [
+	| send stepRule stepNode stepRewrite |
+	send := SmaCCSendRuleDebugAction gtActionFor: self.
+	stepRule := SmaCCStepRuleDebugAction gtActionFor: self.
+	stepNode := SmaCCStepToNextNodeAction gtActionFor: self.
+	stepRewrite := SmaCCStepToNextRewriteAction gtActionFor: self.
+	^ (self newToolbar)
+		add:
+				((self newToolbarButton)
+						label: 'Into';
+						icon: send icon;
+						action:
+								[ send executeAction.
+									self updateDisplay ]);
+		add:
+				((self newToolbarButton)
+						label: 'Over';
+						icon: stepRule icon;
+						action:
+								[ stepRule executeAction.
+									self updateDisplay ]);
+		add:
+				((self newToolbarButton)
+						label: 'Run to Next Node';
+						icon: stepNode icon;
+						action:
+								[ stepNode executeAction.
+									self updateDisplay ]);
+		add:
+				((self newToolbarButton)
+						label: 'Run to Next Rewrite';
+						icon: stepRewrite icon;
+						action:
+								[ stepRewrite executeAction.
+									self updateDisplay ]);
+		add:
+				((self newToolbarButton)
+						label: 'Debugger';
+						icon: (self iconNamed: #glamorousBug);
+						action:
+								[ StDebugger debugSession: session.
+									self close ]);
+		yourself
 ]
 
 { #category : #accessing }
-SmaCCTransformationToolkitDebugger >> currentInputSelectionInterval [
-	^ self selectionIntervalForPane: #originalSource
-]
-
-{ #category : #building }
-SmaCCTransformationToolkitDebugger >> debuggerStructureIn: browser [
-	browser
-		row: [ :row | 
-			row
-				column: #ruleStack span: 1;
-				column: #ruleSource span: 3 ];
-		row: [ :row | 
-			row
-				column: #originalSource;
-				column: #newSource ];
-		row: [ :row | 
-			row
-				column: #stack;
-				column: #code ]
-			size: 0;
-		row: #inspector
-]
-
-{ #category : #building }
-SmaCCTransformationToolkitDebugger >> debuggerTransmissionsIn: browser [
-	super debuggerTransmissionsIn: browser.
-	self buildInputOutputSourceIn: browser.
-	self buildRuleStackIn: browser.
-	self buildRuleSourceIn: browser.
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> equivalentNodeTo: aNode in: otherTree [
-	| equivParent nodeIndex equivNode |
-	aNode isMethod
-		ifTrue: [ ^ otherTree ].
-	(aNode parent isReturn and: [ aNode parent parent parent isMethod ])
-		ifTrue: [ "Hack to handle the inserted return statements"
-			equivNode := otherTree isSequence
-				ifTrue: [ otherTree statements last ]
-				ifFalse: [ otherTree ].
-			^ equivNode isReturn
-				ifTrue: [ equivNode value ]
-				ifFalse: [ equivNode ] ].
-	aNode parent isMethod
-		ifTrue: [ otherTree isSequence
-				ifTrue: [ ^ otherTree ]
-				ifFalse: [ ^ otherTree parent ] ].
-	equivParent := self equivalentNodeTo: aNode parent in: otherTree.
-	equivParent isNil
-		ifTrue: [ ^ nil ].
-	nodeIndex := aNode parent children identityIndexOf: aNode.
-	^ equivParent children at: nodeIndex ifAbsent: [ nil ]
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> findFirstContext: aContext [
-	| next context |
-	context := aContext.
-	[ (next := context findSimilarSender) notNil ] whileTrue: [context := next].
-	^ context
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> inputSelectionIntervalFor: selection [
-	^ selection isNil
-		ifTrue: [ 1 to: 0 ]
-		ifFalse: [ selection last receiver match sourceInterval ]
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> intervalFromMethodNode: aNode inSource: aString [
-	| otherTree otherNode |
-	otherTree := RBParser parseExpression: aString onError: [ :msg :pos | ^ 1 to: 0 ].
-	otherNode := self equivalentNodeTo: aNode in: otherTree.
-	otherNode isNil
-		ifTrue: [ ^ 1 to: 0 ].
-	^ otherNode start to: otherNode stop
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> isTransformation: selection [
-	^ selection first transformation method == selection last method
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> outputSelectionIntervalFor: selection [
-	| source stop context match start |
-	selection isNil
-		ifTrue: [ ^ 1 to: 0 ].
-	context := selection last receiver.
-	source := context source.
-	match := context match.
-	start := context startIndexFor: match.
-	stop := context stopIndexFor: match.
-	^ (source stringIndexFor: start) to: (source stringIndexFor: stop)
+SmaCCTransformationToolkitDebugger >> currentContext [
+	^ stack selectedItem ifNil: [ session interruptedContext ] ifNotNil: [ :each | each last ]
 ]
 
 { #category : #accessing }
-SmaCCTransformationToolkitDebugger >> rewriteCode [
-	^ self rewriteCodePane presentations first
+SmaCCTransformationToolkitDebugger >> currentNode [
+	^ stack selectedItem ifNil: [ session currentNode ] ifNotNil: [ :each | each last receiver match ]
+]
+
+{ #category : #layout }
+SmaCCTransformationToolkitDebugger >> defaultLayout [
+	^ (SpPanedLayout newTopToBottom)
+		positionOfSlider: 0.66;
+		add:
+				((SpPanedLayout newTopToBottom)
+						positionOfSlider: 0.4;
+						add:
+								(self newPresenter
+										layout:
+											((SpBoxLayout newTopToBottom)
+												add: self createToolBar;
+												add:
+														((self newPresenter)
+																layout:
+																		((SpPanedLayout newLeftToRight)
+																				positionOfSlider: 0.3;
+																				add: stack;
+																				add: source;
+																				yourself);
+																yourself);
+												yourself));
+						add:
+								((self newPresenter)
+										layout:
+												((SpPanedLayout newLeftToRight)
+														positionOfSlider: 0.5;
+														add: input;
+														add: output;
+														yourself);
+										yourself);
+						yourself);
+		add: inspector;
+		yourself
+]
+
+{ #category : #private }
+SmaCCTransformationToolkitDebugger >> highlightNodeInterval: anInterval in: presenter [
+	| text |
+	text := presenter adapter ifNil: [ ^ self ] ifNotNil: [ :each | each widget getText ].
+	text
+		removeAttribute: TextEmphasis underlined
+		from: 1
+		to: text size.
+	(anInterval notNil and: [ anInterval last <= text size ])
+		ifTrue:
+			[ text
+				addAttribute: TextEmphasis underlined
+				from: anInterval first
+				to: anInterval last.
+			self scrollTo: anInterval first in: presenter ]
+]
+
+{ #category : #private }
+SmaCCTransformationToolkitDebugger >> highlightNodes [
+	| inputInterval outputInterval |
+	self currentNode
+		ifNotNil:
+			[ :node | 
+			inputInterval := node sourceInterval.
+			outputInterval := self outputSelectionIntervalFor: node ].
+	self highlightNodeInterval: inputInterval in: input.
+	self highlightNodeInterval: outputInterval in: output
+]
+
+{ #category : #initialization }
+SmaCCTransformationToolkitDebugger >> initializePresenters [
+	source := self newText.
+	stack := self newList.
+	stack display: [ :each | each first displayString ].
+	stack whenSelectionChangedDo: [ :each | self updateContext ].
+	input := self newText.
+	input text: session originalSource asString.
+	output := self newText.
+	inspector := self instantiate: StDebuggerInspector on: (StDebuggerInspectorModel on: StDebuggerContext new).
+	inspector label: 'Receiver'.
+	self whenDisplayDo: [ :each | self updateDisplay ]
+]
+
+{ #category : #initialization }
+SmaCCTransformationToolkitDebugger >> initializeWindow: aWindowPresenter [
+	super initializeWindow: aWindowPresenter.
+	aWindowPresenter initialExtent: 850 @ 750
+]
+
+{ #category : #private }
+SmaCCTransformationToolkitDebugger >> outputSelectionIntervalFor: aNode [
+	| string stop matchContext start |
+	aNode ifNil: [ ^ 1 to: 0 ].
+	matchContext := session currentRewriteContext.
+	string := session rewriteEngine source.
+	start := matchContext startIndexFor: aNode.
+	stop := matchContext stopIndexFor: aNode.
+	^ (string stringIndexFor: start) to: (string stringIndexFor: stop)
+]
+
+{ #category : #private }
+SmaCCTransformationToolkitDebugger >> scrollTo: anIndex in: presenter [
+	| text line count |
+	text := presenter text.
+	line := text asString lineNumberCorrespondingToIndex: anIndex.
+	count := text asString lineCount.
+	presenter scrollValue: 0 @ ((line - 1) / count)
 ]
 
 { #category : #accessing }
-SmaCCTransformationToolkitDebugger >> rewriteCodePane [
-	^ self browser paneNamed: #ruleSource
+SmaCCTransformationToolkitDebugger >> session [
+	^ session
+]
+
+{ #category : #initialization }
+SmaCCTransformationToolkitDebugger >> setModelBeforeInitialization: aDomainObject [
+	session := aDomainObject
+]
+
+{ #category : #accessing }
+SmaCCTransformationToolkitDebugger >> title [
+	^ 'SmaCC Transformation Toolkit Debugger'
 ]
 
 { #category : #private }
-SmaCCTransformationToolkitDebugger >> save: aString into: selection [
-	| context obj newContext method |
-	(obj := self codeObjectForSelection: selection) code: aString.
-	method := obj method.
-	context := self findFirstContext: selection last.
-	context isBlockContext
-		ifTrue: [ ^ self inform: 'Cannot find method context to restart' ].
-	self session unwindAndRestartToContext: context.
-	newContext := Context
-		sender: context sender
-		receiver: context receiver
-		method: method
-		arguments: #().
-	newContext push: context receiver.
-	newContext privRefresh.
-	self session interruptedProcess suspendedContext: newContext.
-	self session stepToFirstInterestingBytecodeIn: self session interruptedProcess.
-	self session updateContextTo: newContext.
-	self updateBrowser
+SmaCCTransformationToolkitDebugger >> updateContext [
+	stack selectedItem
+		ifNil: [ source text: '' ]
+		ifNotNil:
+			[ :item | 
+			source text: (session sourceForContext: item last andRewrite: item first).
+			self highlightNodeInterval: (session sourceSelectionIntervalForContext: item last andRewrite: item first) in: source.
+			inspector updateWith: (StDebuggerContext context: item last).
+			self highlightNodes ]
 ]
 
 { #category : #private }
-SmaCCTransformationToolkitDebugger >> saveMethod: aString in: selection [
-	RBParser parseMethod: aString onError: [ :msg :pos | ^ self inform: 'Code does not parse' ].
-	self save: aString into: selection
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> saveRule: aString in: selection [
-	RBParser parseExpression: aString onError: [ :msg :pos | ^ self inform: 'Code does not parse' ].
-	self save: aString into: selection
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> sourceForSelection: anArray [
-	anArray isNil
-		ifTrue: [ ^ '' ].
-	^ (self codeObjectForSelection: anArray) source
-]
-
-{ #category : #private }
-SmaCCTransformationToolkitDebugger >> sourceSelectionIntervalFor: selection [
-	selection isNil
-		ifTrue: [ ^ 1 to: 0 ].
-	^ self intervalFromMethodNode: (selection last method sourceNodeForPC: selection last pc) inSource: (self sourceForSelection: selection)
+SmaCCTransformationToolkitDebugger >> updateDisplay [
+	| items newSource |
+	items := session transformationStack.
+	stack items: items.
+	items notEmpty ifTrue: [ stack selectItem: items first ].
+	newSource := session newSource.
+	newSource ~= output text asString ifTrue: [ output text: newSource ].
+	self highlightNodes
 ]

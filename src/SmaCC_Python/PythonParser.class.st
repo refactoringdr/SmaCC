@@ -1,15 +1,15 @@
 Class {
-	#name : 'PythonParser',
-	#superclass : 'SmaCCParser',
-	#category : 'SmaCC_Python'
+	#name : #PythonParser,
+	#superclass : #SmaCCParser,
+	#category : #'SmaCC_Python'
 }
 
-{ #category : 'generated-accessing' }
+{ #category : #'generated-accessing' }
 PythonParser class >> cacheId [
-	^'2021-08-12T17:42:20.739555-05:00'
+	^'2022-08-03T07:53:31.890201-05:00'
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> definitionComment [
 "# Python Grammar and Lexer extracted from Python2 documentation on 16/04/2014 (Python 2.7.6)
 # As seen from this grammar, the python doc and the implemented python scanner/parser diverge in several places
@@ -574,14 +574,14 @@ testlist_opt:
 	| testlist 'testlist'
 	;
 dictorsetmaker: 
-	test 'test' "":"" test 'test2' comp_for 'comp' {{}}
-	| test 'test' "":"" test 'test2' more_tests 'more' {{}}
-	| test 'test' comp_for 'comp' {{}}
+	test 'object' "":"" test 'value' comp_for 'comp' {{}}
+	| test 'object' "":"" test 'value' more_tests {{}}
+	| test 'object' comp_for 'comp' {{}}
 	| testlist
 	;
 more_tests:
 	comma_opt
-	| "","" test 'test' "":"" test 'test2' more_tests 'more_tests' {{}}
+	| "","" test 'object' "":"" test 'value' more_tests
 	;
 classdef:
 	""class"" <name> 'cname' "":"" suite {{Classdef}}
@@ -646,353 +646,353 @@ yield_expr:
 	;"
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 PythonParser class >> eval: aString [
 	^self parse: aString startingAt: self startingStateForeval_input
 ]
 
-{ #category : 'file types' }
+{ #category : #'file types' }
 PythonParser class >> fileExtension [
 	^ '.py'
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> reduceTable [
 ^#(
-	#(101 0 #reduceActionForfile_input1: 4539393 false ) 
-	#(195 0 #reduceActionForStartFStringSingle1: 12858369 true ) 
-	#(196 0 #reduceActionForStartFStringDouble1: 12925953 true ) 
-	#(197 0 #reduceActionForStartFLongStringSingle1: 12993537 true ) 
-	#(198 0 #reduceActionForStartFLongStringDouble1: 13069313 true ) 
-	#(128 1 #reduceActionForbreak_stmt1: 6657025 false ) 
-	#(129 1 #reduceActionForcontinue_stmt1: 6691841 false ) 
-	#(112 0 #nil 5359617 false ) 
-	#(126 1 #reduceActionForpass_stmt1: 6537217 false ) 
-	#(213 0 #nil 14047233 false ) 
-	#(132 1 #reduceActionForraise_stmt1: 6824961 false ) 
-	#(184 1 #reduceActionForatom9: 11617289 false ) 
-	#(186 1 #reduceActionForstring1: 12075009 false ) 
-	#(186 1 #reduceActionForstring1: 12075010 false ) 
-	#(184 1 #reduceActionForatom10: 11617290 false ) 
-	#(102 1 #reduceActionForsingle_input1: 4627457 false ) 
-	#(108 1 #reduceActionFordecorators2: 5022722 false ) 
-	#(151 1 #liftFirstValue: 8376328 false ) 
-	#(151 1 #liftFirstValue: 8376326 false ) 
-	#(102 1 #reduceActionForsingle_input2: 4627458 false ) 
-	#(150 1 #liftFirstValue: 8237057 false ) 
-	#(150 1 #liftFirstValue: 8237058 false ) 
-	#(150 1 #liftFirstValue: 8237059 false ) 
-	#(150 1 #liftFirstValue: 8237060 false ) 
-	#(150 1 #liftFirstValue: 8237061 false ) 
-	#(127 1 #liftFirstValue: 6568961 false ) 
-	#(127 1 #liftFirstValue: 6568962 false ) 
-	#(127 1 #liftFirstValue: 6568963 false ) 
-	#(127 1 #liftFirstValue: 6568965 false ) 
-	#(127 1 #liftFirstValue: 6568964 false ) 
-	#(150 1 #liftFirstValue: 8237062 false ) 
-	#(133 1 #liftFirstValue: 7011329 false ) 
-	#(133 1 #liftFirstValue: 7011330 false ) 
-	#(150 1 #liftFirstValue: 8237063 false ) 
-	#(150 1 #liftFirstValue: 8237064 false ) 
-	#(150 1 #liftFirstValue: 8237065 false ) 
-	#(119 0 #nil 5939201 false ) 
-	#(151 1 #liftFirstValue: 8376321 false ) 
-	#(151 1 #liftFirstValue: 8376322 false ) 
-	#(151 1 #liftFirstValue: 8376323 false ) 
-	#(151 1 #liftFirstValue: 8376324 false ) 
-	#(151 1 #liftFirstValue: 8376325 false ) 
-	#(209 1 #liftFirstValue: 13856769 false ) 
-	#(170 1 #liftFirstValue: 10238977 false ) 
-	#(171 1 #liftFirstValue: 10306561 false ) 
-	#(172 1 #liftFirstValue: 10378242 false ) 
-	#(173 1 #liftFirstValue: 10440705 false ) 
-	#(175 1 #liftFirstValue: 10689537 false ) 
-	#(176 1 #liftFirstValue: 10757121 false ) 
-	#(177 1 #liftFirstValue: 10831873 false ) 
-	#(178 1 #liftFirstValue: 10910721 false ) 
-	#(179 1 #liftFirstValue: 11055105 false ) 
-	#(180 1 #liftFirstValue: 11177985 false ) 
-	#(181 1 #liftFirstValue: 11362305 false ) 
-	#(183 0 #reduceActionFortrailers_opt1: 11565057 false ) 
-	#(184 1 #liftFirstValue: 11617291 false ) 
-	#(185 1 #reduceActionForstrings2: 11992066 false ) 
-	#(209 1 #liftFirstValue: 13856771 false ) 
-	#(210 1 #liftFirstValue: 13952002 false ) 
-	#(121 0 #reduceActionForassign_after1: 6091777 false ) 
-	#(151 1 #liftFirstValue: 8376327 false ) 
-	#(131 1 #reduceActionForyield_stmt1: 6787073 false ) 
-	#(104 0 #reduceActionFortrailers_opt1: 4797441 false ) 
-	#(101 2 #reduceActionForfile_input2: 4539394 false ) 
-	#(101 2 #reduceActionForfile_input3: 4539395 false ) 
-	#(117 1 #liftFirstValue: 5775361 false ) 
-	#(117 1 #liftFirstValue: 5775362 false ) 
-	#(181 2 #reduceActionForfactor2: 11362306 false ) 
-	#(181 2 #reduceActionForfactor3: 11362307 false ) 
-	#(144 1 #reduceActionFordotted_name2: 7798786 false ) 
-	#(106 0 #nil 4929537 false ) 
-	#(226 1 #liftFirstValue: 15523842 false ) 
-	#(149 2 #reduceActionForassert_stmt1: 8172545 false ) 
-	#(148 1 #reduceActionFortest_test_opt1: 8095745 false ) 
-	#(208 0 #nil 13834241 false ) 
-	#(125 2 #reduceActionFordel_stmt1: 6499329 false ) 
-	#(147 2 #reduceActionForexec_stmt1: 7987201 false ) 
-	#(137 1 #reduceActionFordots2: 7310338 false ) 
-	#(136 1 #reduceActionFordotopt_dotted_name2: 7200770 false ) 
-	#(136 1 #reduceActionFordotopt_dotted_name1: 7200769 false ) 
-	#(146 1 #reduceActionFornamelist2: 7942146 false ) 
-	#(145 2 #reduceActionForglobal_stmt1: 7895041 false ) 
-	#(143 1 #reduceActionFordotted_as_names2: 7723010 false ) 
-	#(134 2 #reduceActionForimport_name1: 7056385 false ) 
-	#(140 1 #reduceActionFordotted_as_name1: 7505921 false ) 
-	#(115 1 #reduceActionForfpdef1: 5650433 false ) 
-	#(112 1 #reduceActionForvarargslist_opt2: 5359618 false ) 
-	#(114 0 #nil 5611521 false ) 
-	#(172 2 #reduceActionFornot_test1: 10378241 false ) 
-	#(213 1 #liftFirstValue: 14047234 false ) 
-	#(124 2 #reduceActionForprint_stmt1: 6404097 false ) 
-	#(132 2 #reduceActionForraise_stmt2: 6824962 false ) 
-	#(130 2 #reduceActionForreturn_stmt1: 6735873 false ) 
-	#(161 1 #reduceActionFornamelist2: 9206786 false ) 
-	#(162 1 #reduceActionForwith_item1: 9284609 false ) 
-	#(227 2 #reduceActionForyield_expr1: 15703041 false ) 
-	#(181 2 #reduceActionForfactor4: 11362308 false ) 
-	#(184 2 #reduceActionForatom1: 11617281 false ) 
-	#(200 1 #liftFirstValue: 13210626 false ) 
-	#(184 2 #reduceActionForatom4: 11617284 false ) 
-	#(199 1 #liftFirstValue: 13145090 false ) 
-	#(184 2 #reduceActionForatom7: 11617287 false ) 
-	#(214 1 #liftFirstValue: 14088196 false ) 
-	#(108 2 #reduceActionFordecorators1: 5022721 false ) 
-	#(109 2 #reduceActionFordecorated2: 5108738 false ) 
-	#(109 2 #reduceActionFordecorated1: 5108737 false ) 
-	#(119 1 #liftFirstValue: 5939202 false ) 
-	#(102 2 #reduceActionForsingle_input3: 4627459 false ) 
-	#(174 1 #reduceActionForcomp_op7: 10522631 false ) 
-	#(174 1 #reduceActionForcomp_op1: 10522625 false ) 
-	#(174 1 #reduceActionForcomp_op5: 10522629 false ) 
-	#(174 1 #reduceActionForcomp_op6: 10522630 false ) 
-	#(174 1 #reduceActionForcomp_op3: 10522627 false ) 
-	#(174 1 #reduceActionForcomp_op2: 10522626 false ) 
-	#(174 1 #reduceActionForcomp_op4: 10522628 false ) 
-	#(174 1 #reduceActionForcomp_op8: 10522632 false ) 
-	#(174 1 #reduceActionForcomp_op10: 10522634 false ) 
-	#(182 2 #reduceActionForpower1: 11467777 false ) 
-	#(185 2 #reduceActionForstrings1: 11992065 false ) 
-	#(210 2 #reduceActionFortestlist3: 13952003 false ) 
-	#(212 1 #reduceActionFor_____test__test___1: 13976577 false ) 
-	#(123 1 #liftFirstValue: 6209541 false ) 
-	#(123 1 #liftFirstValue: 6209542 false ) 
-	#(123 1 #liftFirstValue: 6209547 false ) 
-	#(123 1 #liftFirstValue: 6209539 false ) 
-	#(123 1 #liftFirstValue: 6209537 false ) 
-	#(123 1 #liftFirstValue: 6209538 false ) 
-	#(123 1 #liftFirstValue: 6209548 false ) 
-	#(123 1 #liftFirstValue: 6209540 false ) 
-	#(123 1 #liftFirstValue: 6209545 false ) 
-	#(123 1 #liftFirstValue: 6209546 false ) 
-	#(123 1 #liftFirstValue: 6209544 false ) 
-	#(123 1 #liftFirstValue: 6209543 false ) 
-	#(120 2 #reduceActionForexpr_stmt1: 5964801 false ) 
-	#(103 2 #reduceActionForeval_input1: 4741121 false ) 
-	#(107 0 #nil 4994049 false ) 
-	#(184 3 #reduceActionForatom8: 11617288 false ) 
-	#(208 1 #liftFirstValue: 13834242 false ) 
-	#(207 2 #reduceActionForexprlist2: 13768706 false ) 
-	#(137 2 #reduceActionFordots1: 7310337 false ) 
-	#(136 2 #reduceActionFordotopt_dotted_name3: 7200771 false ) 
-	#(113 2 #reduceActionForvarargslist2: 5410818 false ) 
-	#(113 2 #reduceActionForvarargslist4: 5410820 false ) 
-	#(124 3 #reduceActionForprint_stmt2: 6404098 false ) 
-	#(164 1 #reduceActionForsuite1: 9659393 false ) 
-	#(184 3 #reduceActionForatom3: 11617283 false ) 
-	#(200 2 #reduceActionFortestlist_comp1: 13210625 false ) 
-	#(184 3 #reduceActionForatom3: 11617282 false ) 
-	#(184 3 #reduceActionForatom5: 11617285 false ) 
-	#(199 2 #reduceActionForlistmaker1: 13145089 false ) 
-	#(214 2 #reduceActionFordictorsetmaker3: 14088195 false ) 
-	#(184 3 #reduceActionForatom6: 11617286 false ) 
-	#(118 3 #reduceActionForsimple_stmt1: 5830657 false ) 
-	#(118 3 #reduceActionForsimple_stmt2: 5830658 false ) 
-	#(170 3 #reduceActionForor_test2: 10238978 false ) 
-	#(171 3 #reduceActionForand_test2: 10306562 false ) 
-	#(174 2 #reduceActionForcomp_op11: 10522635 false ) 
-	#(174 2 #reduceActionForcomp_op9: 10522633 false ) 
-	#(173 3 #reduceActionForcomparison2: 10440706 false ) 
-	#(175 3 #reduceActionForexpr2: 10689538 false ) 
-	#(176 3 #reduceActionForxor_expr2: 10757122 false ) 
-	#(177 3 #reduceActionForand_expr2: 10831874 false ) 
-	#(178 3 #reduceActionForshift_expr2: 10910722 false ) 
-	#(178 3 #reduceActionForshift_expr3: 10910723 false ) 
-	#(179 3 #reduceActionForarith_expr2: 11055106 false ) 
-	#(179 3 #reduceActionForarith_expr3: 11055107 false ) 
-	#(180 3 #reduceActionForterm4: 11177988 false ) 
-	#(180 3 #reduceActionForterm2: 11177986 false ) 
-	#(180 3 #reduceActionForterm3: 11177987 false ) 
-	#(180 3 #reduceActionForterm5: 11177989 false ) 
-	#(205 0 #nil 13705217 false ) 
-	#(183 2 #reduceActionFortrailers_opt2: 11565058 false ) 
-	#(188 0 #reduceActionForassign_after1: 12220417 false ) 
-	#(190 0 #reduceActionForassign_after1: 12388353 false ) 
-	#(192 0 #reduceActionForassign_after1: 12564481 false ) 
-	#(194 0 #reduceActionForassign_after1: 12748801 false ) 
-	#(211 2 #reduceActionFor_____test__test__1: 13976577 false ) 
-	#(210 3 #reduceActionFortestlist1: 13952001 false ) 
-	#(212 2 #reduceActionFor_____test__test___2: 13976578 false ) 
-	#(120 3 #reduceActionForexpr_stmt2: 5964802 false ) 
-	#(122 1 #liftFirstValue: 6162434 false ) 
-	#(122 1 #liftFirstValue: 6162433 false ) 
-	#(104 2 #reduceActionFortrailers_opt2: 4797442 false ) 
-	#(144 3 #reduceActionFordotted_name1: 7798785 false ) 
-	#(219 1 #reduceActionForargument1: 14866433 false ) 
-	#(107 1 #liftFirstValue: 4994050 false ) 
-	#(105 4 #reduceActionFordecorator1: 4842497 false ) 
-	#(226 3 #reduceActionFortestlist11: 15523841 false ) 
-	#(148 3 #reduceActionFortest_test_opt2: 8095746 false ) 
-	#(216 4 #reduceActionForclassdef1: 14359553 false ) 
-	#(207 3 #reduceActionForexprlist1: 13768705 false ) 
-	#(147 4 #reduceActionForexec_stmt2: 7987202 false ) 
-	#(138 1 #reduceActionForimport_names_star1: 7347201 false ) 
-	#(139 1 #reduceActionFordotted_as_name1: 7432193 false ) 
-	#(135 4 #reduceActionForimport_from1: 7110657 false ) 
-	#(142 1 #reduceActionFordotted_as_names2: 7641090 false ) 
-	#(138 1 #reduceActionForimport_names_star3: 7347203 false ) 
-	#(146 3 #reduceActionFornamelist1: 7942145 false ) 
-	#(153 0 #nil 8576001 false ) 
-	#(143 3 #reduceActionFordotted_as_names1: 7723009 false ) 
-	#(140 3 #reduceActionFordotted_as_name2: 7505922 false ) 
-	#(116 2 #reduceActionForexprlist2: 5708802 false ) 
-	#(115 3 #reduceActionForfpdef2: 5650434 false ) 
-	#(201 4 #reduceActionForlambdef1: 13280257 false ) 
-	#(114 2 #reduceActionForinit_opt2: 5611522 false ) 
-	#(113 3 #reduceActionForvarargslist5: 5410821 false ) 
-	#(132 4 #reduceActionForraise_stmt3: 6824963 false ) 
-	#(163 1 #reduceActionForexcept_clause1: 9439233 false ) 
-	#(154 0 #nil 8654849 false ) 
-	#(161 3 #reduceActionFornamelist1: 9206785 false ) 
-	#(160 4 #reduceActionForwith_stmt1: 9153537 false ) 
-	#(162 3 #reduceActionForwith_item2: 9284610 false ) 
-	#(182 4 #reduceActionForpower2: 11467778 false ) 
-	#(202 2 #reduceActionFortrailer4: 13359108 false ) 
-	#(202 2 #reduceActionFortrailer1: 13359105 false ) 
-	#(204 1 #reduceActionForsubscript2: 13589506 false ) 
-	#(205 1 #liftFirstValue: 13705218 false ) 
-	#(121 3 #reduceActionFornamelist1: 6091778 false ) 
-	#(218 0 #reduceActionFormore_args1: 14642177 false ) 
-	#(217 2 #reduceActionForarglist4: 14502916 false ) 
-	#(106 3 #liftSecondValue: 4929538 false ) 
-	#(219 2 #reduceActionForargument2: 14866434 false ) 
-	#(217 2 #reduceActionForarglist2: 14502914 false ) 
-	#(111 3 #liftSecondValue: 5300225 false ) 
-	#(110 5 #reduceActionForfuncdef1: 5225473 false ) 
-	#(141 2 #reduceActionForimport_as_names1: 7589889 false ) 
-	#(116 3 #reduceActionForexprlist1: 5708801 false ) 
-	#(113 4 #reduceActionForvarargslist1: 5410817 false ) 
-	#(165 1 #reduceActionForstmts2: 9735170 false ) 
-	#(163 2 #reduceActionForexcept_clause2: 9439234 false ) 
-	#(158 0 #nil 9000961 false ) 
-	#(155 5 #reduceActionForwhile_stmt1: 8698881 false ) 
-	#(215 1 #liftFirstValue: 14266369 false ) 
-	#(214 4 #reduceActionFordictorsetmaker2: 14088194 false ) 
-	#(214 4 #reduceActionFordictorsetmaker1: 14088193 false ) 
-	#(209 5 #reduceActionFortest2: 13856770 false ) 
-	#(202 3 #reduceActionFortrailer2: 13359106 false ) 
-	#(202 3 #reduceActionFortrailer3: 13359107 false ) 
-	#(203 2 #reduceActionForexprlist2: 13493250 false ) 
-	#(186 5 #reduceActionForstring3: 12075011 false ) 
-	#(188 2 #reduceActionFor_____test__test___2: 12220418 false ) 
-	#(186 5 #reduceActionForstring3: 12075012 false ) 
-	#(190 2 #reduceActionFor_____test__test___2: 12388354 false ) 
-	#(186 5 #reduceActionForstring3: 12075013 false ) 
-	#(192 2 #reduceActionFor_____test__test___2: 12564482 false ) 
-	#(186 5 #reduceActionForstring3: 12075014 false ) 
-	#(194 2 #reduceActionFor_____test__test___2: 12748802 false ) 
-	#(217 3 #reduceActionForarglist3: 14502915 false ) 
-	#(219 3 #reduceActionForargument3: 14866435 false ) 
-	#(217 3 #reduceActionForexprlist1: 14502913 false ) 
-	#(139 3 #reduceActionFordotted_as_name2: 7432194 false ) 
-	#(138 3 #reduceActionForimport_names_star2: 7347202 false ) 
-	#(142 3 #reduceActionFordotted_as_names1: 7641089 false ) 
-	#(152 6 #reduceActionForif_stmt1: 8495105 false ) 
-	#(113 5 #reduceActionForvarargslist3: 5410819 false ) 
-	#(132 6 #reduceActionForraise_stmt4: 6824964 false ) 
-	#(165 2 #reduceActionFortrailers_opt2: 9735169 false ) 
-	#(164 4 #reduceActionForsuite2: 9659394 false ) 
-	#(157 6 #reduceActionFortry_stmt2: 8862722 false ) 
-	#(157 6 #reduceActionFortry_stmt1: 8862721 false ) 
-	#(159 3 #reduceActionForexcept_list2: 9053186 false ) 
-	#(224 4 #reduceActionForcomp_for1: 15286273 false ) 
-	#(221 4 #reduceActionForlist_for1: 15009793 false ) 
-	#(166 1 #reduceActionFortestlist_safe1: 9973761 false ) 
-	#(168 1 #liftFirstValue: 10119170 false ) 
-	#(168 1 #liftFirstValue: 10119169 false ) 
-	#(204 3 #reduceActionForsubscript1: 13589505 false ) 
-	#(203 3 #reduceActionForexprlist1: 13493249 false ) 
-	#(206 0 #nil 13726721 false ) 
-	#(187 2 #reduceActionFor_____test__test__1: 12220417 false ) 
-	#(189 2 #reduceActionFor_____test__test__1: 12388353 false ) 
-	#(191 2 #reduceActionFor_____test__test__1: 12564481 false ) 
-	#(193 2 #reduceActionFor_____test__test__1: 12748801 false ) 
-	#(216 7 #reduceActionForclassdef2: 14359554 false ) 
-	#(156 7 #reduceActionForfor_stmt1: 8772609 false ) 
-	#(163 4 #reduceActionForexcept_clause4: 9439236 false ) 
-	#(163 4 #reduceActionForexcept_clause3: 9439235 false ) 
-	#(154 3 #reduceActionForelse_opt2: 8654850 false ) 
-	#(159 4 #reduceActionForexcept_list1: 9053185 false ) 
-	#(224 5 #reduceActionForcomp_for2: 15286274 false ) 
-	#(223 1 #liftFirstValue: 15249409 false ) 
-	#(223 1 #liftFirstValue: 15249410 false ) 
-	#(221 5 #reduceActionForlist_for2: 15009794 false ) 
-	#(220 1 #liftFirstValue: 14973953 false ) 
-	#(220 1 #liftFirstValue: 14973954 false ) 
-	#(204 4 #reduceActionForsubscript3: 13589507 false ) 
-	#(218 3 #reduceActionFormore_args2: 14642178 false ) 
-	#(218 3 #reduceActionFormore_args3: 14642179 false ) 
-	#(158 3 #reduceActionForfinally_opt2: 9000962 false ) 
-	#(225 2 #reduceActionForcomp_if1: 15413249 false ) 
-	#(222 2 #reduceActionForlist_if1: 15138817 false ) 
-	#(167 1 #reduceActionFornamelist2: 10053634 false ) 
-	#(206 2 #reduceActionForsliceop2: 13726722 false ) 
-	#(153 5 #reduceActionForelifs_opt2: 8576002 false ) 
-	#(225 3 #reduceActionForcomp_if2: 15413250 false ) 
-	#(169 4 #reduceActionForold_lambdef1: 10157057 false ) 
-	#(222 3 #reduceActionForlist_if2: 15138818 false ) 
-	#(166 4 #reduceActionFortestlist_safe2: 9973762 false ) 
-	#(215 5 #reduceActionFormore_tests2: 14266370 false ) 
-	#(167 3 #reduceActionFornamelist1: 10053633 false )
+	#(101 0 #reduceActionForfile_input1: 4539393 false) 
+	#(195 0 #reduceActionForStartFStringSingle1: 12858369 true) 
+	#(196 0 #reduceActionForStartFStringDouble1: 12925953 true) 
+	#(197 0 #reduceActionForStartFLongStringSingle1: 12993537 true) 
+	#(198 0 #reduceActionForStartFLongStringDouble1: 13069313 true) 
+	#(128 1 #reduceActionForbreak_stmt1: 6657025 false) 
+	#(129 1 #reduceActionForcontinue_stmt1: 6691841 false) 
+	#(112 0 #nil 5359617 false) 
+	#(126 1 #reduceActionForpass_stmt1: 6537217 false) 
+	#(213 0 #nil 14047233 false) 
+	#(132 1 #reduceActionForraise_stmt1: 6824961 false) 
+	#(184 1 #reduceActionForatom9: 11617289 false) 
+	#(186 1 #reduceActionForstring1: 12075009 false) 
+	#(186 1 #reduceActionForstring1: 12075010 false) 
+	#(184 1 #reduceActionForatom10: 11617290 false) 
+	#(102 1 #reduceActionForsingle_input1: 4627457 false) 
+	#(108 1 #reduceActionFordecorators2: 5022722 false) 
+	#(151 1 #liftFirstValue: 8376328 false) 
+	#(151 1 #liftFirstValue: 8376326 false) 
+	#(102 1 #reduceActionForsingle_input2: 4627458 false) 
+	#(150 1 #liftFirstValue: 8237057 false) 
+	#(150 1 #liftFirstValue: 8237058 false) 
+	#(150 1 #liftFirstValue: 8237059 false) 
+	#(150 1 #liftFirstValue: 8237060 false) 
+	#(150 1 #liftFirstValue: 8237061 false) 
+	#(127 1 #liftFirstValue: 6568961 false) 
+	#(127 1 #liftFirstValue: 6568962 false) 
+	#(127 1 #liftFirstValue: 6568963 false) 
+	#(127 1 #liftFirstValue: 6568965 false) 
+	#(127 1 #liftFirstValue: 6568964 false) 
+	#(150 1 #liftFirstValue: 8237062 false) 
+	#(133 1 #liftFirstValue: 7011329 false) 
+	#(133 1 #liftFirstValue: 7011330 false) 
+	#(150 1 #liftFirstValue: 8237063 false) 
+	#(150 1 #liftFirstValue: 8237064 false) 
+	#(150 1 #liftFirstValue: 8237065 false) 
+	#(119 0 #nil 5939201 false) 
+	#(151 1 #liftFirstValue: 8376321 false) 
+	#(151 1 #liftFirstValue: 8376322 false) 
+	#(151 1 #liftFirstValue: 8376323 false) 
+	#(151 1 #liftFirstValue: 8376324 false) 
+	#(151 1 #liftFirstValue: 8376325 false) 
+	#(209 1 #liftFirstValue: 13856769 false) 
+	#(170 1 #liftFirstValue: 10238977 false) 
+	#(171 1 #liftFirstValue: 10306561 false) 
+	#(172 1 #liftFirstValue: 10378242 false) 
+	#(173 1 #liftFirstValue: 10440705 false) 
+	#(175 1 #liftFirstValue: 10689537 false) 
+	#(176 1 #liftFirstValue: 10757121 false) 
+	#(177 1 #liftFirstValue: 10831873 false) 
+	#(178 1 #liftFirstValue: 10910721 false) 
+	#(179 1 #liftFirstValue: 11055105 false) 
+	#(180 1 #liftFirstValue: 11177985 false) 
+	#(181 1 #liftFirstValue: 11362305 false) 
+	#(183 0 #reduceActionFortrailers_opt1: 11565057 false) 
+	#(184 1 #liftFirstValue: 11617291 false) 
+	#(185 1 #reduceActionForstrings2: 11992066 false) 
+	#(209 1 #liftFirstValue: 13856771 false) 
+	#(210 1 #liftFirstValue: 13952002 false) 
+	#(121 0 #reduceActionForassign_after1: 6091777 false) 
+	#(151 1 #liftFirstValue: 8376327 false) 
+	#(131 1 #reduceActionForyield_stmt1: 6787073 false) 
+	#(104 0 #reduceActionFortrailers_opt1: 4797441 false) 
+	#(101 2 #reduceActionForfile_input2: 4539394 false) 
+	#(101 2 #reduceActionForfile_input3: 4539395 false) 
+	#(117 1 #liftFirstValue: 5775361 false) 
+	#(117 1 #liftFirstValue: 5775362 false) 
+	#(181 2 #reduceActionForfactor2: 11362306 false) 
+	#(181 2 #reduceActionForfactor3: 11362307 false) 
+	#(144 1 #reduceActionFordotted_name2: 7798786 false) 
+	#(106 0 #nil 4929537 false) 
+	#(226 1 #liftFirstValue: 15506434 false) 
+	#(149 2 #reduceActionForassert_stmt1: 8172545 false) 
+	#(148 1 #reduceActionFortest_test_opt1: 8095745 false) 
+	#(208 0 #nil 13834241 false) 
+	#(125 2 #reduceActionFordel_stmt1: 6499329 false) 
+	#(147 2 #reduceActionForexec_stmt1: 7987201 false) 
+	#(137 1 #reduceActionFordots2: 7310338 false) 
+	#(136 1 #reduceActionFordotopt_dotted_name2: 7200770 false) 
+	#(136 1 #reduceActionFordotopt_dotted_name1: 7200769 false) 
+	#(146 1 #reduceActionFornamelist2: 7942146 false) 
+	#(145 2 #reduceActionForglobal_stmt1: 7895041 false) 
+	#(143 1 #reduceActionFordotted_as_names2: 7723010 false) 
+	#(134 2 #reduceActionForimport_name1: 7056385 false) 
+	#(140 1 #reduceActionFordotted_as_name1: 7505921 false) 
+	#(115 1 #reduceActionForfpdef1: 5650433 false) 
+	#(112 1 #reduceActionForvarargslist_opt2: 5359618 false) 
+	#(114 0 #nil 5611521 false) 
+	#(172 2 #reduceActionFornot_test1: 10378241 false) 
+	#(213 1 #liftFirstValue: 14047234 false) 
+	#(124 2 #reduceActionForprint_stmt1: 6404097 false) 
+	#(132 2 #reduceActionForraise_stmt2: 6824962 false) 
+	#(130 2 #reduceActionForreturn_stmt1: 6735873 false) 
+	#(161 1 #reduceActionFornamelist2: 9206786 false) 
+	#(162 1 #reduceActionForwith_item1: 9284609 false) 
+	#(227 2 #reduceActionForyield_expr1: 15685633 false) 
+	#(181 2 #reduceActionForfactor4: 11362308 false) 
+	#(184 2 #reduceActionForatom1: 11617281 false) 
+	#(200 1 #liftFirstValue: 13210626 false) 
+	#(184 2 #reduceActionForatom4: 11617284 false) 
+	#(199 1 #liftFirstValue: 13145090 false) 
+	#(184 2 #reduceActionForatom7: 11617287 false) 
+	#(214 1 #liftFirstValue: 14088196 false) 
+	#(108 2 #reduceActionFordecorators1: 5022721 false) 
+	#(109 2 #reduceActionFordecorated2: 5108738 false) 
+	#(109 2 #reduceActionFordecorated1: 5108737 false) 
+	#(119 1 #liftFirstValue: 5939202 false) 
+	#(102 2 #reduceActionForsingle_input3: 4627459 false) 
+	#(174 1 #reduceActionForcomp_op7: 10522631 false) 
+	#(174 1 #reduceActionForcomp_op1: 10522625 false) 
+	#(174 1 #reduceActionForcomp_op5: 10522629 false) 
+	#(174 1 #reduceActionForcomp_op6: 10522630 false) 
+	#(174 1 #reduceActionForcomp_op3: 10522627 false) 
+	#(174 1 #reduceActionForcomp_op2: 10522626 false) 
+	#(174 1 #reduceActionForcomp_op4: 10522628 false) 
+	#(174 1 #reduceActionForcomp_op8: 10522632 false) 
+	#(174 1 #reduceActionForcomp_op10: 10522634 false) 
+	#(182 2 #reduceActionForpower1: 11467777 false) 
+	#(185 2 #reduceActionForstrings1: 11992065 false) 
+	#(210 2 #reduceActionFortestlist3: 13952003 false) 
+	#(212 1 #reduceActionFor_____test__test___1: 13976577 false) 
+	#(123 1 #liftFirstValue: 6209541 false) 
+	#(123 1 #liftFirstValue: 6209542 false) 
+	#(123 1 #liftFirstValue: 6209547 false) 
+	#(123 1 #liftFirstValue: 6209539 false) 
+	#(123 1 #liftFirstValue: 6209537 false) 
+	#(123 1 #liftFirstValue: 6209538 false) 
+	#(123 1 #liftFirstValue: 6209548 false) 
+	#(123 1 #liftFirstValue: 6209540 false) 
+	#(123 1 #liftFirstValue: 6209545 false) 
+	#(123 1 #liftFirstValue: 6209546 false) 
+	#(123 1 #liftFirstValue: 6209544 false) 
+	#(123 1 #liftFirstValue: 6209543 false) 
+	#(120 2 #reduceActionForexpr_stmt1: 5964801 false) 
+	#(103 2 #reduceActionForeval_input1: 4741121 false) 
+	#(107 0 #nil 4994049 false) 
+	#(184 3 #reduceActionForatom8: 11617288 false) 
+	#(208 1 #liftFirstValue: 13834242 false) 
+	#(207 2 #reduceActionForexprlist2: 13768706 false) 
+	#(137 2 #reduceActionFordots1: 7310337 false) 
+	#(136 2 #reduceActionFordotopt_dotted_name3: 7200771 false) 
+	#(113 2 #reduceActionForvarargslist2: 5410818 false) 
+	#(113 2 #reduceActionForvarargslist4: 5410820 false) 
+	#(124 3 #reduceActionForprint_stmt2: 6404098 false) 
+	#(164 1 #reduceActionForsuite1: 9659393 false) 
+	#(184 3 #reduceActionForatom3: 11617283 false) 
+	#(200 2 #reduceActionFortestlist_comp1: 13210625 false) 
+	#(184 3 #reduceActionForatom3: 11617282 false) 
+	#(184 3 #reduceActionForatom5: 11617285 false) 
+	#(199 2 #reduceActionForlistmaker1: 13145089 false) 
+	#(214 2 #reduceActionFordictorsetmaker3: 14088195 false) 
+	#(184 3 #reduceActionForatom6: 11617286 false) 
+	#(118 3 #reduceActionForsimple_stmt1: 5830657 false) 
+	#(118 3 #reduceActionForsimple_stmt2: 5830658 false) 
+	#(170 3 #reduceActionForor_test2: 10238978 false) 
+	#(171 3 #reduceActionForand_test2: 10306562 false) 
+	#(174 2 #reduceActionForcomp_op11: 10522635 false) 
+	#(174 2 #reduceActionForcomp_op9: 10522633 false) 
+	#(173 3 #reduceActionForcomparison2: 10440706 false) 
+	#(175 3 #reduceActionForexpr2: 10689538 false) 
+	#(176 3 #reduceActionForxor_expr2: 10757122 false) 
+	#(177 3 #reduceActionForand_expr2: 10831874 false) 
+	#(178 3 #reduceActionForshift_expr2: 10910722 false) 
+	#(178 3 #reduceActionForshift_expr3: 10910723 false) 
+	#(179 3 #reduceActionForarith_expr2: 11055106 false) 
+	#(179 3 #reduceActionForarith_expr3: 11055107 false) 
+	#(180 3 #reduceActionForterm4: 11177988 false) 
+	#(180 3 #reduceActionForterm2: 11177986 false) 
+	#(180 3 #reduceActionForterm3: 11177987 false) 
+	#(180 3 #reduceActionForterm5: 11177989 false) 
+	#(205 0 #nil 13705217 false) 
+	#(183 2 #reduceActionFortrailers_opt2: 11565058 false) 
+	#(188 0 #reduceActionForassign_after1: 12220417 false) 
+	#(190 0 #reduceActionForassign_after1: 12388353 false) 
+	#(192 0 #reduceActionForassign_after1: 12564481 false) 
+	#(194 0 #reduceActionForassign_after1: 12748801 false) 
+	#(211 2 #reduceActionFor_____test__test__1: 13976577 false) 
+	#(210 3 #reduceActionFortestlist1: 13952001 false) 
+	#(212 2 #reduceActionFor_____test__test___2: 13976578 false) 
+	#(120 3 #reduceActionForexpr_stmt2: 5964802 false) 
+	#(122 1 #liftFirstValue: 6162434 false) 
+	#(122 1 #liftFirstValue: 6162433 false) 
+	#(104 2 #reduceActionFortrailers_opt2: 4797442 false) 
+	#(144 3 #reduceActionFordotted_name1: 7798785 false) 
+	#(219 1 #reduceActionForargument1: 14849025 false) 
+	#(107 1 #liftFirstValue: 4994050 false) 
+	#(105 4 #reduceActionFordecorator1: 4842497 false) 
+	#(226 3 #reduceActionFortestlist11: 15506433 false) 
+	#(148 3 #reduceActionFortest_test_opt2: 8095746 false) 
+	#(216 4 #reduceActionForclassdef1: 14342145 false) 
+	#(207 3 #reduceActionForexprlist1: 13768705 false) 
+	#(147 4 #reduceActionForexec_stmt2: 7987202 false) 
+	#(138 1 #reduceActionForimport_names_star1: 7347201 false) 
+	#(139 1 #reduceActionFordotted_as_name1: 7432193 false) 
+	#(135 4 #reduceActionForimport_from1: 7110657 false) 
+	#(142 1 #reduceActionFordotted_as_names2: 7641090 false) 
+	#(138 1 #reduceActionForimport_names_star3: 7347203 false) 
+	#(146 3 #reduceActionFornamelist1: 7942145 false) 
+	#(153 0 #nil 8576001 false) 
+	#(143 3 #reduceActionFordotted_as_names1: 7723009 false) 
+	#(140 3 #reduceActionFordotted_as_name2: 7505922 false) 
+	#(116 2 #reduceActionForexprlist2: 5708802 false) 
+	#(115 3 #reduceActionForfpdef2: 5650434 false) 
+	#(201 4 #reduceActionForlambdef1: 13280257 false) 
+	#(114 2 #reduceActionForinit_opt2: 5611522 false) 
+	#(113 3 #reduceActionForvarargslist5: 5410821 false) 
+	#(132 4 #reduceActionForraise_stmt3: 6824963 false) 
+	#(163 1 #reduceActionForexcept_clause1: 9439233 false) 
+	#(154 0 #nil 8654849 false) 
+	#(161 3 #reduceActionFornamelist1: 9206785 false) 
+	#(160 4 #reduceActionForwith_stmt1: 9153537 false) 
+	#(162 3 #reduceActionForwith_item2: 9284610 false) 
+	#(182 4 #reduceActionForpower2: 11467778 false) 
+	#(202 2 #reduceActionFortrailer4: 13359108 false) 
+	#(202 2 #reduceActionFortrailer1: 13359105 false) 
+	#(204 1 #reduceActionForsubscript2: 13589506 false) 
+	#(205 1 #liftFirstValue: 13705218 false) 
+	#(121 3 #reduceActionFornamelist1: 6091778 false) 
+	#(218 0 #reduceActionFormore_args1: 14624769 false) 
+	#(217 2 #reduceActionForarglist4: 14485508 false) 
+	#(106 3 #liftSecondValue: 4929538 false) 
+	#(219 2 #reduceActionForargument2: 14849026 false) 
+	#(217 2 #reduceActionForarglist2: 14485506 false) 
+	#(111 3 #liftSecondValue: 5300225 false) 
+	#(110 5 #reduceActionForfuncdef1: 5225473 false) 
+	#(141 2 #reduceActionForimport_as_names1: 7589889 false) 
+	#(116 3 #reduceActionForexprlist1: 5708801 false) 
+	#(113 4 #reduceActionForvarargslist1: 5410817 false) 
+	#(165 1 #reduceActionForstmts2: 9735170 false) 
+	#(163 2 #reduceActionForexcept_clause2: 9439234 false) 
+	#(158 0 #nil 9000961 false) 
+	#(155 5 #reduceActionForwhile_stmt1: 8698881 false) 
+	#(215 1 #reduceActionFormore_tests1: 14265345 false) 
+	#(214 4 #reduceActionFordictorsetmaker2: 14088194 false) 
+	#(214 4 #reduceActionFordictorsetmaker1: 14088193 false) 
+	#(209 5 #reduceActionFortest2: 13856770 false) 
+	#(202 3 #reduceActionFortrailer2: 13359106 false) 
+	#(202 3 #reduceActionFortrailer3: 13359107 false) 
+	#(203 2 #reduceActionForexprlist2: 13493250 false) 
+	#(186 5 #reduceActionForstring3: 12075011 false) 
+	#(188 2 #reduceActionFor_____test__test___2: 12220418 false) 
+	#(186 5 #reduceActionForstring3: 12075012 false) 
+	#(190 2 #reduceActionFor_____test__test___2: 12388354 false) 
+	#(186 5 #reduceActionForstring3: 12075013 false) 
+	#(192 2 #reduceActionFor_____test__test___2: 12564482 false) 
+	#(186 5 #reduceActionForstring3: 12075014 false) 
+	#(194 2 #reduceActionFor_____test__test___2: 12748802 false) 
+	#(217 3 #reduceActionForarglist3: 14485507 false) 
+	#(219 3 #reduceActionForargument3: 14849027 false) 
+	#(217 3 #reduceActionForexprlist1: 14485505 false) 
+	#(139 3 #reduceActionFordotted_as_name2: 7432194 false) 
+	#(138 3 #reduceActionForimport_names_star2: 7347202 false) 
+	#(142 3 #reduceActionFordotted_as_names1: 7641089 false) 
+	#(152 6 #reduceActionForif_stmt1: 8495105 false) 
+	#(113 5 #reduceActionForvarargslist3: 5410819 false) 
+	#(132 6 #reduceActionForraise_stmt4: 6824964 false) 
+	#(165 2 #reduceActionFortrailers_opt2: 9735169 false) 
+	#(164 4 #reduceActionForsuite2: 9659394 false) 
+	#(157 6 #reduceActionFortry_stmt2: 8862722 false) 
+	#(157 6 #reduceActionFortry_stmt1: 8862721 false) 
+	#(159 3 #reduceActionForexcept_list2: 9053186 false) 
+	#(224 4 #reduceActionForcomp_for1: 15268865 false) 
+	#(221 4 #reduceActionForlist_for1: 14992385 false) 
+	#(166 1 #reduceActionFortestlist_safe1: 9973761 false) 
+	#(168 1 #liftFirstValue: 10119170 false) 
+	#(168 1 #liftFirstValue: 10119169 false) 
+	#(204 3 #reduceActionForsubscript1: 13589505 false) 
+	#(203 3 #reduceActionForexprlist1: 13493249 false) 
+	#(206 0 #nil 13726721 false) 
+	#(187 2 #reduceActionFor_____test__test__1: 12220417 false) 
+	#(189 2 #reduceActionFor_____test__test__1: 12388353 false) 
+	#(191 2 #reduceActionFor_____test__test__1: 12564481 false) 
+	#(193 2 #reduceActionFor_____test__test__1: 12748801 false) 
+	#(216 7 #reduceActionForclassdef2: 14342146 false) 
+	#(156 7 #reduceActionForfor_stmt1: 8772609 false) 
+	#(163 4 #reduceActionForexcept_clause4: 9439236 false) 
+	#(163 4 #reduceActionForexcept_clause3: 9439235 false) 
+	#(154 3 #reduceActionForelse_opt2: 8654850 false) 
+	#(159 4 #reduceActionForexcept_list1: 9053185 false) 
+	#(224 5 #reduceActionForcomp_for2: 15268866 false) 
+	#(223 1 #liftFirstValue: 15232001 false) 
+	#(223 1 #liftFirstValue: 15232002 false) 
+	#(221 5 #reduceActionForlist_for2: 14992386 false) 
+	#(220 1 #liftFirstValue: 14956545 false) 
+	#(220 1 #liftFirstValue: 14956546 false) 
+	#(204 4 #reduceActionForsubscript3: 13589507 false) 
+	#(218 3 #reduceActionFormore_args2: 14624770 false) 
+	#(218 3 #reduceActionFormore_args3: 14624771 false) 
+	#(158 3 #reduceActionForfinally_opt2: 9000962 false) 
+	#(225 2 #reduceActionForcomp_if1: 15395841 false) 
+	#(222 2 #reduceActionForlist_if1: 15121409 false) 
+	#(167 1 #reduceActionFornamelist2: 10053634 false) 
+	#(206 2 #reduceActionForsliceop2: 13726722 false) 
+	#(153 5 #reduceActionForelifs_opt2: 8576002 false) 
+	#(225 3 #reduceActionForcomp_if2: 15395842 false) 
+	#(169 4 #reduceActionForold_lambdef1: 10157057 false) 
+	#(222 3 #reduceActionForlist_if2: 15121410 false) 
+	#(166 4 #reduceActionFortestlist_safe2: 9973762 false) 
+	#(215 5 #reduceActionFormore_tests2: 14265346 false) 
+	#(167 3 #reduceActionFornamelist1: 10053633 false)
 	).
 ]
 
-{ #category : 'generated-accessing' }
+{ #category : #'generated-accessing' }
 PythonParser class >> scannerClass [
 	^PythonScanner
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> startingStateForeval_input [
 	^ 3
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> startingStateForfile_input [
 	^ 1
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> startingStateForsingle_input [
 	^ 2
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> symbolNames [
 	^ #('"!="' '"%"' '"%="' '"&"' '"&="' '"*"' '"**"' '"**="' '"*="' '"+"' '"+="' '","' '"-"' '"-="' '"."' '"/"' '"//"' '"//="' '"/="' '":"' '";"' '"<"' '"<<"' '"<<="' '"<="' '"<>"' '"="' '"=="' '">"' '">="' '">>"' '">>="' '"@"' '"^"' '"^="' '"`"' '"and"' '"as"' '"assert"' '"break"' '"class"' '"continue"' '"def"' '"del"' '"elif"' '"else"' '"except"' '"exec"' '"finally"' '"for"' '"from"' '"global"' '"if"' '"import"' '"in"' '"is"' '"lambda"' '"not"' '"or"' '"pass"' '"print"' '"raise"' '"return"' '"try"' '"while"' '"with"' '"yield"' '"|"' '"|="' '"~"' '<name>' '<string>' '<fStringWhole>' '<fStringSingleStart>' '<fStringSingleMid>' '<fStringSingleEnd>' '<fStringDoubleStart>' '<fStringDoubleMid>' '<fStringDoubleEnd>' '<fLongStringSingleStart>' '<fLongStringSingleMid>' '<fLongStringSingleEnd>' '<fLongStringDoubleStart>' '<fLongStringDoubleMid>' '<fLongStringDoubleEnd>' '<number>' '<emptyLine>' '<blankLine>' '<indent>' '<noindent>' '<comment>' '<whitespace>' '<NEWLINE>' '<lparen>' '<rparen>' '<lbrack>' '<rbrack>' '<lcurly>' '<rcurly>' 'B e g i n' 'file_input' 'single_input' 'eval_input' 'newline_opts' 'decorator' 'paren_arglist_opt' 'arglist_opt' 'decorators' 'decorated' 'funcdef' 'parameters' 'varargslist_opt' 'varargslist' 'init_opt' 'fpdef' 'fplist' 'stmt' 'simple_stmt' 'semicolon_opt' 'expr_stmt' 'assign_after' 'yield_or_testlist' 'augassign' 'print_stmt' 'del_stmt' 'pass_stmt' 'flow_stmt' 'break_stmt' 'continue_stmt' 'return_stmt' 'yield_stmt' 'raise_stmt' 'import_stmt' 'import_name' 'import_from' 'dotopt_dotted_name' 'dots' 'import_names_star' 'import_as_name' 'dotted_as_name' 'import_as_names' 'import_as_names_in' 'dotted_as_names' 'dotted_name' 'global_stmt' 'namelist' 'exec_stmt' 'test_test_opt' 'assert_stmt' 'small_stmt' 'compound_stmt' 'if_stmt' 'elifs_opt' 'else_opt' 'while_stmt' 'for_stmt' 'try_stmt' 'finally_opt' 'except_list' 'with_stmt' 'with_items' 'with_item' 'except_clause' 'suite' 'stmts' 'testlist_safe' 'old_tests' 'old_test' 'old_lambdef' 'or_test' 'and_test' 'not_test' 'comparison' 'comp_op' 'expr' 'xor_expr' 'and_expr' 'shift_expr' 'arith_expr' 'term' 'factor' 'power' 'trailers_opt' 'atom' 'strings' 'string' '(<fStringSingleMid> ''part'' expr ''expression'')' '(<fStringSingleMid> ''part'' expr ''expression'')*' '(<fStringDoubleMid> ''part'' expr ''expression'')' '(<fStringDoubleMid> ''part'' expr ''expression'')*' '(<fLongStringSingleMid> ''part'' expr ''expression'')' '(<fLongStringSingleMid> ''part'' expr ''expression'')*' '(<fLongStringDoubleMid> ''part'' expr ''expression'')' '(<fLongStringDoubleMid> ''part'' expr ''expression'')*' 'StartFStringSingle' 'StartFStringDouble' 'StartFLongStringSingle' 'StartFLongStringDouble' 'listmaker' 'testlist_comp' 'lambdef' 'trailer' 'subscriptlist' 'subscript' 'test_opt' 'sliceop' 'exprlist' 'comma_opt' 'test' 'testlist' '("," test ''test'')' '("," test ''test'')+' 'testlist_opt' 'dictorsetmaker' 'more_tests' 'classdef' 'arglist' 'more_args' 'argument' 'list_iter' 'list_for' 'list_if' 'comp_iter' 'comp_for' 'comp_if' 'testlist1' 'yield_expr' '<DEDENT>' '<INDENT>' 'E O F' 'error')
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> symbolTypes [
-	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #PyFileInputNode #PyFileInputNode #PySingleInputNode #PyEvalInputNode #OrderedCollection #PyDecoratorNode #OrderedCollection #OrderedCollection #PyDecoratorsNode #PyDecoratedNode #PyFuncdefNode #PyVarArgListNode #PyVarArgListNode #OrderedCollection #PyInitOptNode #PyFpdefNode #OrderedCollection #PyRootNode #PySimpleStmtNode #SmaCCToken #PyExprStmtNode #OrderedCollection #PyRootNode #SmaCCToken #PyPrintNode #PyDelNode #PyPassNode #PyRootNode #PyBreakNode #PyContinueNode #PyReturnNode #PyYieldNode #PyRaiseNode #PyImportNode #PyImportNode #PyImportNode #PyDotoptDottedNameNode #PyDotsNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #PyDottedNameNode #PyGlobalNode #OrderedCollection #PyExecNode #PyTestTestOptNode #PyAssertNode #PyRootNode #PyRootNode #PyIfNode #PyElifNode #PyElseNode #PyWhileNode #PyForNode #PyTryNode #PyFinallyNode #OrderedCollection #PyWithNode #OrderedCollection #PyWithItemNode #PyExceptClauseNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #PyRootNode #PyLambdaNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyCompOpNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyPowerNode #OrderedCollection #PyRootNode #PyStringsNode #PyRootNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #Object #Object #Object #Object #PyRootNode #PyRootNode #PyLambdaNode #PyTrailerNode #OrderedCollection #PySubscriptNode #PyRootNode #PySliceopNode #OrderedCollection #SmaCCToken #PyRootNode #PyRootNode #OrderedCollection #OrderedCollection #PyRootNode #PyRootNode #Object #PyClassdefNode #OrderedCollection #OrderedCollection #PyArgumentNode #PyRootNode #PyListForNode #PyListIfNode #PyRootNode #PyCompForNode #PyCompIfNode #PyRootNode #PyYieldNode #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCErrorNode)
+	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #PyFileInputNode #PyFileInputNode #PySingleInputNode #PyEvalInputNode #OrderedCollection #PyDecoratorNode #OrderedCollection #OrderedCollection #PyDecoratorsNode #PyDecoratedNode #PyFuncdefNode #PyVarArgListNode #PyVarArgListNode #OrderedCollection #PyInitOptNode #PyFpdefNode #OrderedCollection #PyRootNode #PySimpleStmtNode #SmaCCToken #PyExprStmtNode #OrderedCollection #PyRootNode #SmaCCToken #PyPrintNode #PyDelNode #PyPassNode #PyRootNode #PyBreakNode #PyContinueNode #PyReturnNode #PyYieldNode #PyRaiseNode #PyImportNode #PyImportNode #PyImportNode #PyDotoptDottedNameNode #PyDotsNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #PyDottedNameNode #PyGlobalNode #OrderedCollection #PyExecNode #PyTestTestOptNode #PyAssertNode #PyRootNode #PyRootNode #PyIfNode #PyElifNode #PyElseNode #PyWhileNode #PyForNode #PyTryNode #PyFinallyNode #OrderedCollection #PyWithNode #OrderedCollection #PyWithItemNode #PyExceptClauseNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #PyRootNode #PyLambdaNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyCompOpNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyRootNode #PyPowerNode #OrderedCollection #PyRootNode #PyStringsNode #PyRootNode #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #OrderedCollection #Array #Array #Array #Array #PyRootNode #PyRootNode #PyLambdaNode #PyTrailerNode #OrderedCollection #PySubscriptNode #PyRootNode #PySliceopNode #OrderedCollection #SmaCCToken #PyRootNode #PyRootNode #OrderedCollection #OrderedCollection #PyRootNode #PyRootNode #OrderedCollection #PyClassdefNode #OrderedCollection #OrderedCollection #PyArgumentNode #PyRootNode #PyListForNode #PyListIfNode #PyRootNode #PyCompForNode #PyCompIfNode #PyRootNode #PyYieldNode #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCErrorNode)
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 PythonParser class >> transitionTable [
 ^#(
 #[1 0 6 0 10 0 6 0 13 0 6 0 33 0 6 0 36 0 6 0 39 0 6 0 40 0 6 0 41 0 6 0 42 0 6 0 43 0 6 0 44 0 6 0 48 0 6 0 50 0 6 0 51 0 6 0 52 0 6 0 53 0 6 0 54 0 6 0 57 0 6 0 58 0 6 0 60 0 6 0 61 0 6 0 62 0 6 0 63 0 6 0 64 0 6 0 65 0 6 0 66 0 6 0 67 0 6 0 70 0 6 0 71 0 6 0 72 0 6 0 73 0 6 0 74 0 6 0 77 0 6 0 80 0 6 0 83 0 6 0 86 0 6 0 93 0 6 0 94 0 6 0 96 0 6 0 98 0 17 0 101 0 6 0 230] 
@@ -1337,7 +1337,7 @@ PythonParser class >> transitionTable [
 #[0 3 82 0 12 0 20] 
 #[0 6 17 0 55] 
 #[0 6 21 0 55] 
-#[1 6 25 0 12 3 229 0 50 1 46 0 99 6 33 0 208 6 33 0 215 6 37 0 224] 
+#[1 6 25 0 12 3 229 0 50 1 46 0 99 6 29 0 208 6 33 0 215 6 37 0 224] 
 #[1 0 21 0 10 0 25 0 13 0 33 0 36 0 85 0 57 0 89 0 58 0 125 0 70 0 129 0 71 0 133 0 72 0 137 0 73 0 10 0 74 0 14 0 77 0 18 0 80 0 22 0 83 0 141 0 86 0 149 0 94 0 153 0 96 0 157 0 98 1 21 0 170 1 25 0 171 1 29 0 172 1 29 0 173 1 37 0 175 1 41 0 176 1 45 0 177 1 49 0 178 1 53 0 179 1 57 0 180 1 61 0 181 1 61 0 182 1 69 0 184 1 69 0 185 1 77 0 186 1 81 0 195 1 85 0 196 1 89 0 197 1 93 0 198 6 41 0 201 6 41 0 209] 
 #[0 3 86 0 1 0 2 0 3 0 4 0 5 0 6 0 8 0 9 0 10 0 11 0 12 0 13 0 14 0 16 0 17 0 18 0 19 0 20 0 21 0 22 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 34 0 35 0 36 0 37 0 38 0 46 0 50 0 53 0 55 0 56 0 58 0 59 0 68 0 69 0 75 0 76 0 78 0 79 0 81 0 82 0 84 0 85 0 93 0 95 0 97 0 99 0 230] 
 #[0 3 90 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0 9 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 22 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 34 0 35 0 36 0 37 0 38 0 46 0 50 0 53 0 55 0 56 0 58 0 59 0 68 0 69 0 75 0 76 0 78 0 79 0 81 0 82 0 84 0 85 0 93 0 94 0 95 0 96 0 97 0 99 0 230] 
@@ -1477,7 +1477,7 @@ PythonParser class >> transitionTable [
 #[1 3 245 0 50 7 73 0 53 4 142 0 97 7 161 0 220 7 161 0 221 7 161 0 222] 
 #[1 7 165 0 12 1 46 0 50 1 46 0 53 1 46 0 97 7 169 0 208] 
 #[0 4 146 0 12 0 50 0 53 0 97] 
-#[1 6 25 0 12 1 46 0 99 7 173 0 208 7 173 0 215] 
+#[1 6 25 0 12 1 46 0 99 6 29 0 208 7 173 0 215] 
 #[0 4 150 0 12 0 97] 
 #[0 4 154 0 10 0 13 0 33 0 36 0 39 0 40 0 41 0 42 0 43 0 44 0 45 0 46 0 48 0 50 0 51 0 52 0 53 0 54 0 57 0 58 0 60 0 61 0 62 0 63 0 64 0 65 0 66 0 67 0 70 0 71 0 72 0 73 0 74 0 77 0 80 0 83 0 86 0 93 0 94 0 96 0 98 0 228 0 230] 
 #[0 4 158 0 12 0 95 0 99] 
@@ -1490,7 +1490,7 @@ PythonParser class >> transitionTable [
 	).
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 PythonParser >> actionForCurrentToken [
 	| action |
 	action := super actionForCurrentToken.
@@ -1517,31 +1517,31 @@ PythonParser >> actionForCurrentToken [
 	^ action
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForStartFLongStringDouble1: nodes [
 	^ {#fLongStringDouble.
 	scanner lineJoiningStack}
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForStartFLongStringSingle1: nodes [
 	^ {#fLongStringSingle.
 	scanner lineJoiningStack}
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForStartFStringDouble1: nodes [
 	^ {#fStringDouble.
 	scanner lineJoiningStack}
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForStartFStringSingle1: nodes [
 	^ {#fStringSingle.
 	scanner lineJoiningStack}
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFor_____test__test__1: nodes [
 	| result |
 	result := Array new: 2.
@@ -1550,7 +1550,7 @@ PythonParser >> reduceActionFor_____test__test__1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFor_____test__test___1: nodes [
 	| result |
 	result := Array new: 2.
@@ -1561,7 +1561,7 @@ PythonParser >> reduceActionFor_____test__test___1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFor_____test__test___2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -1570,7 +1570,7 @@ PythonParser >> reduceActionFor_____test__test___2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForand_expr2: nodes [
 	| result |
 	result := PyAndExprNode new.
@@ -1580,7 +1580,7 @@ PythonParser >> reduceActionForand_expr2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForand_test2: nodes [
 	| result |
 	result := PyAndNode new.
@@ -1590,7 +1590,7 @@ PythonParser >> reduceActionForand_test2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForarglist2: nodes [
 	| result |
 	result := Array new: 4.
@@ -1601,7 +1601,7 @@ PythonParser >> reduceActionForarglist2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForarglist3: nodes [
 	| result |
 	result := Array new: 4.
@@ -1615,7 +1615,7 @@ PythonParser >> reduceActionForarglist3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForarglist4: nodes [
 	| result |
 	result := Array new: 4.
@@ -1626,7 +1626,7 @@ PythonParser >> reduceActionForarglist4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForargument1: nodes [
 	| result |
 	result := PyArgumentNode new.
@@ -1634,7 +1634,7 @@ PythonParser >> reduceActionForargument1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForargument2: nodes [
 	| result |
 	result := PyArgumentNode new.
@@ -1643,7 +1643,7 @@ PythonParser >> reduceActionForargument2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForargument3: nodes [
 	| result |
 	result := PyArgumentNode new.
@@ -1653,7 +1653,7 @@ PythonParser >> reduceActionForargument3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForarith_expr2: nodes [
 	| result |
 	result := PyPlusExprNode new.
@@ -1663,7 +1663,7 @@ PythonParser >> reduceActionForarith_expr2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForarith_expr3: nodes [
 	| result |
 	result := PyMinusExprNode new.
@@ -1673,7 +1673,7 @@ PythonParser >> reduceActionForarith_expr3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForassert_stmt1: nodes [
 	| result |
 	result := PyAssertNode new.
@@ -1682,7 +1682,7 @@ PythonParser >> reduceActionForassert_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForassign_after1: nodes [
 	| result |
 	result := Array new: 2.
@@ -1691,7 +1691,7 @@ PythonParser >> reduceActionForassign_after1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom10: nodes [
 	| result |
 	result := PyNumberNode new.
@@ -1699,7 +1699,7 @@ PythonParser >> reduceActionForatom10: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom1: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1708,7 +1708,7 @@ PythonParser >> reduceActionForatom1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom3: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1718,7 +1718,7 @@ PythonParser >> reduceActionForatom3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom4: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1727,7 +1727,7 @@ PythonParser >> reduceActionForatom4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom5: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1737,7 +1737,7 @@ PythonParser >> reduceActionForatom5: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom6: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1747,7 +1747,7 @@ PythonParser >> reduceActionForatom6: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom7: nodes [
 	| result |
 	result := PyAtomNode new.
@@ -1756,7 +1756,7 @@ PythonParser >> reduceActionForatom7: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom8: nodes [
 	| result |
 	result := PyBackTickNode new.
@@ -1766,7 +1766,7 @@ PythonParser >> reduceActionForatom8: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForatom9: nodes [
 	| result |
 	result := PySymbolNode new.
@@ -1774,7 +1774,7 @@ PythonParser >> reduceActionForatom9: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForbreak_stmt1: nodes [
 	| result |
 	result := PyBreakNode new.
@@ -1782,7 +1782,7 @@ PythonParser >> reduceActionForbreak_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForclassdef1: nodes [
 	| result |
 	result := PyClassdefNode new.
@@ -1796,7 +1796,7 @@ PythonParser >> reduceActionForclassdef1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForclassdef2: nodes [
 	| result |
 	result := PyClassdefNode new.
@@ -1813,7 +1813,7 @@ PythonParser >> reduceActionForclassdef2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_for1: nodes [
 	| result |
 	result := PyCompForNode new.
@@ -1825,7 +1825,7 @@ PythonParser >> reduceActionForcomp_for1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_for2: nodes [
 	| result |
 	result := PyCompForNode new.
@@ -1838,7 +1838,7 @@ PythonParser >> reduceActionForcomp_for2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_if1: nodes [
 	| result |
 	result := PyCompIfNode new.
@@ -1847,7 +1847,7 @@ PythonParser >> reduceActionForcomp_if1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_if2: nodes [
 	| result |
 	result := PyCompIfNode new.
@@ -1857,7 +1857,7 @@ PythonParser >> reduceActionForcomp_if2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op10: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1865,7 +1865,7 @@ PythonParser >> reduceActionForcomp_op10: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op11: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1874,7 +1874,7 @@ PythonParser >> reduceActionForcomp_op11: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op1: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1882,7 +1882,7 @@ PythonParser >> reduceActionForcomp_op1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op2: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1890,7 +1890,7 @@ PythonParser >> reduceActionForcomp_op2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op3: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1898,7 +1898,7 @@ PythonParser >> reduceActionForcomp_op3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op4: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1906,7 +1906,7 @@ PythonParser >> reduceActionForcomp_op4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op5: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1914,7 +1914,7 @@ PythonParser >> reduceActionForcomp_op5: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op6: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1922,7 +1922,7 @@ PythonParser >> reduceActionForcomp_op6: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op7: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1930,7 +1930,7 @@ PythonParser >> reduceActionForcomp_op7: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op8: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1938,7 +1938,7 @@ PythonParser >> reduceActionForcomp_op8: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomp_op9: nodes [
 	| result |
 	result := PyCompOpNode new.
@@ -1947,7 +1947,7 @@ PythonParser >> reduceActionForcomp_op9: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcomparison2: nodes [
 	| result |
 	result := PyComparisonNode new.
@@ -1957,7 +1957,7 @@ PythonParser >> reduceActionForcomparison2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForcontinue_stmt1: nodes [
 	| result |
 	result := PyContinueNode new.
@@ -1965,7 +1965,7 @@ PythonParser >> reduceActionForcontinue_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordecorated1: nodes [
 	| result |
 	result := PyDecoratedNode new.
@@ -1974,7 +1974,7 @@ PythonParser >> reduceActionFordecorated1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordecorated2: nodes [
 	| result |
 	result := PyDecoratedNode new.
@@ -1983,7 +1983,7 @@ PythonParser >> reduceActionFordecorated2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordecorator1: nodes [
 	| result |
 	result := PyDecoratorNode new.
@@ -1994,7 +1994,7 @@ PythonParser >> reduceActionFordecorator1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordecorators1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2002,7 +2002,7 @@ PythonParser >> reduceActionFordecorators1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordecorators2: nodes [
 	| result |
 	result := PyDecoratorsNode new.
@@ -2010,7 +2010,7 @@ PythonParser >> reduceActionFordecorators2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordel_stmt1: nodes [
 	| result |
 	result := PyDelNode new.
@@ -2020,38 +2020,41 @@ PythonParser >> reduceActionFordel_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordictorsetmaker1: nodes [
 	| result |
 	result := PyDictorsetmakerNode new.
-	result test: (nodes at: 1).
-	result colonToken: (nodes at: 2).
-	result test2: (nodes at: 3).
+	result addNode: (nodes at: 1) to: result objects.
+	result addToken: (nodes at: 2) to: result colonTokens.
+	result addNode: (nodes at: 3) to: result values.
 	result comp: (nodes at: 4).
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordictorsetmaker2: nodes [
 	| result |
 	result := PyDictorsetmakerNode new.
-	result test: (nodes at: 1).
-	result colonToken: (nodes at: 2).
-	result test2: (nodes at: 3).
-	result more: (nodes at: 4).
+	result addNode: (nodes at: 1) to: result objects.
+	result addToken: (nodes at: 2) to: result colonTokens.
+	result addNode: (nodes at: 3) to: result values.
+	result addTokens: ((nodes at: 4) at: 1) to: result commaTokens.
+	result addNodes: ((nodes at: 4) at: 2) to: result objects.
+	result addTokens: ((nodes at: 4) at: 3) to: result colonTokens.
+	result addNodes: ((nodes at: 4) at: 4) to: result values.
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordictorsetmaker3: nodes [
 	| result |
 	result := PyDictorsetmakerNode new.
-	result test: (nodes at: 1).
+	result addNode: (nodes at: 1) to: result objects.
 	result comp: (nodes at: 2).
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotopt_dotted_name1: nodes [
 	| result |
 	result := PyDotoptDottedNameNode new.
@@ -2059,7 +2062,7 @@ PythonParser >> reduceActionFordotopt_dotted_name1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotopt_dotted_name2: nodes [
 	| result |
 	result := PyDotoptDottedNameNode new.
@@ -2067,7 +2070,7 @@ PythonParser >> reduceActionFordotopt_dotted_name2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotopt_dotted_name3: nodes [
 	| result |
 	result := PyDotoptDottedNameNode new.
@@ -2076,7 +2079,7 @@ PythonParser >> reduceActionFordotopt_dotted_name3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordots1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2084,7 +2087,7 @@ PythonParser >> reduceActionFordots1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordots2: nodes [
 	| result |
 	result := PyDotsNode new.
@@ -2092,7 +2095,7 @@ PythonParser >> reduceActionFordots2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_as_name1: nodes [
 	| result |
 	result := Array new: 3.
@@ -2100,7 +2103,7 @@ PythonParser >> reduceActionFordotted_as_name1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_as_name2: nodes [
 	| result |
 	result := Array new: 3.
@@ -2110,7 +2113,7 @@ PythonParser >> reduceActionFordotted_as_name2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_as_names1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2121,7 +2124,7 @@ PythonParser >> reduceActionFordotted_as_names1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_as_names2: nodes [
 	| result |
 	result := Array new: 4.
@@ -2135,7 +2138,7 @@ PythonParser >> reduceActionFordotted_as_names2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_name1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2144,7 +2147,7 @@ PythonParser >> reduceActionFordotted_name1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFordotted_name2: nodes [
 	| result |
 	result := PyDottedNameNode new.
@@ -2152,7 +2155,7 @@ PythonParser >> reduceActionFordotted_name2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForelifs_opt2: nodes [
 	| result |
 	result := PyElifNode new.
@@ -2167,7 +2170,7 @@ PythonParser >> reduceActionForelifs_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForelse_opt2: nodes [
 	| result |
 	result := PyElseNode new.
@@ -2180,7 +2183,7 @@ PythonParser >> reduceActionForelse_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForeval_input1: nodes [
 	| result |
 	result := PyEvalInputNode new.
@@ -2189,7 +2192,7 @@ PythonParser >> reduceActionForeval_input1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_clause1: nodes [
 	| result |
 	result := PyExceptClauseNode new.
@@ -2197,7 +2200,7 @@ PythonParser >> reduceActionForexcept_clause1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_clause2: nodes [
 	| result |
 	result := PyExceptClauseNode new.
@@ -2206,7 +2209,7 @@ PythonParser >> reduceActionForexcept_clause2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_clause3: nodes [
 	| result |
 	result := PyExceptClauseNode new.
@@ -2217,7 +2220,7 @@ PythonParser >> reduceActionForexcept_clause3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_clause4: nodes [
 	| result |
 	result := PyExceptClauseNode new.
@@ -2228,7 +2231,7 @@ PythonParser >> reduceActionForexcept_clause4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_list1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2241,7 +2244,7 @@ PythonParser >> reduceActionForexcept_list1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexcept_list2: nodes [
 	| result |
 	result := Array new: 6.
@@ -2260,7 +2263,7 @@ PythonParser >> reduceActionForexcept_list2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexec_stmt1: nodes [
 	| result |
 	result := PyExecNode new.
@@ -2269,7 +2272,7 @@ PythonParser >> reduceActionForexec_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexec_stmt2: nodes [
 	| result |
 	result := PyExecNode new.
@@ -2280,7 +2283,7 @@ PythonParser >> reduceActionForexec_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexpr2: nodes [
 	| result |
 	result := PyVBarExprNode new.
@@ -2290,7 +2293,7 @@ PythonParser >> reduceActionForexpr2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexpr_stmt1: nodes [
 	| result |
 	result := PyExprStmtNode new.
@@ -2300,7 +2303,7 @@ PythonParser >> reduceActionForexpr_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexpr_stmt2: nodes [
 	| result |
 	result := PyExprStmtNode new.
@@ -2310,7 +2313,7 @@ PythonParser >> reduceActionForexpr_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexprlist1: nodes [
 	| result |
 	result := nodes at: 3.
@@ -2319,7 +2322,7 @@ PythonParser >> reduceActionForexprlist1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForexprlist2: nodes [
 	| result |
 	result := Array new: 2.
@@ -2330,7 +2333,7 @@ PythonParser >> reduceActionForexprlist2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfactor2: nodes [
 	| result |
 	result := PyFactorNode new.
@@ -2339,7 +2342,7 @@ PythonParser >> reduceActionForfactor2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfactor3: nodes [
 	| result |
 	result := PyFactorNode new.
@@ -2348,7 +2351,7 @@ PythonParser >> reduceActionForfactor3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfactor4: nodes [
 	| result |
 	result := PyFactorNode new.
@@ -2357,14 +2360,14 @@ PythonParser >> reduceActionForfactor4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfile_input1: nodes [
 	| result |
 	result := PyFileInputNode new.
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfile_input2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2372,7 +2375,7 @@ PythonParser >> reduceActionForfile_input2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfile_input3: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2380,7 +2383,7 @@ PythonParser >> reduceActionForfile_input3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfinally_opt2: nodes [
 	| result |
 	result := PyFinallyNode new.
@@ -2393,7 +2396,7 @@ PythonParser >> reduceActionForfinally_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfor_stmt1: nodes [
 	| result |
 	result := PyForNode new.
@@ -2411,7 +2414,7 @@ PythonParser >> reduceActionForfor_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfpdef1: nodes [
 	| result |
 	result := PyFpdefNode new.
@@ -2419,7 +2422,7 @@ PythonParser >> reduceActionForfpdef1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfpdef2: nodes [
 	| result |
 	result := PyFpdefNode new.
@@ -2430,7 +2433,7 @@ PythonParser >> reduceActionForfpdef2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForfuncdef1: nodes [
 	| result |
 	result := PyFuncdefNode new.
@@ -2445,7 +2448,7 @@ PythonParser >> reduceActionForfuncdef1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForglobal_stmt1: nodes [
 	| result |
 	result := PyGlobalNode new.
@@ -2455,7 +2458,7 @@ PythonParser >> reduceActionForglobal_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForif_stmt1: nodes [
 	| result |
 	result := PyIfNode new.
@@ -2471,7 +2474,7 @@ PythonParser >> reduceActionForif_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_as_names1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2479,7 +2482,7 @@ PythonParser >> reduceActionForimport_as_names1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_from1: nodes [
 	| result |
 	result := PyImportNode new.
@@ -2496,7 +2499,7 @@ PythonParser >> reduceActionForimport_from1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_name1: nodes [
 	| result |
 	result := PyImportNode new.
@@ -2508,7 +2511,7 @@ PythonParser >> reduceActionForimport_name1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_names_star1: nodes [
 	| result |
 	result := Array new: 7.
@@ -2520,7 +2523,7 @@ PythonParser >> reduceActionForimport_names_star1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_names_star2: nodes [
 	| result |
 	result := Array new: 7.
@@ -2537,7 +2540,7 @@ PythonParser >> reduceActionForimport_names_star2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForimport_names_star3: nodes [
 	| result |
 	result := Array new: 7.
@@ -2552,7 +2555,7 @@ PythonParser >> reduceActionForimport_names_star3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForinit_opt2: nodes [
 	| result |
 	result := PyInitOptNode new.
@@ -2561,7 +2564,7 @@ PythonParser >> reduceActionForinit_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlambdef1: nodes [
 	| result |
 	result := PyLambdaNode new.
@@ -2572,7 +2575,7 @@ PythonParser >> reduceActionForlambdef1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlist_for1: nodes [
 	| result |
 	result := PyListForNode new.
@@ -2585,7 +2588,7 @@ PythonParser >> reduceActionForlist_for1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlist_for2: nodes [
 	| result |
 	result := PyListForNode new.
@@ -2599,7 +2602,7 @@ PythonParser >> reduceActionForlist_for2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlist_if1: nodes [
 	| result |
 	result := PyListIfNode new.
@@ -2608,7 +2611,7 @@ PythonParser >> reduceActionForlist_if1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlist_if2: nodes [
 	| result |
 	result := PyListIfNode new.
@@ -2618,7 +2621,7 @@ PythonParser >> reduceActionForlist_if2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForlistmaker1: nodes [
 	| result |
 	result := PyListmakerNode new.
@@ -2627,7 +2630,7 @@ PythonParser >> reduceActionForlistmaker1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFormore_args1: nodes [
 	| result |
 	result := Array new: 3.
@@ -2636,7 +2639,7 @@ PythonParser >> reduceActionFormore_args1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFormore_args2: nodes [
 	| result |
 	result := Array new: 3.
@@ -2648,7 +2651,7 @@ PythonParser >> reduceActionFormore_args2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFormore_args3: nodes [
 	| result |
 	result := nodes at: 3.
@@ -2657,19 +2660,30 @@ PythonParser >> reduceActionFormore_args3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
-PythonParser >> reduceActionFormore_tests2: nodes [
+{ #category : #'generated-reduction actions' }
+PythonParser >> reduceActionFormore_tests1: nodes [
 	| result |
-	result := PyMoreTestsNode new.
-	result commaToken: (nodes at: 1).
-	result test: (nodes at: 2).
-	result colonToken: (nodes at: 3).
-	result test2: (nodes at: 4).
-	result more_tests: (nodes at: 5).
+	result := Array new: 4.
+	result at: 1 put: (OrderedCollection new: 2).
+	result at: 2 put: (OrderedCollection new: 2).
+	result at: 3 put: (OrderedCollection new: 2).
+	result at: 4 put: (OrderedCollection new: 2).
+	self add: (nodes at: 1) to: (result at: 1).
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
+PythonParser >> reduceActionFormore_tests2: nodes [
+	| result |
+	result := nodes at: 5.
+	self addFirst: (nodes at: 1) to: (result at: 1).
+	self addFirst: (nodes at: 2) to: (result at: 2).
+	self addFirst: (nodes at: 3) to: (result at: 3).
+	self addFirst: (nodes at: 4) to: (result at: 4).
+	^ result
+]
+
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFornamelist1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -2678,7 +2692,7 @@ PythonParser >> reduceActionFornamelist1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFornamelist2: nodes [
 	| result |
 	result := Array new: 2.
@@ -2688,7 +2702,7 @@ PythonParser >> reduceActionFornamelist2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFornot_test1: nodes [
 	| result |
 	result := PyNotNode new.
@@ -2697,7 +2711,7 @@ PythonParser >> reduceActionFornot_test1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForold_lambdef1: nodes [
 	| result |
 	result := PyLambdaNode new.
@@ -2708,7 +2722,7 @@ PythonParser >> reduceActionForold_lambdef1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForor_test2: nodes [
 	| result |
 	result := PyOrNode new.
@@ -2718,7 +2732,7 @@ PythonParser >> reduceActionForor_test2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForpass_stmt1: nodes [
 	| result |
 	result := PyPassNode new.
@@ -2726,7 +2740,7 @@ PythonParser >> reduceActionForpass_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForpower1: nodes [
 	| result |
 	result := PyPowerNode new.
@@ -2735,7 +2749,7 @@ PythonParser >> reduceActionForpower1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForpower2: nodes [
 	| result |
 	result := PyPowerNode new.
@@ -2746,7 +2760,7 @@ PythonParser >> reduceActionForpower2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForprint_stmt1: nodes [
 	| result |
 	result := PyPrintNode new.
@@ -2755,7 +2769,7 @@ PythonParser >> reduceActionForprint_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForprint_stmt2: nodes [
 	| result |
 	result := PyPrintNode new.
@@ -2765,7 +2779,7 @@ PythonParser >> reduceActionForprint_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForraise_stmt1: nodes [
 	| result |
 	result := PyRaiseNode new.
@@ -2773,7 +2787,7 @@ PythonParser >> reduceActionForraise_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForraise_stmt2: nodes [
 	| result |
 	result := PyRaiseNode new.
@@ -2782,7 +2796,7 @@ PythonParser >> reduceActionForraise_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForraise_stmt3: nodes [
 	| result |
 	result := PyRaiseNode new.
@@ -2793,7 +2807,7 @@ PythonParser >> reduceActionForraise_stmt3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForraise_stmt4: nodes [
 	| result |
 	result := PyRaiseNode new.
@@ -2806,7 +2820,7 @@ PythonParser >> reduceActionForraise_stmt4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForreturn_stmt1: nodes [
 	| result |
 	result := PyReturnNode new.
@@ -2815,7 +2829,7 @@ PythonParser >> reduceActionForreturn_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForshift_expr2: nodes [
 	| result |
 	result := PyLShiftExprNode new.
@@ -2825,7 +2839,7 @@ PythonParser >> reduceActionForshift_expr2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForshift_expr3: nodes [
 	| result |
 	result := PyRShiftExprNode new.
@@ -2835,7 +2849,7 @@ PythonParser >> reduceActionForshift_expr3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsimple_stmt1: nodes [
 	| result |
 	result := nodes at: 3.
@@ -2844,7 +2858,7 @@ PythonParser >> reduceActionForsimple_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsimple_stmt2: nodes [
 	| result |
 	result := PySimpleStmtNode new.
@@ -2854,7 +2868,7 @@ PythonParser >> reduceActionForsimple_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsingle_input1: nodes [
 	| result |
 	result := PySingleInputNode new.
@@ -2862,7 +2876,7 @@ PythonParser >> reduceActionForsingle_input1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsingle_input2: nodes [
 	| result |
 	result := PySingleInputNode new.
@@ -2870,7 +2884,7 @@ PythonParser >> reduceActionForsingle_input2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsingle_input3: nodes [
 	| result |
 	result := PySingleInputNode new.
@@ -2879,7 +2893,7 @@ PythonParser >> reduceActionForsingle_input3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsliceop2: nodes [
 	| result |
 	result := PySliceopNode new.
@@ -2888,7 +2902,7 @@ PythonParser >> reduceActionForsliceop2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForstmts2: nodes [
 	| result |
 	result := OrderedCollection new: 2.
@@ -2896,7 +2910,7 @@ PythonParser >> reduceActionForstmts2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForstring1: nodes [
 	| result |
 	result := PyStringNode new.
@@ -2904,7 +2918,7 @@ PythonParser >> reduceActionForstring1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForstring3: nodes [
 	| result |
 	result := PyInterpolatedStringNode new.
@@ -2916,7 +2930,7 @@ PythonParser >> reduceActionForstring3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForstrings1: nodes [
 	| result |
 	result := nodes at: 2.
@@ -2924,7 +2938,7 @@ PythonParser >> reduceActionForstrings1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForstrings2: nodes [
 	| result |
 	result := PyStringsNode new.
@@ -2932,7 +2946,7 @@ PythonParser >> reduceActionForstrings2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsubscript1: nodes [
 	| result |
 	result := PySubscriptNode new.
@@ -2942,7 +2956,7 @@ PythonParser >> reduceActionForsubscript1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsubscript2: nodes [
 	| result |
 	result := PySubscriptNode new.
@@ -2950,7 +2964,7 @@ PythonParser >> reduceActionForsubscript2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsubscript3: nodes [
 	| result |
 	result := PySubscriptNode new.
@@ -2961,7 +2975,7 @@ PythonParser >> reduceActionForsubscript3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsuite1: nodes [
 	| result |
 	result := Array new: 4.
@@ -2970,7 +2984,7 @@ PythonParser >> reduceActionForsuite1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForsuite2: nodes [
 	| result |
 	result := Array new: 4.
@@ -2982,7 +2996,7 @@ PythonParser >> reduceActionForsuite2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForterm2: nodes [
 	| result |
 	result := PyTermNode new.
@@ -2992,7 +3006,7 @@ PythonParser >> reduceActionForterm2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForterm3: nodes [
 	| result |
 	result := PyTermNode new.
@@ -3002,7 +3016,7 @@ PythonParser >> reduceActionForterm3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForterm4: nodes [
 	| result |
 	result := PyTermNode new.
@@ -3012,7 +3026,7 @@ PythonParser >> reduceActionForterm4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForterm5: nodes [
 	| result |
 	result := PyTermNode new.
@@ -3022,7 +3036,7 @@ PythonParser >> reduceActionForterm5: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortest2: nodes [
 	| result |
 	result := PyIfTestNode new.
@@ -3034,7 +3048,7 @@ PythonParser >> reduceActionFortest2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortest_test_opt1: nodes [
 	| result |
 	result := PyTestTestOptNode new.
@@ -3042,7 +3056,7 @@ PythonParser >> reduceActionFortest_test_opt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortest_test_opt2: nodes [
 	| result |
 	result := PyTestTestOptNode new.
@@ -3052,7 +3066,7 @@ PythonParser >> reduceActionFortest_test_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist11: nodes [
 	| result |
 	result := PyTestlist1Node new.
@@ -3062,7 +3076,7 @@ PythonParser >> reduceActionFortestlist11: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist1: nodes [
 	| result |
 	result := PyTestlistNode new.
@@ -3073,7 +3087,7 @@ PythonParser >> reduceActionFortestlist1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist3: nodes [
 	| result |
 	result := PyTestlistNode new.
@@ -3082,7 +3096,7 @@ PythonParser >> reduceActionFortestlist3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist_comp1: nodes [
 	| result |
 	result := PyTestlistCompNode new.
@@ -3091,7 +3105,7 @@ PythonParser >> reduceActionFortestlist_comp1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist_safe1: nodes [
 	| result |
 	result := Array new: 2.
@@ -3101,7 +3115,7 @@ PythonParser >> reduceActionFortestlist_safe1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortestlist_safe2: nodes [
 	| result |
 	result := Array new: 2.
@@ -3115,7 +3129,7 @@ PythonParser >> reduceActionFortestlist_safe2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailer1: nodes [
 	| result |
 	result := PyTrailerNode new.
@@ -3124,7 +3138,7 @@ PythonParser >> reduceActionFortrailer1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailer2: nodes [
 	| result |
 	result := PyTrailerNode new.
@@ -3137,7 +3151,7 @@ PythonParser >> reduceActionFortrailer2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailer3: nodes [
 	| result |
 	result := PyTrailerNode new.
@@ -3148,7 +3162,7 @@ PythonParser >> reduceActionFortrailer3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailer4: nodes [
 	| result |
 	result := PyTrailerNode new.
@@ -3157,14 +3171,14 @@ PythonParser >> reduceActionFortrailer4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailers_opt1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortrailers_opt2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -3172,7 +3186,7 @@ PythonParser >> reduceActionFortrailers_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortry_stmt1: nodes [
 	| result |
 	result := PyTryNode new.
@@ -3193,7 +3207,7 @@ PythonParser >> reduceActionFortry_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionFortry_stmt2: nodes [
 	| result |
 	result := PyTryNode new.
@@ -3212,7 +3226,7 @@ PythonParser >> reduceActionFortry_stmt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist1: nodes [
 	| result |
 	result := nodes at: 4.
@@ -3222,7 +3236,7 @@ PythonParser >> reduceActionForvarargslist1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist2: nodes [
 	| result |
 	result := Array new: 7.
@@ -3234,7 +3248,7 @@ PythonParser >> reduceActionForvarargslist2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist3: nodes [
 	| result |
 	result := Array new: 7.
@@ -3249,7 +3263,7 @@ PythonParser >> reduceActionForvarargslist3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist4: nodes [
 	| result |
 	result := Array new: 7.
@@ -3261,7 +3275,7 @@ PythonParser >> reduceActionForvarargslist4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist5: nodes [
 	| result |
 	result := Array new: 7.
@@ -3274,7 +3288,7 @@ PythonParser >> reduceActionForvarargslist5: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForvarargslist_opt2: nodes [
 	| result |
 	result := PyVarArgListNode new.
@@ -3288,7 +3302,7 @@ PythonParser >> reduceActionForvarargslist_opt2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForwhile_stmt1: nodes [
 	| result |
 	result := PyWhileNode new.
@@ -3303,7 +3317,7 @@ PythonParser >> reduceActionForwhile_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForwith_item1: nodes [
 	| result |
 	result := PyWithItemNode new.
@@ -3311,7 +3325,7 @@ PythonParser >> reduceActionForwith_item1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForwith_item2: nodes [
 	| result |
 	result := PyWithItemNode new.
@@ -3321,7 +3335,7 @@ PythonParser >> reduceActionForwith_item2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForwith_stmt1: nodes [
 	| result |
 	result := PyWithNode new.
@@ -3336,7 +3350,7 @@ PythonParser >> reduceActionForwith_stmt1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForxor_expr2: nodes [
 	| result |
 	result := PyXorExprNode new.
@@ -3346,7 +3360,7 @@ PythonParser >> reduceActionForxor_expr2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForyield_expr1: nodes [
 	| result |
 	result := PyYieldNode new.
@@ -3355,7 +3369,7 @@ PythonParser >> reduceActionForyield_expr1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 PythonParser >> reduceActionForyield_stmt1: nodes [
 	| result |
 	result := nodes at: 1.

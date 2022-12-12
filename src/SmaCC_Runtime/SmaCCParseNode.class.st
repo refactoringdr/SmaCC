@@ -18,7 +18,7 @@ Class {
 		'parent',
 		'attributes'
 	],
-	#category : 'SmaCC_Runtime'
+	#category : #'SmaCC_Runtime'
 }
 
 { #category : #accessing }
@@ -704,6 +704,21 @@ SmaCCParseNode >> nodeAfter [
 				ifTrue:
 					[ node := node ifNil: [ each ] ifNotNil: [ node startPosition <= each startPosition ifTrue: [ node ] ifFalse: [ each ] ] ] ].
 	^ node
+]
+
+{ #category : #accessing }
+SmaCCParseNode >> nodeAt: anInteger [
+	"Return inner most node whose sourceInterval overlaps anInteger or self if no nodes do."
+
+	| node |
+	self
+		withAllNodesDo: [ :each | 
+			(each startPosition > 0
+				and: [ each startPosition <= anInteger and: [ each stopPosition >= anInteger ] ])
+				ifTrue: [ node := each ] ]
+		andTokensDo: [ :each |  ]
+		includesErrors: true.
+	^ node ifNil: [ self ]
 ]
 
 { #category : #accessing }

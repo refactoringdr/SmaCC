@@ -1,203 +1,332 @@
 Class {
 	#name : #SmaCCParserDebugger,
-	#superclass : #GTGenericStackDebugger,
+	#superclass : #SpPresenter,
+	#traits : 'TDebugger',
+	#classTraits : 'TDebugger classTrait',
 	#instVars : [
-		'isGLR'
+		'isGLR',
+		'notebook',
+		'sourceText',
+		'parserStackTable',
+		'stateActionsTable',
+		'scannerPropertiesTable',
+		'session',
+		'toolbar',
+		'methodSource',
+		'glrLabel'
 	],
 	#category : #'SmaCC_Debugging_Support-Debugger'
 }
 
 { #category : #accessing }
-SmaCCParserDebugger class >> availableAutomatically [
-	^ availableAutomatically ifNil: [ false ]
+SmaCCParserDebugger class >> closeAllDebuggers [
+	^ self allInstancesDo: [ :each | each close ]
+]
+
+{ #category : #'instance creation' }
+SmaCCParserDebugger class >> debugSession: aDebugSession [
+	| session |
+	session := SmaCCParserDebugSession from: aDebugSession.
+	^ (self on: session)
+		open;
+		yourself
 ]
 
 { #category : #accessing }
-SmaCCParserDebugger class >> availableAutomatically: aBoolean [
-	availableAutomatically := aBoolean
+SmaCCParserDebugger class >> defaultDebuggerRank [
+
+	^ 11
 ]
 
-{ #category : #accessing }
-SmaCCParserDebugger class >> defaultTitle [
-	^ 'SmaCCParser'
-]
-
-{ #category : #testing }
+{ #category : #debugging }
 SmaCCParserDebugger class >> handlesContext: aContext [
 	^ SmaCCParserDebugSession handlesContext: aContext
 ]
 
-{ #category : #'class initialization' }
-SmaCCParserDebugger class >> initialize [
-	self register
+{ #category : #actions }
+SmaCCParserDebugger >> close [
+	self window ifNotNil: [ :window | window close ]
 ]
 
-{ #category : #'instance creation' }
-SmaCCParserDebugger class >> on: aDebugSession [
-	| glrClass |
-	glrClass := Smalltalk at: #SmaCCGLRParser ifAbsent: [ self ].
-	^ self basicNew
-		isGLR: (aDebugSession parser isKindOf: glrClass);
-		initialize;
-		session: aDebugSession
+{ #category : #initialization }
+SmaCCParserDebugger >> contextPage [
+	^ SpNotebookPage title: 'Context' provider: [ self methodSource ]
 ]
 
-{ #category : #'tools registry' }
-SmaCCParserDebugger class >> register [
-	self registerToolsOn: Smalltalk tools
+{ #category : #initialization }
+SmaCCParserDebugger >> createSourceText [
+	sourceText := self newText.
+	sourceText text: session inputText
 ]
 
-{ #category : #'tools registry' }
-SmaCCParserDebugger class >> registerToolsOn: aRegistry [
-	(aRegistry respondsTo: #registerDebugger:withRank:) ifTrue: [ 
-		aRegistry registerDebugger: self withRank: 60 ]
+{ #category : #initialization }
+SmaCCParserDebugger >> createToolBar [
+	| throughAction intoReduceAction nextTokenAction nextCharacterAction toCursorAction resumeAction buttons |
+	glrLabel := self newLabel.
+	throughAction := SmaCCParserStepThroughAction forDebugger: self.
+	intoReduceAction := SmaCCParserStepToReduceAction forDebugger: self.
+	nextTokenAction := SmaCCParserNextTokenAction forDebugger: self.
+	nextCharacterAction := SmaCCStepToNextCharacterAction forDebugger: self.
+	toCursorAction := SmaCCStepToCursorAction forDebugger: self.
+	resumeAction := ResumeDebugAction forDebugger: self.
+	buttons := (self newToolbar)
+		add:
+				((self newToolbarButton)
+						label: 'Through Action';
+						icon: throughAction icon;
+						action:
+								[ throughAction executeAction.
+									self updateParser ]);
+		add:
+				((self newToolbarButton)
+						label: 'Into Reduce';
+						icon: intoReduceAction icon;
+						action:
+								[ intoReduceAction executeAction.
+									self updateParser ]);
+		add:
+				((self newToolbarButton)
+						label: 'Next Token';
+						icon: nextTokenAction icon;
+						action:
+								[ nextTokenAction executeAction.
+									self updateParser ]);
+		add:
+				((self newToolbarButton)
+						label: 'Next Character';
+						icon: nextCharacterAction icon;
+						action:
+								[ nextCharacterAction executeAction.
+									self updateScanner ]);
+		add:
+				((self newToolbarButton)
+						label: 'To Cursor';
+						icon: toCursorAction icon;
+						action:
+								[ toCursorAction executeAction.
+									self updateScanner ]);
+		add:
+				((self newToolbarButton)
+						label: 'Resume';
+						icon: (self iconNamed: #glamorousGo);
+						action: [ resumeAction executeAction ]);
+		add:
+				((self newToolbarButton)
+						label: 'Debugger';
+						icon: (self iconNamed: #glamorousBug);
+						action:
+								[ StDebugger debugSession: session.
+									self close ]);
+		yourself.
+	self isGLR ifFalse: [ ^ toolbar := buttons ].
+	toolbar := self newPresenter
+		layout:
+			((SpBoxLayout newLeftToRight)
+				spacing: 5;
+				add: buttons;
+				addLast: glrLabel expand: false;
+				yourself).
+	self updateGLRStates
 ]
 
 { #category : #accessing }
-SmaCCParserDebugger class >> sessionClass [
-	^ SmaCCParserDebugSession
+SmaCCParserDebugger >> currentContext [
+	^ session interruptedContext
 ]
 
-{ #category : #building }
-SmaCCParserDebugger >> buildGLRTransmissionsIn: browser [
-	self isGLR
-		ifTrue:
-			[ browser transmit
-				from: #stack port: #selection;
-				to: #glrStates;
-				transformed: [ :context | self session glrParserStates ];
-				andShow:
-						[ :composite | 
-					composite table
-						title: 'GLR';
-						format:
-								[ :each | (self session parser states identityIndexOf: each) printString ] ] ]
-]
-
-{ #category : #building }
-SmaCCParserDebugger >> buildInputIn: browser [
-	browser transmit
-		fromOutsideEntityPort;
-		to: #input;
-		andShowIfNone: [ :composite | 
-			| text |
-			text := composite text.
-			text
-				title: 'Input';
-				display: [ self session inputText ];
-				withLineNumbers: true.
-			text with: [ :c | self installActionsForRootPragmas: #(#SmaCCDebuggingInputAction) in: c ] ].
-	browser transmit
-		from: #stack port: #selection;
-		to: #input port: #selectionInterval;
-		transformed: [ :each | self session inputSelectionInterval ].
-	browser transmit
-		from: #stackState port: #selection;
-		to: #input port: #selectionInterval;
-		transformed: [ :each | 
-			each notNil
-				ifTrue: [ (self session tokenIntervalFor: each last) ifNil: [ self session inputSelectionInterval ] ] ]
-]
-
-{ #category : #building }
-SmaCCParserDebugger >> buildPotentialTokensIn: browser [
-	browser transmit
-		from: #stack port: #selection;
-		to: #potential;
-		transformed: [ :context | self session potentialStateActions ];
-		andShow: [ :composite | 
-			composite table
-				title: 'Possible Actions';
-				column: 'Symbol'
-					evaluated: [ :each | 
-					each third
-						ifTrue: [ each first asText allBold ]
-						ifFalse: [ each first asText makeAllColor: Color red ] ];
-				column: 'Action'
-					evaluated: [ :each | 
-					each third
-						ifTrue: [ each second asText allBold ]
-						ifFalse: [ each second asText makeAllColor: Color red ] ] ]
-]
-
-{ #category : #building }
-SmaCCParserDebugger >> buildScannerStateIn: browser [
-	browser transmit
-		from: #stack port: #selection;
-		to: #scannerState;
-		transformed: [ :context | self session scannerProperties ];
-		andShow:
-				[ :composite | 
-			composite table
-				title: 'Scanner';
-				column: 'Name' evaluated: [ :each | each first ];
-				column: 'Value' evaluated: [ :each | each last ];
-				with: [ :c | self installActionsForRootPragmas: #(#SmaCCDebuggingScannerAction) in: c ] ]
-]
-
-{ #category : #building }
-SmaCCParserDebugger >> buildStackStateIn: browser [
-	browser transmit
-		from: #stack port: #selection;
-		to: #stackState;
-		transformed: [ :context | self session parserStack ];
-		andShow: [ :composite | 
-			composite table
-				title: 'Parser Stack';
-				column: 'Symbol' evaluated: [ :each | each first ];
-				column: 'Value' evaluated: [ :each | each last ];
-				morphicSelectionAct: [ :list | list selection last inspect ]
-					icon: GLMUIThemeExtraIcons glamorousInspect
-					on: $i
-					entitled: 'Inspect';
-				with: [ :c | 
-					self
-						installActionsForRootPragmas: #(#SmaCCDebuggingParserAction)
-						in: c ] ]
-]
-
-{ #category : #private }
+{ #category : #accessing }
 SmaCCParserDebugger >> currentInputSelectionInterval [
-	^ self selectionIntervalForPane: #input
+	^ sourceText selectionInterval
 ]
 
-{ #category : #building }
-SmaCCParserDebugger >> debuggerStructureIn: browser [
-	browser
-		row: [ :row | 
-			row
-				column: #stackState span: 6;
-				column: #potential span: 6.
-			self isGLR
-				ifTrue: [ row column: #glrStates ] ].
-	browser
-		row: [ :row | 
-			row
-				column: #input span: 2;
-				column: #scannerState ];
-		row: [ :row | 
-			row
-				column: #stack;
-				column: #code ];
-		row: #inspector span: 0
+{ #category : #layout }
+SmaCCParserDebugger >> defaultLayout [
+	^ (SpBoxLayout newTopToBottom)
+		spacing: 5;
+		add: notebook;
+		add: toolbar expand: false;
+		add: sourceText;
+		yourself
 ]
 
-{ #category : #building }
-SmaCCParserDebugger >> debuggerTransmissionsIn: browser [
-	super debuggerTransmissionsIn: browser.
-	self buildGLRTransmissionsIn: browser.
-	self buildStackStateIn: browser.
-	self buildPotentialTokensIn: browser.
-	self buildScannerStateIn: browser.
-	self buildInputIn: browser
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> glrStateText [
+	| text index states |
+	states := self session glrParserStates.
+	index := states identityIndexOf: self session parser currentGLRState ifAbsent: [ 1 ].
+	text := ('GLR State: ' , index printString , ' of ' , states size printString) asText.
+	text allBold.
+	^ text
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> initializePresenters [
+	self createToolBar.
+	notebook := self newNotebook.
+	notebook
+		addPage: self parserPage;
+		addPage: self scannerPage.
+	self createSourceText
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> initializeWindow: aWindowPresenter [
+	super initializeWindow: aWindowPresenter.
+	aWindowPresenter initialExtent: 750 @ 650
 ]
 
 { #category : #accessing }
 SmaCCParserDebugger >> isGLR [
-	^ isGLR ifNil: [ false ]
+	| glrClass |
+	^ isGLR
+		ifNil:
+			[ glrClass := Smalltalk at: #SmaCCGLRParser ifAbsent: [ self ].
+			isGLR := session parser isKindOf: glrClass ]
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> methodSource [
+	^ methodSource ifNil: [ methodSource := self newText ]
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> parserPage [
+	| parserPresenter |
+	parserPresenter := self newPresenter.
+	parserStackTable := self newTable.
+	parserStackTable
+		addColumn: (SpStringTableColumn title: 'Symbol' evaluated: [ :each | each first ifNil: [ '' ] ]);
+		addColumn: (SpStringTableColumn title: 'Value' evaluated: [ :each | each last displayString ]).
+	self updateParserStack.
+	parserStackTable whenSelectedDo: [ :item | self selectSourceFor: item ].
+	stateActionsTable := self newTable.
+	stateActionsTable
+		addColumn:
+				(SpStringTableColumn
+						title: 'Symbol'
+						evaluated:
+							[ :each | 
+							| text |
+							text := each first asText.
+							each third
+								ifTrue:
+									[ text
+										makeAllColor: Color black;
+										allBold ]
+								ifFalse: [ text makeAllColor: Color red ] ]);
+		addColumn:
+				(SpStringTableColumn
+						title: 'Action'
+						evaluated:
+							[ :each | 
+							| text |
+							text := each second asText.
+							each third
+								ifTrue:
+									[ text
+										makeAllColor: Color black;
+										allBold ]
+								ifFalse: [ text makeAllColor: Color red ] ]).
+	self updateParserStates.
+	parserPresenter
+		layout:
+			((SpBoxLayout newLeftToRight)
+				spacing: 5;
+				add: parserStackTable;
+				add: stateActionsTable;
+				yourself).
+	^ SpNotebookPage title: 'Parser' provider: [ parserPresenter ]
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> scannerPage [
+	scannerPropertiesTable := self newTable.
+	scannerPropertiesTable
+		addColumn: (SpStringTableColumn title: 'Name' evaluated: [ :each | each first ]);
+		addColumn: (SpStringTableColumn title: 'Value' evaluated: [ :each | each last ]).
+	self updateScannerProperties.
+	^ SpNotebookPage title: 'Scanner' provider: [ scannerPropertiesTable ]
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> selectSourceFor: anObject [
+	(session tokenIntervalFor: anObject) ifNotNil: [ :interval | sourceText selectionInterval: interval ]
 ]
 
 { #category : #accessing }
-SmaCCParserDebugger >> isGLR: aBoolean [
-	isGLR := aBoolean
+SmaCCParserDebugger >> session [
+	^ session
+]
+
+{ #category : #initialization }
+SmaCCParserDebugger >> setModelBeforeInitialization: aDomainObject [
+	session := aDomainObject
+]
+
+{ #category : #accessing }
+SmaCCParserDebugger >> title [
+	^ 'SmaCC Debugger'
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateContext [
+	(session isInsideReductionAction or: [ session isScanning ])
+		ifTrue:
+			[ notebook pages size < 3 ifTrue: [ notebook addPage: self contextPage ].
+			self methodSource text: session context sourceCode.
+			self methodSource selectionInterval: (session selectedCodeRangeForContext: session context) ]
+		ifFalse: [ notebook pages size < 3 ifFalse: [ notebook removePage: notebook pages last ] ]
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateDisplay [
+	self updateParserStack.
+	self updateParserStates.
+	self updateGLRStates.
+	self updateScannerProperties.
+	self updateContext
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateGLRStates [
+	glrLabel isNil ifTrue: [ ^ self ].
+	glrLabel label: self glrStateText
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateParser [
+	notebook selectPage: notebook pages first.
+	self updateDisplay
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateParserStack [
+	| items |
+	items := session parserStack.
+	parserStackTable items: items.
+	((1 to: items size) detect: [ :i | (items at: i) last ~= '' ] ifNone: [  ])
+		ifNotNil: [ :i | parserStackTable selectIndex: i ]
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateParserStates [
+	stateActionsTable items: session potentialStateActions
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateScanner [
+	| scanner success start end |
+	notebook selectPage: notebook pages second.
+	self updateDisplay.
+	scanner := self session scanner.
+	success := scanner matchActions notNil.
+	success ifFalse: [ ^ self ].
+	start := scanner debugStart + 1.
+	end := scanner debugEnd.
+	sourceText selectionInterval: (start to: end)
+]
+
+{ #category : #'private-updating' }
+SmaCCParserDebugger >> updateScannerProperties [
+	scannerPropertiesTable items: session scannerProperties
 ]
